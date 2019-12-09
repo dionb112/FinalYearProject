@@ -1,2 +1,3 @@
 # FinalYearProject
-React native application
+React native application for Erasmus+ Coeliac Health App
+
