@@ -1,4 +1,4 @@
-package com.knowledgeproject;
+package com.finalyearproject;
 
 import android.app.Application;
 import android.content.Context;

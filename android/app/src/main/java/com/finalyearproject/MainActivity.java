@@ -1,4 +1,4 @@
-package com.knowledgeproject;
+package com.finalyearproject;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "KnowledgeProject";
+    return "FinalYearProject";
   }
 }
