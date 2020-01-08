@@ -4,9 +4,3 @@ module.exports = function(api) {
     presets: ['babel-preset-expo'],
   };
 };
-
-// babel config before using Expo: 
-//
-// module.exports = {
-//   presets: ['module:metro-react-native-babel-preset'],
-// };

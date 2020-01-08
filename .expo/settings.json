@@ -1,8 +1,8 @@
 {
-  "urlRandomness": "j7-ph5",
-  "hostType": "lan",
+  "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false,
+  "urlRandomness": "sz-j2b",
   "https": false
 }
