@@ -1,19 +1,25 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+//import YoutubePlayer from './YoutubePlayer';
+import ExpoVideoPlayer  from './ExpoVideoPlayer';
 import { Video } from 'expo-av';
+
+
 
 export default class App extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>Video Player</Text>
+        <Text>CeliApp</Text>
+        <ExpoVideoPlayer/>
         <Video
-        //source={{ uri: 'https://drive.google.com/file/d/1Px8ZOabk9VpkCGoTRknhsf4UUqqRPyZm/view?usp=sharing' }}
-        source={{ uri: 'https://file-examples.com/wp-content/uploads/2017/04/file_example_MP4_1280_10MG.mp4' }}
+        source = {require('./assets/what_happens_when_you_get_glutened.mp4')}
         shouldPlay
         useNativeControls
         style={{ width: "100%", height: "50%" }}
       />
+
+      {/* <YoutubePlayer/> */}
       </View>
     );
   }
@@ -23,7 +29,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
