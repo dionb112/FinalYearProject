@@ -7,13 +7,7 @@ export default class ExpoVideoPlayer extends React.Component {
       return (
         <View style={styles.container}>
           <Text style={styles.welcome}>{'Expo-av Video Player.'}</Text>
-          <Video
-            source = {require('./assets/what_happens_when_you_get_glutened.mp4')}
-            shouldPlay
-            useNativeControls
-            style={{ width: "100%", height: "50%" }}
-            resizeMode={'contain'}
-          />
+
       </View>
       );
     }
