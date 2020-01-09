@@ -1,18 +1,18 @@
-language: node_js
+# language: node_js
 
-node_js:
-  - 'lts/*'
+# node_js:
+#   - 'lts/*'
 
-cache:
-  directories:
-    - node_modules
+# cache:
+#   directories:
+#     - node_modules
 
-jobs:
-  include:
-    - stage: "Lint"
-      script:
-        - npm run lint -- --quiet
-        - npm run lint:fix
-    - stage: "Test"
-      script:
-        - npm test
+# jobs:
+#   include:
+#     - stage: "Lint"
+#       script:
+#         - npm run lint -- --quiet
+#         - npm run lint:fix
+#     - stage: "Test"
+#       script:
+#         - npm test
