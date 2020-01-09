@@ -8,16 +8,9 @@ export default class App extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>CeliApp</Text>
+        <Text style={styles.title}>{'CeliApp'}</Text>
         <ExpoVideoPlayer/>
         
-        <Video
-        source = {require('./assets/what_happens_when_you_get_glutened.mp4')}
-        shouldPlay
-        useNativeControls
-        style={{ width: "100%", height: "50%" }}
-        resizeMode={'contain'}
-      />
       </View>
     );
   }
@@ -27,5 +20,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignContent: 'center'
   },
+  title: {
+    fontSize: 30,
+    textAlign: 'center',
+    margin: 20,
+  }
 });
