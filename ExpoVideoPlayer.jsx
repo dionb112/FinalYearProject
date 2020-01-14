@@ -2,11 +2,7 @@ import React from 'react';
 import { Video } from 'expo-av';
 import {  StyleSheet, Text, View } from 'react-native';
 export default class ExpoVideoPlayer extends React.Component {
-
-  componentDidMount() {
-    console.log('VideoPlayer did mount.');
-  }
-
+  
     render() {
       return (
         <View style={styles.container}>
