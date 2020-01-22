@@ -1,4 +1,6 @@
 rootProject.name = 'FinalYearProject'
+include ':achievement-view'
+project(':achievement-view').projectDir = new File(rootProject.projectDir, '../node_modules/achievement-view/android')
 include ':react-native-video'
 project(':react-native-video').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-video/android')
 

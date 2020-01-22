@@ -13,13 +13,6 @@ export default class GlutenedScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ExpoVideoPlayer/>
-        <Video
-            source = {require('./assets/what_happens_when_you_get_glutened.mp4')}
-            shouldPlay
-            useNativeControls
-            style={{ width: "100%", height: "50%" }}
-            resizeMode={'contain'}
-          />
       </View>
     );
   }

@@ -1,4 +1,6 @@
 import React from 'react';
+import RNGameCenter from "react-native-game-center"
+
 import {
   Button,
   StatusBar,
