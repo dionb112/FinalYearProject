@@ -6,8 +6,11 @@ export default class ExpoVideoPlayer extends React.Component {
 
   _handleVideoRef = component => {
     const playbackObject = component;
-    playbackObject.loadAsync(require('./assets/what_happens_when_you_get_glutened.mp4'), initialStatus = {}, downloadFirst = true);
+    playbackObject.loadAsync(require('./assets/what_happens_when_you_get_glutened.mp4'), initialStatus = {shouldPlay: true}, downloadFirst = true);
     playbackObject.playAsync();
+    //console.log(playbackObject.PlaybackStatus[isLoaded]);
+    console.log("hi");
+
   }
 
 
@@ -18,7 +21,6 @@ export default class ExpoVideoPlayer extends React.Component {
         <Text style={styles.welcome}>{'Video Player.'}</Text>
         <Video
           ref={this._handleVideoRef}
-          shouldPlay
           useNativeControls
           style={{ width, height: "50%" }}
           resizeMode={'contain'}
