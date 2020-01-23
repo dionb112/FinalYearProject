@@ -9,6 +9,8 @@ export default class GlutenedScreen extends React.Component {
     title: 'What happens when I get glutened?',
   };
 
+
+
   render() {
     return (
       <View style={styles.container}>
