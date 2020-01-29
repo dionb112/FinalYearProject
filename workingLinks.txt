@@ -1,0 +1,3 @@
+https://github.com/react-native-community/react-native-webview/issues/746
+
+https://aboutreact.com/load-local-html-file-url-using-react-native-webview/

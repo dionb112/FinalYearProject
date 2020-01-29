@@ -3,6 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "x3-6ea",
+  "urlRandomness": "rp-rr2",
   "https": false
 }
