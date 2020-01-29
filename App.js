@@ -1,5 +1,5 @@
 import React from 'react';
-import StackNavigator from './StackNavigator';
+import StackNavigator from './components/StackNavigator';
 import { createAppContainer } from 'react-navigation';
 
 const AppStack = createAppContainer(StackNavigator);

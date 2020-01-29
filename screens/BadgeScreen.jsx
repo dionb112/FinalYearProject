@@ -9,15 +9,24 @@ import {
   Text
 } from 'react-native';
 
-export default class QuizScreen extends React.Component {
+export default class BadgeScreen extends React.Component {
+  
+  constructor(){
+    super()
+
+    // seems this is for iOs
+    // RNGameCenter.getPlayer().then(player=>console.log("player: ",player))
+  }
+
     static navigationOptions = {
-      title: 'Quiz here',
+      title: 'Badges here...',
     };
+
+
   
     render() {
       return (
         <View style={styles.container}>
-          <Button title="Answer 1" />
           <StatusBar barStyle="default" />
         </View>
       );
@@ -36,3 +45,4 @@ export default class QuizScreen extends React.Component {
       margin: 20,
     }
   });
+  

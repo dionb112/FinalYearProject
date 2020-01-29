@@ -18,7 +18,7 @@ export default class ExpoVideoPlayer extends React.Component {
   _handleVideoRef = component => {
     playbackObject = component;
     if (playbackObject != null) {
-    playbackObject.loadAsync(require('./assets/what_happens_when_you_get_glutened.mp4'), initialStatus = { shouldPlay: true }, downloadFirst = true);
+    playbackObject.loadAsync(require('../assets/what_happens_when_you_get_glutened.mp4'), initialStatus = { shouldPlay: true }, downloadFirst = true);
     playbackObject.playAsync();
     }
   }

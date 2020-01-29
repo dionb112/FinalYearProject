@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet} from 'react-native';
-import ExpoVideoPlayer  from './ExpoVideoPlayer';
+import ExpoVideoPlayer  from '../components/ExpoVideoPlayer';
 import { Video } from 'expo-av';
 
 
