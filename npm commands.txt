@@ -10,7 +10,7 @@ npm install react-native-youtube -S
 npm install react-navigation -S
 npm install react-native-safe-area-view -S
 expo r -c (clear cache)
-
+npm run clear-cache
 npm install --save react-native-webview
 react-native link react-native-webview
 pod install (need cocoapods)
