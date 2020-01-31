@@ -13,7 +13,7 @@ export default class MyWeb extends Component {
           // source = require('../android_asset/index.html')
          
           // WORKING Kinda
-          // source={{ html: require('../assets/index.js') () }}
+          source={{ html: require('../assets/index.js') () }}
 
           style={{ marginTop: 20 }}
           //Enable Javascript support

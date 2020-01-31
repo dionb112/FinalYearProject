@@ -6,7 +6,7 @@ import logo from './svg/coeliacLogo.png';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import SocialHub from './components/SocialHub';
-import './App.css';
+//import './App.css';
 
 /**
  * App Component

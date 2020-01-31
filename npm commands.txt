@@ -14,3 +14,7 @@ npm run clear-cache
 npm install --save react-native-webview
 react-native link react-native-webview
 pod install (need cocoapods)
+npm install -S reactjs-popup
+npm install -g npm
+npm install -S react-transition-group
+npm install -S react-particles-js
