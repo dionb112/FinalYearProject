@@ -1,8 +1,8 @@
 {
+  "urlRandomness": "fy-m6c",
   "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "rb-eww",
   "https": false
 }

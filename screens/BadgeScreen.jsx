@@ -28,7 +28,7 @@ export default class BadgeScreen extends React.Component {
     render() {
       return (
         <View style={styles.container}>
-          <QuizWebView></QuizWebView>
+          <QuizWebView/>
           <StatusBar barStyle="default" />
         </View>
       );
