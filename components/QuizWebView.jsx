@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { StyleSheet, Image, Text, View, Dimensions } from 'react-native';
 
 
 export default class MyWeb extends Component {
   render() {
+    const { width } = Dimensions.get('window');
     // release path
     // const webViewSource = Image.resolveAssetSource(require('file:///android_asset/assets/public/index.html'));
     // debug path
@@ -12,10 +13,10 @@ export default class MyWeb extends Component {
     console.log(webViewSource.uri);
 
     return (
-      <View>
+      <View style={styles.container}>
       <Text>{'Hi'}</Text>
         <WebView
-          style={ styles.container }
+          style={{ width, height: "100%" }}
           originWhitelist={['*']}
           //Loading html file from project folder
           source = {webViewSource}
