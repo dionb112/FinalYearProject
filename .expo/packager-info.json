@@ -1,9 +1,9 @@
 {
   "expoServerNgrokUrl": "https://fy-m6c.anonymous.finalyearproject.exp.direct",
   "packagerNgrokUrl": "https://packager.fy-m6c.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 19664,
+  "ngrokPid": 16880,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 8416
+  "packagerPid": 18200
 }
