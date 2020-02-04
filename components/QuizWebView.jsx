@@ -36,7 +36,7 @@ export default class MyWeb extends Component {
           style={{ width, height: "100%" }}
           originWhitelist={['*']}
           //Loading html file from project folder
-          source={ 'file:///../assets/public/test.html' }
+          source={ require('../assets/public/test.html') }
 
           // This goes through all the way and asks for missing packages
           // After installing all dependencies loops back around to this require
