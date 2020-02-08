@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
 import { StyleSheet, Image, Text, View, Dimensions } from 'react-native';
-import { AssetUtils } from 'expo-asset-utils';
+// import { AssetUtils } from 'expo-asset-utils';
 
 
 /// Attempt to load the uri asynrounsly in hopes of serving the correct bundle : (

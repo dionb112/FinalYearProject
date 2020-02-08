@@ -5,7 +5,7 @@ import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
 
 export default class BadgeScreen extends React.Component {
   constructor(props) {
-    super(props); // Call super constructor for component
+    super(props); 
 
     // Declare state variables
     this.state = {
@@ -437,6 +437,7 @@ export default class BadgeScreen extends React.Component {
   renderHome() {
     return (
       <View style={styles.container}>
+      <Text>Hi</Text>
         {/* <Option symbol="fa fa-address-book fa-3x" side="option top" change={this.changeToSocialHub}/>
 
         <Option name=" Quiz" symbol="fa fa-gamepad" side="option right" change={this.changeToQuiz}/>
