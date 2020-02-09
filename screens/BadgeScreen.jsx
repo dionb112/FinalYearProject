@@ -2,10 +2,11 @@ import React from 'react';
 import RNGameCenter from "react-native-game-center"
 import QuizWebView from "../components/QuizWebView";
 import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
+import Quiz from '../components/Quiz';
 
 export default class BadgeScreen extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
 
     // Declare state variables
     this.state = {
@@ -66,9 +67,9 @@ export default class BadgeScreen extends React.Component {
   async callApi() {
     try {
       // Makes api call
-      const response = await fetch('/info');
+      const response = await fetch('http://192.168.0.42:5000/info');
       this.infoReceived = await response.json();  // Gets data back from call
-
+      console.log(this.infoReceived)
       var quizQuestions = [] // Array to hold all quiz data
 
       var id = 1;
@@ -265,7 +266,9 @@ export default class BadgeScreen extends React.Component {
   renderQuiz() {
     return (
       <View style={styles.container}>
+        <Text>{"Quiz"}</Text>
         {/* <QuizWebView/> R.I.P */}
+
         <Quiz
           button={this.changeToHome}
           info={this.changeToInfo}
@@ -279,6 +282,7 @@ export default class BadgeScreen extends React.Component {
           questions={this.state.quizQuestions}
           updateCount={this.updatePageCount}
         />
+
         {/* <StatusBar barStyle="default" /> */}
       </View>
     );
@@ -437,11 +441,11 @@ export default class BadgeScreen extends React.Component {
   renderHome() {
     return (
       <View style={styles.container}>
-      <Text>Hi</Text>
-        {/* <Option symbol="fa fa-address-book fa-3x" side="option top" change={this.changeToSocialHub}/>
-
-        <Option name=" Quiz" symbol="fa fa-gamepad" side="option right" change={this.changeToQuiz}/>
-        <Option name=" Info" symbol="fa fa-info" side="option left" change={this.leaveHome}/> */}
+        <Text>Hi</Text>
+        <Button title="Quiz..." onPress={this.changeToQuiz} />
+        <Text>{''}</Text>
+        <Button title="Info..." onPress={this.leaveHome} />
+        {/* <Option symbol="fa fa-address-book fa-3x" side="option top" change={this.changeToSocialHub} /> */}
       </View>
     );
   }
