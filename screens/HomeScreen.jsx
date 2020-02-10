@@ -16,9 +16,9 @@ export default class HomeScreen extends React.Component {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>{'Welcome to the Knowledge center!'}</Text>
-          <Button title="Video vault..." onPress={this._showVideos} />
+          <Button title="Video Vault..." onPress={this._showVideos} />
           <Text>{''}</Text>
-          <Button title="Badge Base..." onPress={this._showBadges} />
+          <Button title="Quiz Zone......" onPress={this._showQuiz} />
         </View>
       );
     }
@@ -27,8 +27,8 @@ export default class HomeScreen extends React.Component {
       this.props.navigation.navigate('Video');
     };
   
-    _showBadges = () => {
-      this.props.navigation.navigate('Badge');
+    _showQuiz = () => {
+      this.props.navigation.navigate('Quiz');
     };
   }
 

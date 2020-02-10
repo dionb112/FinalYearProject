@@ -72,4 +72,6 @@ def api_info_points():
     )
 
 if __name__ == '__main__':
-    app.run('192.168.0.42', '5000' , True, True  )
+    # Home wifi app.run('192.168.0.42', '5000' , True, True  )
+    # Hotspot 
+    app.run('192.168.43.169', '5000' , True, True  )

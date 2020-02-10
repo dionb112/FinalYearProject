@@ -24,7 +24,6 @@ class Quiz extends React.Component {
             timer: 10,
             particles: false,
             score: 0,
-            challengeResult: ''
         };
 
         // Bind this to all neccesary function
@@ -47,9 +46,6 @@ class Quiz extends React.Component {
      * Called when component is re-rendered
      */
     componentWillMount() {
-        this.setState({
-            challenge: this.props.challenge
-        });
         this.setUpQuiz();
     }
 
@@ -60,26 +56,11 @@ class Quiz extends React.Component {
 
         this.quizReceived = this.props.questions;
 
-        // If this is a challenge quiz
-        if (this.props.challenged) {
-
-            for (var i = 0; i < this.quizReceived.length; i++) {
-                for (var j = 0; j < this.props.challengedQuestions.length; j++) {
-                    if (this.quizReceived[i].id == this.props.challengedQuestions[j]) {
-                        // Search for the questions that the user has been challenged to 
-                        // and add them to the question array
-                        this.questions.push(this.quizReceived[i]);
-                    }
-                }
-            }
-        }
-        else {
             // Shuffle all questions
             const shuffledQuestions = this.shuffleArray(this.quizReceived);
 
             // Only take first 15 questions
             this.questions = shuffledQuestions.slice(0, 15);
-        }
 
         // Shuffle the answers to each question
         const shuffledAnswerOptions = this.questions.map(
@@ -93,52 +74,7 @@ class Quiz extends React.Component {
         });
     }
 
-    /**
-     * This asynchronous function will execute an API call if this quiz is a challenge quiz
-     * The api call will post this challenge to the database, sending the username and score of the plaey
-     */
-    async sendChallenge() {
-        const response = await fetch('/post_challenge', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                questions: this.questions,
-                challenger: this.props.username,
-                challenged: this.props.challengeName,
-                score: this.state.score
-            })
-        });
 
-        this.scoreResponse = await response.json();
-    }
-
-    /**
-     * This asynchronous function will execute an API call if this quiz was a challnge that the user accepted
-     * The api call will post the users score in the score and the return value will be whether or not they won
-     */
-    async respondToChallenge() {
-        const response = await fetch('/respond_to_challenge', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                challenged: this.props.username,
-                challenger: this.props.challenger,
-                score: this.state.score
-            })
-        });
-
-        // Gets the result of the quiz and sets it in the state
-        var result = await response.json();
-        this.setState({
-            challengeResult: result
-        });
-    }
 
     /**
      * Function for decrementing the timer, this function gets called once a second
@@ -207,22 +143,12 @@ class Quiz extends React.Component {
         if (this.state.page == 'Quiz') {
 
             // Calls function that will post to the database what event the user has caused
-            this.props.updateCount("Leave Quiz", "Enter Result Page", this.props.username);
-
-            if (this.state.challenge && this.state.page == 'Quiz') {
-                // If this was a challenge quiz, call send challenge function
-                this.sendChallenge();
-            }
-            else if (this.props.challenged && this.state.page == 'Quiz') {
-                // If the user has completed a quiz they were challenged to, call function that post challenge response to database
-                this.respondToChallenge();
-            }
+            this.props.updateCount("Leave Quiz", "Enter Result Page");
         }
 
         // Set page to be displayed to be the results page
         this.setState((state) => ({
             page: 'Result',
-            challenge: false
         }));
     }
 
@@ -265,7 +191,7 @@ class Quiz extends React.Component {
         const questionId = this.state.questionId + 1;
 
 
-        this.props.updateCount("Finish question " + (counter - 1), "Start question " + counter, this.props.username);
+        this.props.updateCount("Finish question " + (counter - 1), "Start question " + counter);
 
         // Assign all question values to be the next questions values
         // Also turns particles off
@@ -361,7 +287,7 @@ class Quiz extends React.Component {
     returnToHome(event) {
         // Calls on fuction that sets home page to be rendered
         // The message it's passing lets the application know where the user is coming from
-        this.props.button("Leave Quiz");
+        // this.props.button("Leave Quiz");
     }
 
     /**
@@ -417,12 +343,7 @@ class Quiz extends React.Component {
                 {/* <Result
                     quizScore={this.state.score}
                     quizResult={this.state.result}
-                    button={this.props.button}
                     info={this.props.info}
-                    username={this.props.username}
-                    challenged={this.props.challenged}
-                    challengeResult={this.state.challengeResult}
-                    challenger={this.props.challenger}
                 /> */}
             );
         }
