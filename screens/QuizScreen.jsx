@@ -51,12 +51,12 @@ export default class BadgeScreen extends React.Component {
     try {
       // Makes api call
       // Home wifi const response = await fetch('http://192.168.0.42:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
-      
-      
-      // Hotspot
-      const response = await fetch('http://192.168.43.169:5000/info');
+      // Hotspot const response = await fetch('http://192.168.43.169:5000/info');
+      // College through tethered hot spot only
+      const response = await fetch('http://192.168.42.162:5000/info');
+
       this.infoReceived = await response.json();  // Gets data back from call
-      console.log(this.infoReceived)
+      //  console.log(this.infoReceived)
       var quizQuestions = [] // Array to hold all quiz data
 
       var id = 1;
@@ -77,12 +77,11 @@ export default class BadgeScreen extends React.Component {
           quizQuestions.push(object); // Adds object to the array
           id++; // Increments id for the next question
         }
-
+        console.log(quizQuestions);
       }
       // Stores all the info and quiz content received
       this.setState({
-        info: this.infoReceived,
-        quizQuestions: quizQuestions
+        quizQuestions : quizQuestions 
       });
     }
     catch (e) {
@@ -121,9 +120,8 @@ export default class BadgeScreen extends React.Component {
         <Text>{"Quiz"}</Text>
         {/* <QuizWebView/> R.I.P */}
 
-        <Quiz
-          questions={this.state.quizQuestions}
-        />
+        { this.state.quizQuestions.map((item, index) => { return <Quiz {... item}/> }) }
+          {/* questions={this.state.quizQuestions} */}
       </View>
     );
   }
@@ -139,7 +137,7 @@ export default class BadgeScreen extends React.Component {
       title: "Home",
     });
     // Call function that updates user events
-    this.updatePageCount(messageEvent, "Enter Home Page");
+    // this.updatePageCount(messageEvent, "Enter Home Page");
   }
 
 
@@ -153,7 +151,7 @@ export default class BadgeScreen extends React.Component {
     });
 
     // Call function that updates user events
-    this.updatePageCount("Leave Home Page", "Start Quiz");
+    // this.updatePageCount("Leave Home Page", "Start Quiz");
 
 
     // Sets timer up so that it ticks once a second
@@ -209,9 +207,9 @@ export default class BadgeScreen extends React.Component {
    * Function for rendering the Home page to the screen
    */
   renderHome() {
+
     return (
       <View style={styles.container}>
-        <Text>Hi</Text>
         <Button title="Quiz..." onPress={this.changeToQuiz} />
         <Text>{''}</Text>
         <Button title="Info..." onPress={this.leaveHome} />

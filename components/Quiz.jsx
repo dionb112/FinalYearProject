@@ -306,7 +306,7 @@ class Quiz extends React.Component {
         else if (this.state.page === 'Quiz') { // If user is on the quiz screen
             return ( // Render the quiz content to the screen
                 <View style={styles.container}>
-                    <Question content={this.state.question} />
+                    {/* <Question content={this.state.question} /> */}
                     {/* 
                     {this.state.particles && this.state.result === -1 &&
                         // If particles are meant to be drawn and next question hasn't loaded yet
