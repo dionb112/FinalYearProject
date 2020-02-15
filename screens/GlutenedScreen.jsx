@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, StyleSheet} from 'react-native';
 import ExpoVideoPlayer  from '../components/ExpoVideoPlayer';
-import { Video } from 'expo-av';
 
 
 export default class GlutenedScreen extends React.Component {
   static navigationOptions = {
-    title: 'What happens when I get glutened?',
+    title: 'Video Player     ',
   };
 
 
@@ -14,7 +13,7 @@ export default class GlutenedScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ExpoVideoPlayer/>
+        <ExpoVideoPlayer fileID = {0}/>
       </View>
     );
   }

@@ -348,7 +348,6 @@ class Quiz extends React.Component {
             );
         }
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -363,6 +362,5 @@ const styles = StyleSheet.create({
         margin: 20,
     }
 });
-
 
 export default Quiz;
