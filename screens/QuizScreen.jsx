@@ -4,7 +4,7 @@ import QuizWebView from "../components/QuizWebView";
 import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
 import Quiz from '../components/Quiz';
 
-export default class BadgeScreen extends React.Component {
+export default class QuizScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -22,8 +22,6 @@ export default class BadgeScreen extends React.Component {
     this.changeToInfo = this.changeToInfo.bind(this);
     this.leaveHome = this.leaveHome.bind(this);
   }
-
-
 
   static navigationOptions = {
     title: 'Quiz Zone        ',
@@ -120,7 +118,7 @@ export default class BadgeScreen extends React.Component {
         <Text>{"Quiz"}</Text>
         {/* <QuizWebView/> R.I.P */}
 
-        { this.state.quizQuestions.map((item, index) => { return <Quiz {... item}/> }) }
+        { this.state.quizQuestions.map((item, index) => { return <Quiz {... questions =  item}/> }) }
           {/* questions={this.state.quizQuestions} */}
       </View>
     );
