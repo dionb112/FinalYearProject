@@ -92,7 +92,6 @@ export default class QuizScreen extends React.Component {
           }
           ///@author Dion Buckley
           /// I had to add this line due to native not accepting object as props to child so stringifying it allows this
-          object = JSON.stringify();
 
           quizQuestions.push(object); // Adds object to the array
           id++; // Increments id for the next question
@@ -101,11 +100,12 @@ export default class QuizScreen extends React.Component {
         /// @author Dion Buckley
         /// This log was important in figuring out if all of the moving parts (mariadb server, python server off external ip, google doc data pulling etc, were all working in my project)
         ///
-        console.log(quizQuestions);
+        //console.log(quizQuestions);
       }
       // Stores all the info and quiz content received
       this.setState({
-        quizQuestions : quizQuestions 
+        quizQuestions : JSON.stringify(quizQuestions)
+         
       });
     }
     catch (e) {
@@ -145,7 +145,7 @@ export default class QuizScreen extends React.Component {
         <View style={styles.container}>
           <Text>{"Quiz"}</Text>
           {/* <QuizWebView/> R.I.P */}
-          <Quiz questions={this.state.quizQuestions} />
+          <Quiz questionsString={this.state.quizQuestions} />
         </View>
       );
     // } else {
@@ -154,7 +154,7 @@ export default class QuizScreen extends React.Component {
     //     <Text>{"Quiz"}</Text>
     //   </View>
     //   )
-    }
+    //}
   }
 
   /**

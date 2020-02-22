@@ -39,7 +39,9 @@ class Quiz extends React.Component {
         this.incorrectColour = { r: 255, g: 0, b: 0, a: 180 };
         this.colour = this.correctColour;
 
+        
         this.quizReceived = []; // An array to store all possible questions
+        this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
     }
 
@@ -54,8 +56,8 @@ class Quiz extends React.Component {
      * Sets up questions for the quiz
      */
     setUpQuiz() {
-
-        this.quizReceived = this.props.questions;
+        console.log(this.props.questionsString);
+        this.quizReceived = JSON.parse(this.props.questionsString);
 
             // Shuffle all questions
             const shuffledQuestions = this.shuffleArray(this.quizReceived);
@@ -64,6 +66,7 @@ class Quiz extends React.Component {
             this.questions = shuffledQuestions.slice(0, 15);
 
         // Shuffle the answers to each question
+        this.questions = JSON.parse(this.questions);
         const shuffledAnswerOptions = this.questions.map(
             (question) => this.shuffleArray(question.answers)
         );
