@@ -11,7 +11,7 @@ import QuizWebView from "../components/QuizWebView";
 import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
 import Quiz from '../components/Quiz';
 
-export default class BadgeScreen extends React.Component {
+export default class QuizScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,7 +33,7 @@ export default class BadgeScreen extends React.Component {
   /// @author Dion Buckley
   /// This relates to my stack navigator
   static navigationOptions = {
-    title: 'Quiz Zone...',
+    title: 'Quiz Zone        ',
   };
 
   /**
@@ -67,7 +67,7 @@ export default class BadgeScreen extends React.Component {
       ///
       // Home wifi const response = await fetch('http://192.168.0.42:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
       // Hotspot const response = await fetch('http://192.168.43.169:5000/info');
-      // College through tethered hot spot only
+      // College through tethered hot spot only 
       const response = await fetch('http://192.168.42.162:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
@@ -241,9 +241,9 @@ export default class BadgeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Button title="Quiz..." onPress={this.changeToQuiz} />
+        <Button title="    Quiz    " onPress={this.changeToQuiz} />
         <Text>{''}</Text>
-        <Button title="Info..." onPress={this.leaveHome} />
+        <Button title="Information " onPress={this.leaveHome} />
         {/* <Option symbol="fa fa-address-book fa-3x" side="option top" change={this.changeToSocialHub} /> */}
       </View>
     );

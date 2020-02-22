@@ -1,8 +1,8 @@
 {
-  "urlRandomness": "44-fms",
-  "hostType": "tunnel",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
+  "urlRandomness": null,
   "https": false
 }

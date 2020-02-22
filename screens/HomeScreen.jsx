@@ -9,16 +9,16 @@ import {
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
-      title: 'Knowledge Center ...',
+      title: 'Knowledge Center             ',
     };
   
     render() {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>{'Welcome to the Knowledge center!'}</Text>
-          <Button title="Video Vault..." onPress={this._showVideos} />
+          <Button title="Video Vault " onPress={this._showVideos} />
           <Text>{''}</Text>
-          <Button title="Quiz Zone......" onPress={this._showQuiz} />
+          <Button title=" Quiz Zone " onPress={this._showQuiz} />
         </View>
       );
     }

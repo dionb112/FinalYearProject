@@ -9,14 +9,14 @@ import {
 
 export default class CeliAppScreen extends React.Component {
     static navigationOptions = {
-      title: 'CeliApp ...',
+      title: 'CeliApp    ',
     };
   
     render() {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>{'CeliApp Home Screen'}</Text>
-          <Button title="Knowledge Center!" onPress={this._knowledge} />
+          <Button title="Knowledge Center  " onPress={this._knowledge} />
           <StatusBar barStyle="default" />
         </View>
       );

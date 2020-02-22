@@ -20,7 +20,8 @@ class Quiz extends React.Component {
             answer: '',
             answersCount: 0,
             result: -1,
-            page: 'Confirm',
+            //page: 'Confirm',
+            page: 'Quiz',
             timer: 10,
             particles: false,
             score: 0,
@@ -143,7 +144,7 @@ class Quiz extends React.Component {
         if (this.state.page == 'Quiz') {
 
             // Calls function that will post to the database what event the user has caused
-            this.props.updateCount("Leave Quiz", "Enter Result Page");
+            //this.props.updateCount("Leave Quiz", "Enter Result Page");
         }
 
         // Set page to be displayed to be the results page
@@ -178,7 +179,7 @@ class Quiz extends React.Component {
             var category = this.questions[this.state.counter].category;
 
             // Call function that handles appending relevant info point to personalised page
-            this.props.append(category[0], true);
+            //this.props.append(category[0], true);
         }
     }
 
@@ -191,7 +192,7 @@ class Quiz extends React.Component {
         const questionId = this.state.questionId + 1;
 
 
-        this.props.updateCount("Finish question " + (counter - 1), "Start question " + counter);
+        //this.props.updateCount("Finish question " + (counter - 1), "Start question " + counter);
 
         // Assign all question values to be the next questions values
         // Also turns particles off
@@ -268,6 +269,7 @@ class Quiz extends React.Component {
      * Function for rendering one of the possible answers
      */
     renderAnswerOptions(key) {
+        console.log("Rendering Answer");
         // Returns the answeroption object
         return (
             {/* <AnswerOption
@@ -304,6 +306,7 @@ class Quiz extends React.Component {
             );
         }
         else if (this.state.page === 'Quiz') { // If user is on the quiz screen
+            console.log("Rendering Quiz");
             return ( // Render the quiz content to the screen
                 <View style={styles.container}>
                     {/* <Question content={this.state.question} /> */}
@@ -348,7 +351,6 @@ class Quiz extends React.Component {
             );
         }
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -363,6 +365,5 @@ const styles = StyleSheet.create({
         margin: 20,
     }
 });
-
 
 export default Quiz;

@@ -1,9 +1,1 @@
-{
-  "expoServerNgrokUrl": "https://44-fms.anonymous.finalyearproject.exp.direct",
-  "packagerNgrokUrl": "https://packager.44-fms.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 106080,
-  "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 104580
-}
+{}
