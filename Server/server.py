@@ -74,6 +74,5 @@ def api_info_points():
 if __name__ == '__main__':
     # Home wifi app.run('192.168.0.42', '5000' , True, True  )
     # Hotspot app.run('192.168.43.169', '5000' , True, True  )
-    
     # college using tethered phone hotspot
     app.run('192.168.42.162', '5000' , True, True  )

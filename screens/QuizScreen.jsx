@@ -1,3 +1,10 @@
+/// @authors Dion Buckley and Peter Daly
+/// This screen I built for my native screen stack, however the logic I have taken (in stripped down form) from my predessecor project
+/// What this means is that Peter built a Quiz for React.js whereas I have been tasked with porting over the reusable parts and rewritting
+/// The native specific parts (like render functions and some other nuances)
+/// I have only taken the most basic version of Peters quiz as I don't have any need for the many extra features from his project
+/// The specific lines and functions I added (apart from obvios file structure like imports and class defintion) I will tag as my own
+
 import React from 'react';
 import RNGameCenter from "react-native-game-center"
 import QuizWebView from "../components/QuizWebView";
@@ -23,8 +30,8 @@ export default class BadgeScreen extends React.Component {
     this.leaveHome = this.leaveHome.bind(this);
   }
 
-
-
+  /// @author Dion Buckley
+  /// This relates to my stack navigator
   static navigationOptions = {
     title: 'Quiz Zone...',
   };
@@ -48,25 +55,34 @@ export default class BadgeScreen extends React.Component {
   * info data and quiz data
   */
   async callApi() {
+    ///
+    /// @author Dion Buckley
+    /// Exception handling try, catch blocks were added by me for ALL async functions in aim to make this solution more robust, handling promises rejections
+    ///
     try {
       // Makes api call
+      ///
+      /// @author Dion Buckley
+      /// Using Expo (which uses local host) the python server can no longer run off localhost but rather a static external ip
+      ///
       // Home wifi const response = await fetch('http://192.168.0.42:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
       // Hotspot const response = await fetch('http://192.168.43.169:5000/info');
       // College through tethered hot spot only
       const response = await fetch('http://192.168.42.162:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
-      //  console.log(this.infoReceived)
       var quizQuestions = [] // Array to hold all quiz data
 
       var id = 1;
       for (var i = 0; i < this.infoReceived.length; i++) {
         // Loops through every info point
-
         for (var j = 0; j < this.infoReceived[i].quizContent.length; j++) {
           // Loops through every quiz question in info card
-
-          // Creates JSON object which stores all information in that quiz question
+          ///
+          /// @author Dion Buckley
+          /// This comment was wrongly marked as 'Json' object last year, it is not JSON until I stringigy it, for now it is a generic object with string keys and various values
+          ///
+          // Creates object which stores all information in that quiz question
           var object = {
             "id": id,
             "question": this.infoReceived[i].quizContent[j].question,
@@ -74,9 +90,17 @@ export default class BadgeScreen extends React.Component {
             "correct": this.infoReceived[i].quizContent[j].correct,
             "answers": this.infoReceived[i].quizContent[j].answers
           }
+          ///@author Dion Buckley
+          /// I had to add this line due to native not accepting object as props to child so stringifying it allows this
+          object = JSON.stringify();
+
           quizQuestions.push(object); // Adds object to the array
           id++; // Increments id for the next question
         }
+        ///
+        /// @author Dion Buckley
+        /// This log was important in figuring out if all of the moving parts (mariadb server, python server off external ip, google doc data pulling etc, were all working in my project)
+        ///
         console.log(quizQuestions);
       }
       // Stores all the info and quiz content received
@@ -115,15 +139,22 @@ export default class BadgeScreen extends React.Component {
   // }
 
   renderQuiz() {
-    return (
-      <View style={styles.container}>
-        <Text>{"Quiz"}</Text>
-        {/* <QuizWebView/> R.I.P */}
-
-        { this.state.quizQuestions.map((item, index) => { return <Quiz {... item}/> }) }
-          {/* questions={this.state.quizQuestions} */}
-      </View>
-    );
+    //console.log(this.state.quizQuestions)
+    //if (this.state.quizQuestions.length > 0) {
+      return (
+        <View style={styles.container}>
+          <Text>{"Quiz"}</Text>
+          {/* <QuizWebView/> R.I.P */}
+          <Quiz questions={this.state.quizQuestions} />
+        </View>
+      );
+    // } else {
+    //   return (
+    //     <View style={styles.container}>
+    //     <Text>{"Quiz"}</Text>
+    //   </View>
+    //   )
+    }
   }
 
   /**
