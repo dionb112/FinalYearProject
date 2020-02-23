@@ -22,8 +22,7 @@ class Quiz extends React.Component {
             answer: '',
             answersCount: 0,
             result: -1,
-            //page: 'Confirm',
-            page: 'Quiz',
+            page: 'Confirm',
             timer: 10,
             particles: false,
             score: 0,
@@ -257,7 +256,7 @@ class Quiz extends React.Component {
     nextSet() {
         // Resets interval for timer
         clearInterval(this.intervalHandle);
-        this.intervalHandle = setInterval(this.tick, 1000);
+        this.intervalHandle = setInterval(function(){this.tick()} , 1000);
 
         // Checks to see if all 15 questions have been answered
         if (this.state.questionId < this.questions.length) {
@@ -300,14 +299,11 @@ class Quiz extends React.Component {
      * Function for rendering all relevant quiz content to the screen
      */
     render() {
-        // If user is on the confirm screen
         if (this.state.page === 'Confirm') {
-            return ( // Return the confirm component
-                {/* <Confirm
-                    home={this.returnToHome}
-                    confirm={this.changeToQuiz}
-                /> */}
-            );
+            /// @author Dion Buckley
+            /// Simply change to quiz here (outside of Component mount)
+            this.changeToQuiz()
+            return (null);
         }
         else if (this.state.page === 'Quiz') { // If user is on the quiz screen
             return ( // Render the quiz content to the screen
