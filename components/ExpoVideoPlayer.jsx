@@ -11,11 +11,11 @@ export default class ExpoVideoPlayer extends React.Component {
 
     // node require() only takes string literals so we need to define each possibilty here
     this.files = {
-      0: require('../assets/what_happens_when_you_get_glutened.mp4'),
-      1: require('../assets/cross_contamination_of_gluten_part_1.mp4'),
-      2: require('../assets/cross_contamination_of_gluten_part_2.mp4'),
-      3: require('../assets/cross_contamination_of_gluten_part_3.mp4'),
-      4: require('../assets/cross_contamination_of_gluten_part_4.mp4')
+      0: require('../assets/videos/what_happens_when_you_get_glutened.mp4'),
+      1: require('../assets/videos/cross_contamination_of_gluten_part_1.mp4'),
+      2: require('../assets/videos/cross_contamination_of_gluten_part_2.mp4'),
+      3: require('../assets/videos/cross_contamination_of_gluten_part_3.mp4'),
+      4: require('../assets/videos/cross_contamination_of_gluten_part_4.mp4')
     };
     this.file = {};
     this.title = '';
