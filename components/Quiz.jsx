@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
-import Question from '../components/Question';
+// import AnswerOption from '../components/AnswerOption';
+// import Option from '../components/Option';
+
 
 /**
  * Quiz Component
@@ -39,7 +41,7 @@ class Quiz extends React.Component {
         this.incorrectColour = { r: 255, g: 0, b: 0, a: 180 };
         this.colour = this.correctColour;
 
-        
+
         this.quizReceived = []; // An array to store all possible questions
         this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
@@ -56,17 +58,16 @@ class Quiz extends React.Component {
      * Sets up questions for the quiz
      */
     setUpQuiz() {
-        console.log(this.props.questionsString);
-        this.quizReceived = JSON.parse(this.props.questionsString);
+        console.log(this.props.questions);
+        this.quizReceived = this.props.questions;
 
-            // Shuffle all questions
-            const shuffledQuestions = this.shuffleArray(this.quizReceived);
+        // Shuffle all questions
+        const shuffledQuestions = this.shuffleArray(this.quizReceived);
 
-            // Only take first 15 questions
-            this.questions = shuffledQuestions.slice(0, 15);
+        // Only take first 15 questions
+        this.questions = shuffledQuestions.slice(0, 15);
 
         // Shuffle the answers to each question
-        this.questions = JSON.parse(this.questions);
         const shuffledAnswerOptions = this.questions.map(
             (question) => this.shuffleArray(question.answers)
         );
@@ -309,10 +310,15 @@ class Quiz extends React.Component {
             );
         }
         else if (this.state.page === 'Quiz') { // If user is on the quiz screen
-            console.log("Rendering Quiz");
             return ( // Render the quiz content to the screen
                 <View style={styles.container}>
-                    {/* <Question content={this.state.question} /> */}
+                    <Text>{"Rendering Quiz"}</Text>
+                    <Text>{this.state.questionId}</Text> 
+                    {/* {this.state.timer} */}
+                    {/* <Text>{"Question"} </Text> {this.state.questionId} <Text>{"of"} </Text> {this.questions.length} */}
+                    {/* {this.state.question} */}
+                    {/* {this.state.answerOptions.map(this.renderAnswerOptions)} */}
+
                     {/* 
                     {this.state.particles && this.state.result === -1 &&
                         // If particles are meant to be drawn and next question hasn't loaded yet
