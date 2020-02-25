@@ -150,7 +150,7 @@ class Quiz extends React.Component {
             //this.props.updateCount("Leave Quiz", "Enter Result Page");
         }
 
-        // Set page to be displayed to be the results page
+        // Set page to be displayed to be the results page 
         this.setState((state) => ({
             page: 'Result',
         }));
@@ -308,11 +308,9 @@ class Quiz extends React.Component {
         else if (this.state.page === 'Quiz') { // If user is on the quiz screen
             return ( // Render the quiz content to the screen
                 <View style={styles.container}>
-                    <Text>{"Rendering Quiz"}</Text>
-                    <Text>{this.state.questionId}</Text> 
-                    {/* {this.state.timer} */}
-                    {/* <Text>{"Question"} </Text> {this.state.questionId} <Text>{"of"} </Text> {this.questions.length} */}
-                    {/* {this.state.question} */}
+                    <Text>{"Time: " + this.state.timer} </Text>
+                    <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
+                    <Text>{this.state.question} </Text>
                     {/* {this.state.answerOptions.map(this.renderAnswerOptions)} */}
 
                     {/* 
