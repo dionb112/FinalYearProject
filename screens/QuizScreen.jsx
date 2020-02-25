@@ -65,10 +65,10 @@ export default class QuizScreen extends React.Component {
       /// @author Dion Buckley
       /// Using Expo (which uses local host) the python server can no longer run off localhost but rather a static external ip
       ///
-      // Home wifi 
-      const response = await fetch('http://192.168.0.42:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
+      // Home wifi const response = await fetch('http://192.168.0.42:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
       // Hotspot const response = await fetch('http://192.168.43.169:5000/info');
-      // College through tethered hot spot only const response = await fetch('http://192.168.42.162:5000/info');
+      // College through tethered  
+      const response = await fetch('http://192.168.42.162:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
       var quizQuestions = [] // Array to hold all quiz data
@@ -78,10 +78,7 @@ export default class QuizScreen extends React.Component {
         // Loops through every info point
         for (var j = 0; j < this.infoReceived[i].quizContent.length; j++) {
           // Loops through every quiz question in info card
-          ///
-          /// @author Dion Buckley
-          /// This comment was wrongly marked as 'Json' object last year, it is not JSON until I stringigy it, for now it is a generic object with string keys and various values
-          ///
+
           // Creates object which stores all information in that quiz question
           var object = {
             "id": id,
@@ -90,8 +87,6 @@ export default class QuizScreen extends React.Component {
             "correct": this.infoReceived[i].quizContent[j].correct,
             "answers": this.infoReceived[i].quizContent[j].answers
           }
-          ///@author Dion Buckley
-          /// I had to add this line due to native not accepting object as props to child so stringifying it allows this
 
           quizQuestions.push(object); // Adds object to the array
           id++; // Increments id for the next question
@@ -100,7 +95,7 @@ export default class QuizScreen extends React.Component {
         /// @author Dion Buckley
         /// This log was important in figuring out if all of the moving parts (mariadb server, python server off external ip, google doc data pulling etc, were all working in my project)
         ///
-        //console.log(quizQuestions);
+        // console.log(quizQuestions);
       }
       // Stores all the info and quiz content received
       this.setState({
@@ -183,10 +178,6 @@ export default class QuizScreen extends React.Component {
 
     // Call function that updates user events
     // this.updatePageCount("Leave Home Page", "Start Quiz");
-
-
-    // Sets timer up so that it ticks once a second
-    this.intervalHandle = setInterval(this.tick, 1000);
   }
 
   /**

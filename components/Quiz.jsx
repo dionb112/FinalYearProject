@@ -256,7 +256,7 @@ class Quiz extends React.Component {
     nextSet() {
         // Resets interval for timer
         clearInterval(this.intervalHandle);
-        this.intervalHandle = setInterval(function(){this.tick()} , 1000);
+        this.intervalHandle = setInterval(this.tick , 1000);
 
         // Checks to see if all 15 questions have been answered
         if (this.state.questionId < this.questions.length) {

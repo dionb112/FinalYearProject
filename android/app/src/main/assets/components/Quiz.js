@@ -177,7 +177,6 @@ class Quiz extends Component {
         timer: 10
       })
     }
-
   }
 
   /**
