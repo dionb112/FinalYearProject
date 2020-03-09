@@ -65,10 +65,11 @@ export default class QuizScreen extends React.Component {
       /// @author Dion Buckley
       /// Using Expo (which uses local host) the python server can no longer run off localhost but rather a static external ip
       ///
-      // Home wifi const response = await fetch('http://192.168.0.42:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
+      // Home
+      const response = await fetch('http://192.168.0.42:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
       // Hotspot const response = await fetch('http://192.168.43.169:5000/info');
       // College through tethered  
-      const response = await fetch('http://192.168.42.162:5000/info');
+      //const response = await fetch('http://192.168.42.162:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
       var quizQuestions = [] // Array to hold all quiz data

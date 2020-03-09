@@ -311,8 +311,9 @@ class Quiz extends React.Component {
                     <Text>{"Time: " + this.state.timer} </Text>
                     <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
                     <Text>{this.state.question} </Text>
-                    {/* {this.state.answerOptions.map(this.renderAnswerOptions)} */}
+                    <Text>{this.state.answerOptions} </Text>
 
+                    {/* {this.state.answerOptions.map(this.renderAnswerOptions)} */}
                     {/* 
                     {this.state.particles && this.state.result === -1 &&
                         // If particles are meant to be drawn and next question hasn't loaded yet
