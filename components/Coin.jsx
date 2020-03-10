@@ -36,11 +36,17 @@ export default class Coin extends React.Component {
         return (
             < SpriteSheet
                 ref={this._handleRef}
+                    // coin spin
                 source={require('../assets/sprites/coin.png')}
                 columns={6}
                 rows={1}
                 //height={200} // set either, none, but not both
                 width={50}
+                    // coin shine
+                //source={require('../assets/sprites/coinShine.png')} // https://opengameart.org/content/coin-animation
+                //columns={2}
+                //rows={3}
+                //width={47}
                 imageStyle={{ marginTop: -1 }}
                 animations={{
                     spin: [0, 1, 2, 3, 4, 5]
