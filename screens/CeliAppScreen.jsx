@@ -4,8 +4,9 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  Text
+  Text,
 } from 'react-native';
+import Coin from '../components/Coin'
 
 export default class CeliAppScreen extends React.Component {
     static navigationOptions = {
@@ -16,6 +17,7 @@ export default class CeliAppScreen extends React.Component {
       return (
         <View style={styles.container}>
           <Text style={styles.title}>{'CeliApp Home Screen'}</Text>
+          <Coin/>
           <Button title="Knowledge Center  " onPress={this._knowledge} />
           <StatusBar barStyle="default" />
         </View>
