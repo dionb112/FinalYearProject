@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
-// import AnswerOption from '../components/AnswerOption';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 // import Option from '../components/Option';
 
 
@@ -26,10 +26,10 @@ class Quiz extends React.Component {
             timer: 10,
             particles: false,
             score: 0,
+            radioProps: []
         };
 
         // Bind this to all neccesary function
-        this.renderAnswerOptions = this.renderAnswerOptions.bind(this);
         this.returnToHome = this.returnToHome.bind(this);
         this.tick = this.tick.bind(this);
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
@@ -74,7 +74,12 @@ class Quiz extends React.Component {
         this.setState({
             question: this.questions[0].question,
             correct: this.questions[0].correct,
-            answerOptions: shuffledAnswerOptions[0]
+            answerOptions: shuffledAnswerOptions[0],
+            radioProps: [
+                { label: this.state.answerOptions[0], value: 0 },
+                { label: this.state.answerOptions[1], value: 0 },
+                { label: this.state.answerOptions[2], value: 0 }
+            ]
         });
     }
 
@@ -271,11 +276,11 @@ class Quiz extends React.Component {
     /**
      * Function for rendering one of the possible answers
      */
-    renderAnswerOptions(key) {
-        console.log("Rendering Answer");
+    renderAnswerOptions = item => {
+        console.log("Rendering Answer: " + item);
         // Returns the answeroption object
-        return (
-            {/* <AnswerOption
+        // return (
+        {/* <AnswerOption
                 key={key}
                 answerContent={key}
                 answerType={key}
@@ -283,7 +288,7 @@ class Quiz extends React.Component {
                 questionId={this.state.questionId}
                 onAnswerSelected={this.handleAnswerSelected}
             /> */}
-        );
+        // );
     }
 
     /**
@@ -294,13 +299,6 @@ class Quiz extends React.Component {
         // The message it's passing lets the application know where the user is coming from
         // this.props.button("Leave Quiz");
     }
-
-    SampleFunction = (item) => {
-
-        // do something with item
-
-    }
-
 
     /**
      * Function for rendering all relevant quiz content to the screen
@@ -320,9 +318,17 @@ class Quiz extends React.Component {
                     <Text>{this.state.question} </Text>
 
                     {this.state.answerOptions.map((item, key) => (
-                        <Text key={key} onPress={this.SampleFunction.bind(this, item)}> {item} </Text>
+                        <Text key={key} onPress={this.renderAnswerOptions.bind(this, item)}> {item} </Text>
                     ))}
-                    {/* {this.state.answerOptions.map(this.renderAnswerOptions)} */}
+                    <RadioForm
+                        radio_props={this.state.radioProps}
+                        initial={0}
+                        formHorizontal={true}
+                        labelHorizontal={true}
+                        buttonColor={'#2196f3'}
+                        animation={true}
+                        onPress={(value) => { this.setState({ value: value }) }}
+                    />
                     {/* 
                     {this.state.particles && this.state.result === -1 &&
                         // If particles are meant to be drawn and next question hasn't loaded yet
@@ -342,15 +348,7 @@ class Quiz extends React.Component {
                         transitionEnterTimeout={800}
                         transitionLeaveTimeout={500}
                         transitionAppear
-                        transitionAppearTimeout={500}
-                    >
-                        {this.state.questionId}
-                            <Timer time={this.state.timer} />
-                            <QuestionCount counter={this.state.questionId} total={this.questions.length} />
-                            <Question content={this.state.question} />
-
-                                {this.state.answerOptions.map(this.renderAnswerOptions)}
-                    </CSSTransitionGroup> */}
+                        transitionAppearTimeout={500}> */}
                 </View>
             );
         }
