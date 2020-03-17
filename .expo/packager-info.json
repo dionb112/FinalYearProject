@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 6300,
+  "packagerPid": 6128,
+  "devToolsPort": 19002,
   "expoServerNgrokUrl": "https://wd-jmk.anonymous.finalyearproject.exp.direct",
   "packagerNgrokUrl": "https://packager.wd-jmk.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 5916
+  "ngrokPid": 7012
 }

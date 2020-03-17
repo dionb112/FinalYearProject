@@ -256,7 +256,7 @@ class Quiz extends React.Component {
     nextSet() {
         // Resets interval for timer
         clearInterval(this.intervalHandle);
-        this.intervalHandle = setInterval(this.tick , 1000);
+        this.intervalHandle = setInterval(this.tick, 1000);
 
         // Checks to see if all 15 questions have been answered
         if (this.state.questionId < this.questions.length) {
@@ -295,6 +295,13 @@ class Quiz extends React.Component {
         // this.props.button("Leave Quiz");
     }
 
+    SampleFunction = (item) => {
+
+        // do something with item
+
+    }
+
+
     /**
      * Function for rendering all relevant quiz content to the screen
      */
@@ -311,8 +318,10 @@ class Quiz extends React.Component {
                     <Text>{"Time: " + this.state.timer} </Text>
                     <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
                     <Text>{this.state.question} </Text>
-                    <Text>{this.state.answerOptions} </Text>
 
+                    {this.state.answerOptions.map((item, key) => (
+                        <Text key={key} onPress={this.SampleFunction.bind(this, item)}> {item} </Text>
+                    ))}
                     {/* {this.state.answerOptions.map(this.renderAnswerOptions)} */}
                     {/* 
                     {this.state.particles && this.state.result === -1 &&
