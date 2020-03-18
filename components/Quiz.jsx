@@ -167,6 +167,11 @@ class Quiz extends React.Component {
             answer: answer
         }));
 
+        console.log(answer)
+        console.log(answer)
+        console.log(this.state.correct)
+        console.log(this.state.correct)
+
         // Checks to see if answer is correct
         if (answer == this.state.correct) {
 
@@ -301,13 +306,11 @@ class Quiz extends React.Component {
      */
     render() {
         console.log("Score:" + this.state.score)
-        console.log("Score:" + this.state.score)
-        console.log("Score:" + this.state.score)
 
         this.radioProps = [
                 { label: this.state.answerOptions[0], value: 0 },
                 { label: this.state.answerOptions[1], value: 0 },
-                { label: this.state.answerOptions[2], value: 0 }
+                { label: this.state.answerOptions[2], value: 1 }
         ] 
 
         if (this.state.page === 'Confirm') {
@@ -334,7 +337,7 @@ class Quiz extends React.Component {
                         animation={true}
                         onPress={(value) => { 
                             this.setState({ value: value });
-                            this.handleAnswerSelected(value); 
+                            this.handleAnswerSelected(this.state.answerOptions[value]); 
                             }}
                     />
                     {/* 
