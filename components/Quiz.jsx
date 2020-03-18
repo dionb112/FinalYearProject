@@ -26,7 +26,6 @@ class Quiz extends React.Component {
             timer: 10,
             particles: false,
             score: 0,
-            radioProps: []
         };
 
         // Bind this to all neccesary function
@@ -44,6 +43,8 @@ class Quiz extends React.Component {
         this.quizReceived = []; // An array to store all possible questions
         this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
+        this.radioProps = []; 
+
     }
 
     /**
@@ -75,11 +76,6 @@ class Quiz extends React.Component {
             question: this.questions[0].question,
             correct: this.questions[0].correct,
             answerOptions: shuffledAnswerOptions[0],
-            radioProps: [
-                { label: this.state.answerOptions[0], value: 0 },
-                { label: this.state.answerOptions[1], value: 0 },
-                { label: this.state.answerOptions[2], value: 0 }
-            ]
         });
     }
 
@@ -304,6 +300,13 @@ class Quiz extends React.Component {
      * Function for rendering all relevant quiz content to the screen
      */
     render() {
+        this.radioProps = [
+                { label: this.state.answerOptions[0], value: 0 },
+                { label: this.state.answerOptions[1], value: 0 },
+                { label: this.state.answerOptions[2], value: 0 }
+            ]
+
+
         if (this.state.page === 'Confirm') {
             /// @author Dion Buckley
             /// Simply change to quiz here (outside of Component mount)
@@ -316,14 +319,13 @@ class Quiz extends React.Component {
                     <Text>{"Time: " + this.state.timer} </Text>
                     <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
                     <Text>{this.state.question} </Text>
-
+{/*                     // this is how we render from an array, don't need it now
                     {this.state.answerOptions.map((item, key) => (
                         <Text key={key} onPress={this.renderAnswerOptions.bind(this, item)}> {item} </Text>
-                    ))}
+                    ))} */}
                     <RadioForm
-                        radio_props={this.state.radioProps}
+                        radio_props={this.radioProps}
                         initial={0}
-                        formHorizontal={true}
                         labelHorizontal={true}
                         buttonColor={'#2196f3'}
                         animation={true}
