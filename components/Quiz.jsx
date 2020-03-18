@@ -239,14 +239,14 @@ class Quiz extends React.Component {
     /**
     * Function called when user selects an answer
     */
-    handleAnswerSelected(event) {
-        this.setUserAnswer(event.currentTarget.value); // Sets users answer to be the option they selected
+    handleAnswerSelected(value) {
+        this.setUserAnswer(value); // Sets users answer to be the option they selected
         this.nextSet(); // Calls for the next question
 
         // Resets timer and calls for particles to be drawn
         this.setState({
             timer: 10,
-            particles: true
+            // particles: true
         });
 
     }
@@ -300,12 +300,15 @@ class Quiz extends React.Component {
      * Function for rendering all relevant quiz content to the screen
      */
     render() {
+        console.log("Score:" + this.state.score)
+        console.log("Score:" + this.state.score)
+        console.log("Score:" + this.state.score)
+
         this.radioProps = [
                 { label: this.state.answerOptions[0], value: 0 },
                 { label: this.state.answerOptions[1], value: 0 },
                 { label: this.state.answerOptions[2], value: 0 }
-            ]
-
+        ] 
 
         if (this.state.page === 'Confirm') {
             /// @author Dion Buckley
@@ -329,7 +332,10 @@ class Quiz extends React.Component {
                         labelHorizontal={true}
                         buttonColor={'#2196f3'}
                         animation={true}
-                        onPress={(value) => { this.setState({ value: value }) }}
+                        onPress={(value) => { 
+                            this.setState({ value: value });
+                            this.handleAnswerSelected(value); 
+                            }}
                     />
                     {/* 
                     {this.state.particles && this.state.result === -1 &&
