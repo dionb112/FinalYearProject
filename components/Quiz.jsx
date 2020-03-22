@@ -43,7 +43,7 @@ class Quiz extends React.Component {
         this.quizReceived = []; // An array to store all possible questions
         this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
-        this.radioProps = []; 
+        this.radioProps = [];
 
     }
 
@@ -168,8 +168,6 @@ class Quiz extends React.Component {
         }));
 
         console.log(answer)
-        console.log(answer)
-        console.log(this.state.correct)
         console.log(this.state.correct)
 
         // Checks to see if answer is correct
@@ -273,25 +271,6 @@ class Quiz extends React.Component {
             setTimeout(() => this.setResults(this.getResults()), 300);
         }
     }
-
-    /**
-     * Function for rendering one of the possible answers
-     */
-    renderAnswerOptions = item => {
-        console.log("Rendering Answer: " + item);
-        // Returns the answeroption object
-        // return (
-        {/* <AnswerOption
-                key={key}
-                answerContent={key}
-                answerType={key}
-                answer={this.state.answer}
-                questionId={this.state.questionId}
-                onAnswerSelected={this.handleAnswerSelected}
-            /> */}
-        // );
-    }
-
     /**
      * Function for returning back to the home page
      */
@@ -308,10 +287,10 @@ class Quiz extends React.Component {
         console.log("Score:" + this.state.score)
 
         this.radioProps = [
-                { label: this.state.answerOptions[0], value: 0 },
-                { label: this.state.answerOptions[1], value: 0 },
-                { label: this.state.answerOptions[2], value: 1 }
-        ] 
+            { label: this.state.answerOptions[0], value: -1 },
+            { label: this.state.answerOptions[1], value: -1 },
+            { label: this.state.answerOptions[2], value: -1 }
+        ]
 
         if (this.state.page === 'Confirm') {
             /// @author Dion Buckley
@@ -325,20 +304,21 @@ class Quiz extends React.Component {
                     <Text>{"Time: " + this.state.timer} </Text>
                     <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
                     <Text>{this.state.question} </Text>
-{/*                     // this is how we render from an array, don't need it now
+                    {/*                     // this is how we render from an array, don't need it now
                     {this.state.answerOptions.map((item, key) => (
                         <Text key={key} onPress={this.renderAnswerOptions.bind(this, item)}> {item} </Text>
                     ))} */}
                     <RadioForm
                         radio_props={this.radioProps}
-                        initial={0}
+                        initial={-1}
                         labelHorizontal={true}
                         buttonColor={'#2196f3'}
                         animation={true}
-                        onPress={(value) => { 
+                        onPress={(value) => {
                             this.setState({ value: value });
-                            this.handleAnswerSelected(this.state.answerOptions[value]); 
-                            }}
+                            this.handleAnswerSelected(this.state.answerOptions[value]);
+                            this.setState({ is_active_index: -1 });
+                        }}
                     />
                     {/* 
                     {this.state.particles && this.state.result === -1 &&
@@ -365,11 +345,15 @@ class Quiz extends React.Component {
         }
         else if (this.state.page === 'Result') { // If user is on the results screen
             return ( // Render all the results content
-                {/* <Result
+                <View style={styles.container}>
+                    <Text>{this.state.score}</Text>
+                    <Text>{this.state.result}</Text>
+                    {/* <Result
                     quizScore={this.state.score}
                     quizResult={this.state.result}
                     info={this.props.info}
                 /> */}
+                </View>
             );
         }
     }
