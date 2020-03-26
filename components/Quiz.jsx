@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 // import Option from '../components/Option';
+import { Emitter } from 'react-native-particles';
 
 
 /**
@@ -93,6 +94,14 @@ class Quiz extends React.Component {
         this.setState({
             timer: time
         })
+
+        {
+            time === 9 &&
+                this.setState({
+                    particles: false
+                })
+        }
+
 
         // If timer has reached 0, set question to be over
         if (time <= 0) {
@@ -210,7 +219,7 @@ class Quiz extends React.Component {
             correct: this.questions[counter].correct,
             answerOptions: this.questions[counter].answers,
             answer: '',
-            particles: false
+            // particles: false
         });
     }
 
@@ -249,7 +258,7 @@ class Quiz extends React.Component {
         // Resets timer and calls for particles to be drawn
         this.setState({
             timer: 10,
-            // particles: true
+            particles: true
         });
 
     }
@@ -287,9 +296,9 @@ class Quiz extends React.Component {
         console.log("Score:" + this.state.score)
 
         this.radioProps = [
-            { label: this.state.answerOptions[0], value: -1 },
-            { label: this.state.answerOptions[1], value: -1 },
-            { label: this.state.answerOptions[2], value: -1 }
+            { label: this.state.answerOptions[0], value: 0 },
+            { label: this.state.answerOptions[1], value: 0 },
+            { label: this.state.answerOptions[2], value: 0 }
         ]
 
         if (this.state.page === 'Confirm') {
@@ -304,10 +313,8 @@ class Quiz extends React.Component {
                     <Text>{"Time: " + this.state.timer} </Text>
                     <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
                     <Text>{this.state.question} </Text>
-                    {/*                     // this is how we render from an array, don't need it now
-                    {this.state.answerOptions.map((item, key) => (
-                        <Text key={key} onPress={this.renderAnswerOptions.bind(this, item)}> {item} </Text>
-                    ))} */}
+
+                    {/* @author Dion:  triple radio button for answer options */}
                     <RadioForm
                         radio_props={this.radioProps}
                         initial={-1}
@@ -317,37 +324,32 @@ class Quiz extends React.Component {
                         onPress={(value) => {
                             this.setState({ value: value });
                             this.handleAnswerSelected(this.state.answerOptions[value]);
-                            this.setState({ is_active_index: -1 });
                         }}
                     />
-                    {/* 
-                    {this.state.particles && this.state.result === -1 &&
-                        // If particles are meant to be drawn and next question hasn't loaded yet
-                        // Draw particles to the screen
-                        <Particle
-                            particleAmount={400}
-                            particleSpeed={1.0}
-                            particleRadius={1.0}
-                            colour={this.colour}
-                        />
+                    {// If particles are meant to be drawn and next question hasn't loaded yet
+                        this.state.particles && this.state.result === -1 &&
+                        /// @author Dion:  react native specific particle emitter
+                        <Emitter
+                            numberOfParticles={50}
+                            emissionRate={5}
+                            interval={200}
+                            particleLife={500}
+                            direction={-90}
+                            spread={360}
+                            fromPosition={{ x: 150, y: 300 }}
+                        >
+                            <Text>*</Text>
+                        </Emitter>
                     }
-                    <Option symbol="fa fa-home fa-3x" side="option top" change={this.returnToHome} />
-                    <CSSTransitionGroup
-                        className="container"
-                        component=""
-                        transitionName="fade"
-                        transitionEnterTimeout={800}
-                        transitionLeaveTimeout={500}
-                        transitionAppear
-                        transitionAppearTimeout={500}> */}
                 </View>
             );
         }
         else if (this.state.page === 'Result') { // If user is on the results screen
             return ( // Render all the results content
                 <View style={styles.container}>
-                    <Text>{this.state.score}</Text>
-                    <Text>{this.state.result}</Text>
+                    <Text>{"You answered: " + this.state.result + " questions correctly, nice try!"}</Text>
+                    <Text>{"You have earned: " + this.state.score + " gold coins!"}</Text>
+
                     {/* <Result
                     quizScore={this.state.score}
                     quizResult={this.state.result}
