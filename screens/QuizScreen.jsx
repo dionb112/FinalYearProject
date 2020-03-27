@@ -70,6 +70,7 @@ export default class QuizScreen extends React.Component {
       // Hotspot const response = await fetch('http://192.168.43.169:5000/info');
       // College through tethered  
       //const response = await fetch('http://192.168.42.162:5000/info');
+      // Tethered home const response = await fetch('http://192.168.42.227:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
       var quizQuestions = [] // Array to hold all quiz data
