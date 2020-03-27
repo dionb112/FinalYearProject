@@ -330,15 +330,14 @@ class Quiz extends React.Component {
                         this.state.particles && this.state.result === -1 &&
                         /// @author Dion:  react native specific particle emitter
                         <Emitter
-                            numberOfParticles={50}
-                            emissionRate={5}
-                            interval={200}
-                            particleLife={500}
+                            numberOfParticles={44}
+                            emissionRate={44}
+                            interval={350}
+                            particleLife={300}
                             direction={-90}
-                            spread={360}
+                            spread={333}
                             fromPosition={{ x: 150, y: 300 }}
                         >
-                            {/* <Text>*</Text> */}
                             <Image source={require('../assets/sprites/flare.png')}  tintColor = {this.colour} />
                         </Emitter>
                     }
