@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
+import { Button, StatusBar, StyleSheet, View, Text, Image } from 'react-native';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 // import Option from '../components/Option';
 import { Emitter } from 'react-native-particles';
@@ -36,8 +36,8 @@ class Quiz extends React.Component {
         this.changeToQuiz = this.changeToQuiz.bind(this);
 
         // The different colours for the particles
-        this.correctColour = { r: 0, g: 255, b: 0, a: 180 };
-        this.incorrectColour = { r: 255, g: 0, b: 0, a: 180 };
+        this.correctColour = 'green';
+        this.incorrectColour = 'red';
         this.colour = this.correctColour;
 
 
@@ -338,7 +338,8 @@ class Quiz extends React.Component {
                             spread={360}
                             fromPosition={{ x: 150, y: 300 }}
                         >
-                            <Text>*</Text>
+                            {/* <Text>*</Text> */}
+                            <Image source={require('../assets/sprites/flare.png')}  tintColor = {this.colour} />
                         </Emitter>
                     }
                 </View>

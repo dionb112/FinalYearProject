@@ -1,8 +1,8 @@
 {
-  "hostType": "lan",
+  "hostType": "localhost",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "vk-3ut",
+  "urlRandomness": "sv-efm",
   "https": false
 }
