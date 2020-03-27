@@ -80,8 +80,6 @@ class Quiz extends React.Component {
         });
     }
 
-
-
     /**
      * Function for decrementing the timer, this function gets called once a second
      */
@@ -96,6 +94,7 @@ class Quiz extends React.Component {
         })
 
         {
+            // @author Dion: Instead of directly turning of particles at new question give a second to breathe
             time === 9 &&
                 this.setState({
                     particles: false
@@ -211,7 +210,6 @@ class Quiz extends React.Component {
         //this.props.updateCount("Finish question " + (counter - 1), "Start question " + counter);
 
         // Assign all question values to be the next questions values
-        // Also turns particles off
         this.setState({
             counter: counter,
             questionId: questionId,
@@ -219,7 +217,6 @@ class Quiz extends React.Component {
             correct: this.questions[counter].correct,
             answerOptions: this.questions[counter].answers,
             answer: '',
-            // particles: false
         });
     }
 
@@ -251,6 +248,7 @@ class Quiz extends React.Component {
     /**
     * Function called when user selects an answer
     */
+    // Dion : had to change value passed here to match native setup
     handleAnswerSelected(value) {
         this.setUserAnswer(value); // Sets users answer to be the option they selected
         this.nextSet(); // Calls for the next question
@@ -295,6 +293,7 @@ class Quiz extends React.Component {
     render() {
         console.log("Score:" + this.state.score)
 
+        /// @author Dion Buckley: for radio button
         this.radioProps = [
             { label: this.state.answerOptions[0], value: 0 },
             { label: this.state.answerOptions[1], value: 0 },
@@ -309,6 +308,7 @@ class Quiz extends React.Component {
         }
         else if (this.state.page === 'Quiz') { // If user is on the quiz screen
             return ( // Render the quiz content to the screen
+                // @author Dion: React native rendering of Quiz
                 <View style={styles.container}>
                     <Text>{"Time: " + this.state.timer} </Text>
                     <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
