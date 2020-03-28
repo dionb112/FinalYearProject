@@ -6,7 +6,6 @@
 /// The specific lines and functions I added (apart from obvios file structure like imports and class defintion) I will tag as my own
 
 import React from 'react';
-import RNGameCenter from "react-native-game-center"
 import QuizWebView from "../components/QuizWebView";
 import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
 import Quiz from '../components/Quiz';
