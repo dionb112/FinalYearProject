@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2776,
-  "expoServerNgrokUrl": "https://sv-efm.anonymous.finalyearproject.exp.direct",
-  "packagerNgrokUrl": "https://packager.sv-efm.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 4792,
+  "packagerPid": 6110,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002
 }
