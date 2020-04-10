@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, StyleSheet, View, Text, } from 'react-native';
-// import { Button } from 'react-native-elements';
+import { StatusBar, StyleSheet, View, Text, Image } from 'react-native';
+import { Button } from 'react-native-elements';
 import * as Font from 'expo-font'
 
 
@@ -13,21 +13,34 @@ export default class HomeScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Knowledge Center             ',
+    title: '                      Knowledge Centre            ',
+    headerStyle: {
+      backgroundColor: '#FFA500',
+      //height: 15, // Specify the height of your custom header
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
   };
 
   render() {
     if (this.state.fontLoaded) {
       return (
         <View style={styles.container}>
-          <Text style={styles.title}>{'Welcome to the Knowledge center!'}</Text>
+        <StatusBar/>
+        <Text>{''}</Text>
+
+          <Text style={styles.title}>{'Welcome to the Knowledge Centre!'}</Text>
+          <Image source={require('../assets/sprites/penguin-md.png')} />
           <Text>{''}</Text>
-          {/* <Button titleStyle = {styles.title} title="             Video Vault              " onPress={this._showVideos} /> */}
-          <Button title="             Video Vault              " onPress={this._showVideos} />
+          <Button title="             Video Vault              " onPress={this._showVideos} raised={true} />
+          {/* <Button title="             Video Vault              " onPress={this._showVideos} /> */}
           <Text>{''}</Text>
-          <Button title="                 Quiz Zone               " onPress={this._showQuiz} />
-          <Text>{''}</Text> 
-          <Button title="             Coin Corner             " onPress={this._showCoins} />
+          <Button title="                Quiz Zone               " onPress={this._showQuiz} raised={true} />
+          <Text>{''}</Text>
+          <Button title="             Coin Corner             " onPress={this._showCoins} raised={true} />
         </View>
       );
     }
@@ -43,7 +56,7 @@ export default class HomeScreen extends React.Component {
   _showQuiz = () => {
     this.props.navigation.navigate('Quiz');
   };
-  
+
   _showCoins = () => {
     this.props.navigation.navigate('Coins');
   };
@@ -51,7 +64,8 @@ export default class HomeScreen extends React.Component {
   // something like this for custom fonts..
   async componentDidMount() {
     await Font.loadAsync({
-      PlayfairDisplay: require('../assets/fonts/PlayfairDisplay-Regular.otf')
+      PlayfairDisplay: require('../assets/fonts/PlayfairDisplay-Regular.otf'),
+      OpenSans: require('../assets/fonts/OpenSans-SemiBold.ttf')
     })
     this.setState({ fontLoaded: true })
   }
@@ -60,19 +74,18 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0,
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
-    fontSize: 30,
+    fontSize: 22,
     textAlign: 'center',
     margin: 20,
-    fontFamily: 'PlayfairDisplay'
+    fontFamily: 'OpenSans'
   },
   button: {
     textAlign: 'center',
-    fontFamily: 'PlayfairDisplay'
   }
 });
 
