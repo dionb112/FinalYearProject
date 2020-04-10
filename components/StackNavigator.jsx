@@ -7,6 +7,7 @@ import CrossContamScreen1 from '../screens/CrossContamScreen1';
 import CrossContamScreen2 from '../screens/CrossContamScreen2';
 import CrossContamScreen3 from '../screens/CrossContamScreen3';
 import CrossContamScreen4 from '../screens/CrossContamScreen4';
+import CoinScreen from '../screens/CoinScreen';
 
 
 
@@ -18,7 +19,8 @@ const StackNavigator = createStackNavigator({
     CCP2: CrossContamScreen2,
     CCP3: CrossContamScreen3,
     CCP4: CrossContamScreen4,
-    Quiz: QuizScreen
+    Quiz: QuizScreen,
+    Coins: CoinScreen
 });
 
 export default StackNavigator;
