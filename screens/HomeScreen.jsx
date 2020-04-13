@@ -36,7 +36,6 @@ export default class HomeScreen extends React.Component {
           <Image source={require('../assets/sprites/penguin-md.png')} />
           <Text>{''}</Text>
           <Button title="             Video Vault              " onPress={this._showVideos} raised={true} />
-          {/* <Button title="             Video Vault              " onPress={this._showVideos} /> */}
           <Text>{''}</Text>
           <Button title="                Quiz Zone               " onPress={this._showQuiz} raised={true} />
           <Text>{''}</Text>
@@ -61,7 +60,7 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Coins');
   };
 
-  // something like this for custom fonts..
+  // custom fonts
   async componentDidMount() {
     await Font.loadAsync({
       PlayfairDisplay: require('../assets/fonts/PlayfairDisplay-Regular.otf'),

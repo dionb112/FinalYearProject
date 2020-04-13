@@ -3,6 +3,8 @@ import { Button, StatusBar, StyleSheet, View, Text, Image } from 'react-native';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 // import Option from '../components/Option';
 import { Emitter } from 'react-native-particles';
+import Coin from '../components/Coin'
+
 
 
 /**
@@ -27,6 +29,7 @@ class Quiz extends React.Component {
             timer: 10,
             particles: false,
             score: 0,
+            currentScore: 0
         };
 
         // Bind this to all neccesary function
@@ -185,7 +188,8 @@ class Quiz extends React.Component {
             this.colour = this.correctColour;
             this.setState((state) => ({
                 answersCount: state.answersCount + 1,
-                score: state.score + (10 * state.timer)
+                score: state.score + (10 * state.timer),
+                currentScore: (10 * state.timer) // Dion: authored to display coins earned
             }));
         }
         else {
@@ -326,8 +330,18 @@ class Quiz extends React.Component {
                             this.handleAnswerSelected(this.state.answerOptions[value]);
                         }}
                     />
+                    {/* // Dion: if right answer render animated coin and number along with particles */}
+                    {
+                        this.colour === 'green' && this.state.particles &&
+                        <Coin />
+                    }
+                    {
+                        this.colour === 'green' && this.state.particles &&
+                        <Text>{"+ " + this.state.currentScore}</Text>
+                    }
                     {// If particles are meant to be drawn and next question hasn't loaded yet
                         this.state.particles && this.state.result === -1 &&
+
                         /// @author Dion:  react native specific particle emitter
                         <Emitter
                             numberOfParticles={44}
@@ -338,7 +352,7 @@ class Quiz extends React.Component {
                             spread={333}
                             fromPosition={{ x: 150, y: 300 }}
                         >
-                            <Image source={require('../assets/sprites/flare.png')}  tintColor = {this.colour} />
+                            <Image source={require('../assets/sprites/flare.png')} tintColor={this.colour} />
                         </Emitter>
                     }
                 </View>
