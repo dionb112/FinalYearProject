@@ -9,8 +9,6 @@ import CrossContamScreen3 from '../screens/CrossContamScreen3';
 import CrossContamScreen4 from '../screens/CrossContamScreen4';
 import CoinScreen from '../screens/CoinScreen';
 
-
-
 const StackNavigator = createStackNavigator({
     Home: HomeScreen,
     Video: VideoScreen,

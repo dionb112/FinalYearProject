@@ -1,8 +1,8 @@
 {
-  "hostType": "localhost",
+  "urlRandomness": "gu-p25",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "mx-9au",
   "https": false
 }

@@ -21,7 +21,7 @@ export default class CoinScreen extends React.Component {
         <Text style={styles.title}>{'This is the Coin Corner!'}</Text>
         <Text>{'Here you can see all of the Coins you have collected!'}</Text>
         <Coin />
-        <Text>{'Currently you have 0 Coins : ('}</Text>
+        <Text>{'Currently you have' + this.props.navigation.state.params.coins + ' Coins!'}</Text>
       </View>
     );
   }

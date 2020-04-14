@@ -28,7 +28,6 @@ class Quiz extends React.Component {
             page: 'Confirm',
             timer: 10,
             particles: false,
-            score: 0,
             currentScore: 0
         };
 
@@ -186,9 +185,9 @@ class Quiz extends React.Component {
 
             // If so, display green particles, increase score and the correct answer count
             this.colour = this.correctColour;
+            this.props.score =  this.state.score + (10 * this.state.timer),
             this.setState((state) => ({
                 answersCount: state.answersCount + 1,
-                score: state.score + (10 * state.timer),
                 currentScore: (10 * state.timer) // Dion: authored to display coins earned
             }));
         }
@@ -295,7 +294,7 @@ class Quiz extends React.Component {
      * Function for rendering all relevant quiz content to the screen
      */
     render() {
-        console.log("Score:" + this.state.score)
+        console.log("Score:" + this.props.score)
 
         /// @author Dion Buckley: for radio button
         this.radioProps = [
@@ -362,7 +361,7 @@ class Quiz extends React.Component {
             return ( // Render all the results content
                 <View style={styles.container}>
                     <Text>{"You answered: " + this.state.result + " questions correctly, nice try!"}</Text>
-                    <Text>{"You have earned: " + this.state.score + " gold coins!"}</Text>
+                    <Text>{"You have earned: " + this.props.score + " gold coins!"}</Text>
 
                     {/* <Result
                     quizScore={this.state.score}

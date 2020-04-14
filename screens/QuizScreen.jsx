@@ -141,7 +141,7 @@ export default class QuizScreen extends React.Component {
         <View style={styles.container}>
           <Text style = {styles.title}>{"Quiz"}</Text>
           {/* <QuizWebView/> */}
-          <Quiz questions={this.state.quizQuestions} />
+          <Quiz questions={this.state.quizQuestions} score={this.props.navigation.state.params.coins} />
         </View>
       );
     } else {

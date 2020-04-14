@@ -8,7 +8,8 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      fontLoaded: false
+      fontLoaded: false,
+      coins: 1
     }
   }
 
@@ -53,11 +54,11 @@ export default class HomeScreen extends React.Component {
   };
 
   _showQuiz = () => {
-    this.props.navigation.navigate('Quiz');
+    this.props.navigation.navigate('Quiz', {coins: this.state.coins});
   };
 
   _showCoins = () => {
-    this.props.navigation.navigate('Coins');
+    this.props.navigation.navigate('Coins', {coins: this.state.coins});
   };
 
   // custom fonts
