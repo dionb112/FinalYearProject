@@ -28,6 +28,12 @@ export default class QuizScreen extends React.Component {
     this.changeToInfo = this.changeToInfo.bind(this);
     this.leaveHome = this.leaveHome.bind(this);
   }
+  
+  //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center
+  myCallback = (score) => {
+    //use dataFromChild
+    this.props.navigation.state.params.callbackFromParent(score);
+  }
 
   /// @author Dion Buckley
   /// This relates to my stack navigator
@@ -140,8 +146,10 @@ export default class QuizScreen extends React.Component {
       return (
         <View style={styles.container}>
           <Text style = {styles.title}>{"Quiz"}</Text>
+          {/* Unused WebView component I created initially to use with Quiz */}
           {/* <QuizWebView/> */}
-          <Quiz questions={this.state.quizQuestions} score={this.props.navigation.state.params.coins} />
+          {/* //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center */}
+          <Quiz questions={this.state.quizQuestions} callbackFromParent={this.myCallback} />
         </View>
       );
     } else {

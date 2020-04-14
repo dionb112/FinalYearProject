@@ -9,7 +9,7 @@ export default class HomeScreen extends React.Component {
     super(props)
     this.state = {
       fontLoaded: false,
-      coins: 1
+      coins: 0
     }
   }
 
@@ -26,12 +26,16 @@ export default class HomeScreen extends React.Component {
     },
   };
 
+  myCallback = (coins) => {
+    this.setState({ coins: coins });
+  }
+
   render() {
     if (this.state.fontLoaded) {
       return (
         <View style={styles.container}>
-        <StatusBar/>
-        <Text>{''}</Text>
+          <StatusBar />
+          <Text>{''}</Text>
 
           <Text style={styles.title}>{'Welcome to the Knowledge Centre!'}</Text>
           <Image source={require('../assets/sprites/penguin-md.png')} />
@@ -54,11 +58,11 @@ export default class HomeScreen extends React.Component {
   };
 
   _showQuiz = () => {
-    this.props.navigation.navigate('Quiz', {coins: this.state.coins});
+    this.props.navigation.navigate('Quiz', { coins: this.state.coins, callbackFromParent: this.myCallback });
   };
 
   _showCoins = () => {
-    this.props.navigation.navigate('Coins', {coins: this.state.coins});
+    this.props.navigation.navigate('Coins', { coins: this.state.coins });
   };
 
   // custom fonts

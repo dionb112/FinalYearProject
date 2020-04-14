@@ -18,10 +18,10 @@ export default class CoinScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{'This is the Coin Corner!'}</Text>
-        <Text>{'Here you can see all of the Coins you have collected!'}</Text>
+        <Text style={styles.title}>{'This is the Coin Corner..'}</Text>
+        <Text style = {styles.text}>{'Here you can see all of the Coins you have collected!'}</Text>
         <Coin />
-        <Text>{'Currently you have' + this.props.navigation.state.params.coins + ' Coins!'}</Text>
+        <Text style = {styles.coin}>{this.props.navigation.state.params.coins}</Text>
       </View>
     );
   }
@@ -34,10 +34,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
+    fontSize: 26,
+    textAlign: 'center',
+    margin: 30,
+    fontFamily: 'OpenSans'
+  },
+  text: {
+    fontSize: 14,
+    textAlign: 'center',
+    margin: 15,
+    fontFamily: 'OpenSans'
+  },
+  coin: {
     fontSize: 30,
     textAlign: 'center',
-    margin: 20,
-    fontFamily: 'PlayfairDisplay'
+    fontFamily: 'OpenSans'
   }
 });
 
