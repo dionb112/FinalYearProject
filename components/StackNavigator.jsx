@@ -19,6 +19,21 @@ const StackNavigator = createStackNavigator({
     CCP4: CrossContamScreen4,
     Quiz: QuizScreen,
     Coins: CoinScreen
-});
+},
+    {
+        initialRouteName: 'Home',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#FFA500',
+                //height: 15, // Specify the height of your custom header
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                textAlign: 'center',
+            },
+        },
+    }
+);
 
 export default StackNavigator;

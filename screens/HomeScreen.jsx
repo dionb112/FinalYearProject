@@ -15,15 +15,6 @@ export default class HomeScreen extends React.Component {
 
   static navigationOptions = {
     title: '                      Knowledge Centre            ',
-    headerStyle: {
-      backgroundColor: '#FFA500',
-      //height: 15, // Specify the height of your custom header
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
   };
 
   myCallback = (coins) => {

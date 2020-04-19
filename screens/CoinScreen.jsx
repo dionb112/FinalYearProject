@@ -10,7 +10,7 @@ export default class CoinScreen extends React.Component {
       fontLoaded: false
     }
   }
-
+  
   static navigationOptions = {
     title: 'Coin Corner             ',
   };
