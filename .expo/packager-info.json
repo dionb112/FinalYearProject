@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 6020,
+  "packagerPid": 1136,
   "expoServerNgrokUrl": "https://gu-p25.anonymous.finalyearproject.exp.direct",
   "packagerNgrokUrl": "https://packager.gu-p25.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 6044,
+  "ngrokPid": 5220,
   "devToolsPort": 19002
 }

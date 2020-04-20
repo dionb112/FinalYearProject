@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar, StyleSheet, View, Text, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as Font from 'expo-font'
+import TextInputSingleLine from '../components/TextInputSingleLine'
 
 
 export default class HomeScreen extends React.Component {
@@ -9,7 +10,8 @@ export default class HomeScreen extends React.Component {
     super(props)
     this.state = {
       fontLoaded: false,
-      coins: 0
+      coins: 0,
+      name: ''
     }
   }
 
@@ -26,6 +28,8 @@ export default class HomeScreen extends React.Component {
       return (
         <View style={styles.container}>
           <StatusBar />
+          {/* working text input to allow user to enter name */}
+          <TextInputSingleLine placeholderText = {'Name?'} onTextChanged={(text) => this.setState({name: text, modified: true})} />
           <Text>{''}</Text>
 
           <Text style={styles.title}>{'Welcome to the Knowledge Centre!'}</Text>

@@ -25,7 +25,7 @@ const StackNavigator = createStackNavigator({
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#FFA500',
-                //height: 15, // Specify the height of your custom header
+                height: 25, // Specify the height of your custom header
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
