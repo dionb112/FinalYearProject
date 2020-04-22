@@ -16,7 +16,7 @@ export default class HomeScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: '                      Knowledge Centre            ',
+    title: '              Coeliac Knowledge Centre            ',
   };
 
   myCallback = (coins) => {
@@ -32,7 +32,7 @@ export default class HomeScreen extends React.Component {
           <TextInputSingleLine placeholderText = {'Name?'} onTextChanged={(text) => this.setState({name: text, modified: true})} />
           <Text>{''}</Text>
 
-          <Text style={styles.title}>{'Welcome to the Knowledge Centre!'}</Text>
+          <Text style={styles.title}>{'Welcome to the centre!'}</Text>
           <Image source={require('../assets/sprites/penguin-md.png')} />
           <Text>{''}</Text>
           <Button title="             Video Vault              " onPress={this._showVideos} raised={true} />
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     textAlign: 'center',
-    margin: 20,
+    margin: 5,
     fontFamily: 'OpenSans'
   },
   button: {

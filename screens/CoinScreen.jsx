@@ -24,11 +24,11 @@ export default class CoinScreen extends React.Component {
         <Coin />
         <Text style = {styles.coin}>{this.props.navigation.state.params.coins}</Text>
         <Text style = {styles.coin}>{""}</Text>
-        <Button title="            100 Coins; 'in app bonus'            "  raised={true} />
+        <Button title="           100 Coins; 'in app bonus'            "  raised={true} />
         <Text style = {styles.coin}>{""}</Text>
-        <Button title="      600 Coins; gluten free discount     " raised={true} />
+        <Button title="    600 Coins; gluten free discount    " raised={true} />
         <Text style = {styles.coin}>{""}</Text>
-        <Button title="        1200 Coins; gip stick discount     "  raised={true} />
+        <Button title="    1200 Coins; gip stick discount       "  raised={true} />
       </View>
     );
   }
