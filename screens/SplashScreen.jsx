@@ -26,15 +26,13 @@ export default class SplashScreen extends React.Component {
         <View style={styles.container}>
           <StatusBar />
           <Text>{''}</Text>
-          <Text>{''}</Text>
-
 
           {/* <TextInputSingleLine placeholderText={'What is your name?'} onTextChanged={(text) => this.setState({ name: text })} /> */}
           <Text>{''}</Text>
           <Text>{''}</Text>
 
           <ImageButton
-          title="Start by tapping the Gluten Free Symbol"
+          title="Start by saying NO to Gluten"
           source={require('../assets/sprites/splash.png')}
           func={this._showApp} />
           <Text>{''}</Text>

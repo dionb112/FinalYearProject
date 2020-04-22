@@ -6,9 +6,10 @@
 /// The specific lines and functions I added (apart from obvios file structure like imports and class defintion) I will tag as my own
 
 import React from 'react';
-import QuizWebView from "../components/QuizWebView";
-import { Button, StatusBar, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import Quiz from '../components/Quiz';
+import { Button } from 'react-native-elements';
+
 
 export default class QuizScreen extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class QuizScreen extends React.Component {
   /// @author Dion Buckley
   /// This relates to my stack navigator
   static navigationOptions = {
-    title: 'Quiz Zone        ',
+    title: '                              Quiz Zone        ',
   };
 
   /**

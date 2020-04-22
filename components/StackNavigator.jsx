@@ -24,16 +24,20 @@ const StackNavigator = createStackNavigator({
 },
     {
         initialRouteName: 'Splash',
+        headerTitleAlign: 'center',
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#FFA500',
+                backgroundColor: '#FFAE19',
                 height: 25, // Specify the height of custom header
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
                 fontWeight: 'bold',
                 textAlign: 'center',
+                marginHorizontal: 25
             },
+            headerLeft: null
+
         },
     }
 );

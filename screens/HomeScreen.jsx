@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: '    Coeliac Knowledge Centre                     ',
+    title: '             Coeliac Knowledge Centre            ',
   };
 
   myCallback = (coins) => {

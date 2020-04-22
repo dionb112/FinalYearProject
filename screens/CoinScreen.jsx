@@ -13,7 +13,7 @@ export default class CoinScreen extends React.Component {
   }
   
   static navigationOptions = {
-    title: 'Coin Corner             ',
+    title: '                            Coin Corner             ',
   };
 
   render() {

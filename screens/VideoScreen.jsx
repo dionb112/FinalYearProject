@@ -11,7 +11,7 @@ import ImageButton from '../components/ImageButton'
 
 export default class VideoScreen extends React.Component {
   static navigationOptions = {
-    title: 'Video Vault!     ',
+    title: '                            Video Vault          ',
   };
 
   render() {

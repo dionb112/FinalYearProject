@@ -5,7 +5,7 @@ import ExpoVideoPlayer  from '../components/ExpoVideoPlayer';
 
 export default class CrossContamScreen3 extends React.Component {
   static navigationOptions = {
-    title: 'Video Player',
+    title: '                          Video Player                  ',
   };
 
 
