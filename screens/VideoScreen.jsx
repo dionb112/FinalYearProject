@@ -19,7 +19,7 @@ export default class VideoScreen extends React.Component {
       <ScrollView style={styles.scrollView}>
       <Text>{''}</Text>
         <ImageButton
-          title="What happenes when I get glutened? "
+          title="What happens when I get glutened? "
           source={require('../assets/thumbnails/thumbnailGlutened.png')}
           func={this._glutened} />
         <Text>{''}</Text>

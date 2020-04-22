@@ -8,8 +8,10 @@ import CrossContamScreen2 from '../screens/CrossContamScreen2';
 import CrossContamScreen3 from '../screens/CrossContamScreen3';
 import CrossContamScreen4 from '../screens/CrossContamScreen4';
 import CoinScreen from '../screens/CoinScreen';
+import SplashScreen from '../screens/SplashScreen';
 
 const StackNavigator = createStackNavigator({
+    Splash: SplashScreen,
     Home: HomeScreen,
     Video: VideoScreen,
     Glutened: GlutenedScreen,
@@ -21,11 +23,11 @@ const StackNavigator = createStackNavigator({
     Coins: CoinScreen
 },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Splash',
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#FFA500',
-                height: 25, // Specify the height of your custom header
+                height: 25, // Specify the height of custom header
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
