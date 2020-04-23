@@ -7,7 +7,7 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      coins: 0,
+      coins: this.props.navigation.state.params.coins,
     }
   }
 
@@ -16,6 +16,7 @@ export default class HomeScreen extends React.Component {
   };
 
   myCallback = (coins) => {
+    this.props.navigation.state.params.callbackFromParent(coins);
     this.setState({ coins: coins });
   }
 

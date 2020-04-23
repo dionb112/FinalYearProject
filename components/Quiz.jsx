@@ -186,13 +186,14 @@ class Quiz extends React.Component {
 
             // If so, display green particles, increase score and the correct answer count
             this.colour = this.correctColour;
+            //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center
+            { this.props.callbackFromParent(this.state.score + (10 * this.state.timer)) }
             this.setState((state) => ({
                 answersCount: state.answersCount + 1,
                 score: state.score + (10 * state.timer),
                 currentScore: (10 * state.timer) // Dion: authored to display coins earned
             }));
-            //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center
-            {this.props.callbackFromParent(this.state.score)}
+
         }
         else {
             // If not, display red particles and add question title to array of questions that were answered incorrectly

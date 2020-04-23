@@ -11,13 +11,18 @@ export default class SplashScreen extends React.Component {
     super(props)
     this.state = {
       fontLoaded: false,
-      name: ''
+      name: '',
+      coins: 0
     }
   }
 
   static navigationOptions = {
     title: '                    We are Gluten Free            ',
   };
+
+  myCallback = (coins) => {
+    this.setState({ coins: coins });
+  }
 
 
   render() {
@@ -45,7 +50,7 @@ export default class SplashScreen extends React.Component {
   }
 
   _showApp = (text) => {
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Home', { coins: this.state.coins, callbackFromParent: this.myCallback });
   };
 
   // custom fonts
