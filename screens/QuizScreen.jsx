@@ -120,7 +120,6 @@ export default class QuizScreen extends React.Component {
     if (this.state.quizQuestions.length > 0) {
       return (
         <View style={styles.container}>
-          <Text style = {styles.title}>{"Quiz"}</Text>
           {/* Unused WebView component I created initially to use with Quiz */}
           {/* <QuizWebView/> */}
           {/* //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center */}

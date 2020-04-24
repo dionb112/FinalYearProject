@@ -261,7 +261,6 @@ class Quiz extends React.Component {
 
         // Resets timer and calls for particles to be drawn
         this.setState({
-            timer: 10,
             particles: true
         });
 
@@ -293,6 +292,14 @@ class Quiz extends React.Component {
         // this.props.button("Leave Quiz");
     }
 
+    onLayout = e => {
+        const { height } = e.nativeEvent.layout;
+        this.count = Math.floor(height / styles.text.lineHeight);
+        this.setState({
+            timer: 10,
+        });
+    }
+
     /**
      * Function for rendering all relevant quiz content to the screen
      */
@@ -302,8 +309,8 @@ class Quiz extends React.Component {
         /// @author Dion Buckley: for radio button
         this.radioProps = [
             { label: this.state.answerOptions[0], value: 0 },
-            { label: this.state.answerOptions[1], value: 0 },
-            { label: this.state.answerOptions[2], value: 0 }
+            { label: this.state.answerOptions[1], value: 1 },
+            { label: this.state.answerOptions[2], value: 2 }
         ]
 
         if (this.state.page === 'Confirm') {
@@ -316,10 +323,13 @@ class Quiz extends React.Component {
             return ( // Render the quiz content to the screen
                 // @author Dion: React native rendering of Quiz
                 <View style={styles.container}>
-                    <Text>{"Time: " + this.state.timer} </Text>
-                    <Text>{"Question" + this.state.questionId + "of" + this.questions.length} </Text>
-                    <Text>{this.state.question} </Text>
-
+                    <Text style = {styles.text}>{"Time: " + this.state.timer} </Text>
+                    <Text style = {styles.text}>{"Question " + this.state.questionId + " of " + this.questions.length} </Text>
+                    <Text onLayout={this.onLayout} style = {styles.text} >{this.state.question} </Text>
+                    {
+                        this.count === 1 &&
+                        <Text>{""} </Text>
+                    }
                     {/* @author Dion:  triple radio button for answer options */}
                     <RadioForm
                         radio_props={this.radioProps}
@@ -332,6 +342,16 @@ class Quiz extends React.Component {
                             this.handleAnswerSelected(this.state.answerOptions[value]);
                         }}
                     />
+                    {/* // Dion: the following two blocks are to stop the radio buttons moving depending on0 coin or right / wrong etc */}
+                    {
+                        this.colour === 'red' && this.state.particles &&
+                        <Text style = {styles.block}>{""} </Text>
+                    }
+                    {
+                        !this.state.particles &&
+                        <Text style = {styles.block}>{""} </Text>
+                    }
+
                     {/* // Dion: if right answer render animated coin and number along with particles */}
                     {
                         this.colour === 'green' && this.state.particles &&
@@ -349,7 +369,7 @@ class Quiz extends React.Component {
                             numberOfParticles={44}
                             emissionRate={44}
                             interval={350}
-                            particleLife={300}
+                            particleLife={222}
                             direction={-90}
                             spread={333}
                             fromPosition={{ x: 150, y: 300 }}
@@ -373,15 +393,23 @@ class Quiz extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    title: {
-        fontSize: 30,
+    text: {
+        fontSize: 16,
         textAlign: 'center',
-        margin: 20,
-    }
+        margin: 5,
+        fontFamily: 'OpenSans',
+        lineHeight: 30,
+      },
+      block: {
+        fontSize: 45,
+        textAlign: 'center',
+        margin: 5,
+        fontFamily: 'OpenSans'
+      },
 });
 
 export default Quiz;
