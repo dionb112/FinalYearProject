@@ -31,6 +31,7 @@ export default class SplashScreen extends React.Component {
         <View style={styles.container}>
           <StatusBar />
           <Text>{''}</Text>
+          <Text>{''}</Text>
 
           {/* <TextInputSingleLine placeholderText={'What is your name?'} onTextChanged={(text) => this.setState({ name: text })} /> */}
           <Text>{''}</Text>

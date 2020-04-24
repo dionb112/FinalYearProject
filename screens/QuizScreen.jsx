@@ -8,7 +8,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Quiz from '../components/Quiz';
-import { Button } from 'react-native-elements';
+import ImageButton from '../components/ImageButton'
 
 
 export default class QuizScreen extends React.Component {
@@ -23,11 +23,8 @@ export default class QuizScreen extends React.Component {
     };
 
     // Bind this to the relevant functions that need to access it 
-    this.changeToHome = this.changeToHome.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
     this.changeToQuiz = this.changeToQuiz.bind(this);
-    this.changeToInfo = this.changeToInfo.bind(this);
-    this.leaveHome = this.leaveHome.bind(this);
   }
   
   //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center
@@ -118,31 +115,6 @@ export default class QuizScreen extends React.Component {
     }
   }
 
-  // /**
-  //  * This asynchronous function will execute an API call once the user changes the current page
-  //  * The purpose of this is so that we can track how often certain pages are visited
-  //  */
-  // async updatePageCount(event1, event2) {
-  //   try {
-  //     // Event1 is the user leaving their current page
-  //     // Event2 is the user entering the new page
-  //     const response = await fetch('/update_user_info', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         event1: event1,
-  //         event2: event2
-  //       })
-  //     });
-  //   }
-  //   catch (e) {
-  //     console.log('caught error', e);
-  //   }
-  // }
-
   renderQuiz() {
     //console.log(this.state.quizQuestions)
     if (this.state.quizQuestions.length > 0) {
@@ -158,26 +130,11 @@ export default class QuizScreen extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-        <Text>{"Quiz"}</Text>
+        <Text>{"Loading.."}</Text>
       </View>
       )
     }
   }
-
-  /**
-   * Function for changing pages to the home page 
-   */
-  changeToHome(messageEvent) {
-    // Message event is to let us know where the user is coming from ie Info or quiz page
-
-    this.setState({
-      page: "Home",
-      title: "Home",
-    });
-    // Call function that updates user events
-    // this.updatePageCount(messageEvent, "Enter Home Page");
-  }
-
 
   /**
    * Function for changing pages to the home page 
@@ -187,67 +144,21 @@ export default class QuizScreen extends React.Component {
       page: "Quiz",
       title: "Quiz"
     });
-
-    // Call function that updates user events
-    // this.updatePageCount("Leave Home Page", "Start Quiz");
-  }
-
-  /**
-   * Function for changing pages to the info page 
-   */
-  changeToInfo(messageEvent) {
-    // Message event is to let us know where the user is coming from ie home or result page
-
-    this.setState({
-      page: "Info",
-      title: "Information",
-    });
-
-    // Call function that updates user events
-    this.updatePageCount(messageEvent, "Enter Info Page ");
-  }
-
-
-  /**
-   * Function for rendering the Info page to the screen
-   */
-  renderInfoContent() {
-    return (
-      <View style={styles.container}>
-        {/* <Info
-        info={this.state.info}
-        personalInfo={this.state.personalInfo}
-        username={this.state.username}
-        infoSaved={this.state.infoSaved}
-        personalSave={this.state.personalSave}
-        button={this.changeToHome}
-        searchFunc={this.search}
-        deleteFunc={this.deleteFromPersonalisedInfo}
-        updateCount={this.updatePageCount}
-      /> */}
-      </View>
-    );
-  }
-
-  /**
-   * Function called when leaving home to go to the info page
-   * Purpose of this is to allow to send the message for our user data event
-   */
-  leaveHome(event) {
-    this.changeToInfo("Leave Home Page");
   }
 
   /**
    * Function for rendering the Home page to the screen
    */
   renderHome() {
-
     return (
       <View style={styles.container}>
-        <Button title="    Quiz    " onPress={this.changeToQuiz} />
+      <ImageButton
+          title="Start the Quiz when ready"
+          source={require('../assets/sprites/quiz.png')}
+          func={this.changeToQuiz} />
         <Text>{''}</Text>
-        <Button title="Information " onPress={this.leaveHome} />
-        {/* <Option symbol="fa fa-address-book fa-3x" side="option top" change={this.changeToSocialHub} /> */}
+        <Text>{''}</Text>
+        <Text>{''}</Text>
       </View>
     );
   }
@@ -262,9 +173,6 @@ export default class QuizScreen extends React.Component {
     }
     else if (this.state.page === "Quiz") {
       return this.renderQuiz();
-    }
-    else if (this.state.page === "Info") {
-      return this.renderInfoContent();
     }
   }
 

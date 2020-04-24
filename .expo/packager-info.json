@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 3488,
-  "expoServerNgrokUrl": "https://5n-g2f.anonymous.finalyearproject.exp.direct",
-  "packagerNgrokUrl": "https://packager.5n-g2f.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 7364,
+  "packagerPid": 7284,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002
 }

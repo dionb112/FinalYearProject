@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native'
 
+
 export default class ImageButton extends Button {
 
     static navigationOptions = {
@@ -12,6 +13,7 @@ export default class ImageButton extends Button {
             <TouchableOpacity style={styles.touchable} onPress={this.props.func}>
                 <Image source={this.props.source} />
                 <View>
+                <Text>{''}</Text>
                     <Text style={styles.text}>{this.props.title}</Text>
                 </View>
             </TouchableOpacity>
@@ -31,7 +33,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'OpenSans'
     },
     container: {
         flex: 1,

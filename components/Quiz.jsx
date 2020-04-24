@@ -114,7 +114,6 @@ class Quiz extends React.Component {
                 timer: 10
             })
         }
-
     }
 
     /**
