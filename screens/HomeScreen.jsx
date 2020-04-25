@@ -31,6 +31,7 @@ export default class HomeScreen extends React.Component {
     });
   }
 
+  ///TODO: Add visual elements for streak and streak keeper both in coin ans quiz screens
   streakCallback = (streakKeeper) => {
     this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
     this.setState({ streakKeeper: streakKeeper });

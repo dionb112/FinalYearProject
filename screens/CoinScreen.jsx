@@ -22,11 +22,12 @@ export default class CoinScreen extends React.Component {
     // do callback before state becuase state doesn't always update immidiately
     this.props.navigation.state.params.coinCallbackFromParent(this.state.coins - 100); 
     this.props.navigation.state.params.streakCallbackFromParent(true);
-    this.setState({
-      coins: this.state.coins - 100,
-      streakKeeper: true
-    })
-
+    if (this.state.coins >= 100) {
+      this.setState({
+        coins: this.state.coins - 100,
+        streakKeeper: true
+      })
+    }
   }
 
   render() {
