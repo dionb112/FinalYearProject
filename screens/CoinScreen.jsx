@@ -8,7 +8,9 @@ export default class CoinScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      fontLoaded: false
+      fontLoaded: false,
+      coins: this.props.navigation.state.params.coins,
+      streakKeeper: this.props.navigation.state.params.streakKeeper,
     }
   }
   
@@ -16,15 +18,27 @@ export default class CoinScreen extends React.Component {
     title: '                            Coin Corner             ',
   };
 
+  spend = () => {
+    // do callback before state becuase state doesn't always update immidiately
+    this.props.navigation.state.params.coinCallbackFromParent(this.state.coins - 100); 
+    this.props.navigation.state.params.streakCallbackFromParent(true);
+    this.setState({
+      coins: this.state.coins - 100,
+      streakKeeper: true
+    })
+
+  }
+
   render() {
+    console.log(this.state.streakKeeper + " Coin " + this.state.coins)
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{'This is the Coin Corner..'}</Text>
         <Text style = {styles.text}>{'Check collected coins here!'}</Text>
         <Coin />
-        <Text style = {styles.coin}>{this.props.navigation.state.params.coins}</Text>
+        <Text style = {styles.coin}>{this.state.coins}</Text>
         <Text style = {styles.coin}>{""}</Text>
-        <Button title="           100 Coins; 'in app bonus'            "  raised={true} />
+        <Button title="           100 Coins; Quiz Streakkeeper Bonus            "  raised={true} onPress={this.spend} />
         <Text style = {styles.coin}>{""}</Text>
         <Button title="    600 Coins; gluten free discount    " raised={true} />
         <Text style = {styles.coin}>{""}</Text>

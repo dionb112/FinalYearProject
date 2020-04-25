@@ -19,18 +19,22 @@ export default class QuizScreen extends React.Component {
     this.state = {
       page: '',
       title: "Home",
-      quizQuestions: []
+      quizQuestions: [],
+      streakKeeper: this.props.navigation.state.params.streakKeeper
     };
 
     // Bind this to the relevant functions that need to access it 
     this.componentWillMount = this.componentWillMount.bind(this);
     this.changeToQuiz = this.changeToQuiz.bind(this);
   }
-  
-  //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center
-  myCallback = (score) => {
+
+  //@author Dion: set up callbacks to retrieve score (and streakkeeper) from quiz to go back and forth as Coins (and bonus) in coin center
+  coinCallback = (score) => {
     //use dataFromChild
-    this.props.navigation.state.params.callbackFromParent(score);
+    this.props.navigation.state.params.coinCallbackFromParent(score);
+  }
+  streakCallback = (streakKeeper) => {
+    this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
   }
 
   /// @author Dion Buckley
@@ -64,22 +68,20 @@ export default class QuizScreen extends React.Component {
     ///
     try {
       // Makes api call
-      ///
       /// @author Dion Buckley
       /// Using Expo (which uses local host) the python server can no longer run off localhost but rather a static external ip
       ///
-      // Home
+        // Home
       const response = await fetch('http://192.168.0.62:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
-      // Hotspot 
+        // Hotspot 
       // const response = await fetch('http://192.168.43.169:5000/info');
-      // College through tethered  
-      //const response = await fetch('http://192.168.42.162:5000/info');
-      // Tethered home 
+        // College through tethered  
+      // const response = await fetch('http://192.168.42.162:5000/info');
+        // Tethered home 
       // const response = await fetch('http://192.168.42.227:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
       var quizQuestions = [] // Array to hold all quiz data
-
       var id = 1;
       for (var i = 0; i < this.infoReceived.length; i++) {
         // Loops through every info point
@@ -106,8 +108,8 @@ export default class QuizScreen extends React.Component {
       }
       // Stores all the info and quiz content received
       this.setState({
-        quizQuestions : quizQuestions
-         
+        quizQuestions: quizQuestions
+
       });
     }
     catch (e) {
@@ -116,6 +118,8 @@ export default class QuizScreen extends React.Component {
   }
 
   renderQuiz() {
+    console.log(this.state.streakKeeper + " QS " + this.state.coins)
+
     //console.log(this.state.quizQuestions)
     if (this.state.quizQuestions.length > 0) {
       return (
@@ -123,14 +127,18 @@ export default class QuizScreen extends React.Component {
           {/* Unused WebView component I created initially to use with Quiz */}
           {/* <QuizWebView/> */}
           {/* //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center */}
-          <Quiz questions={this.state.quizQuestions} callbackFromParent={this.myCallback} />
+          <Quiz 
+            questions={this.state.quizQuestions} 
+            coinCallbackFromParent={this.coinCallback} 
+            streakCallbackFromParent={this.streakCallback}
+            streakKeeper={this.state.streakKeeper} />
         </View>
       );
     } else {
       return (
         <View style={styles.container}>
-        <Text>{"Loading.."}</Text>
-      </View>
+          <Text>{"Loading.."}</Text>
+        </View>
       )
     }
   }
@@ -151,7 +159,7 @@ export default class QuizScreen extends React.Component {
   renderHome() {
     return (
       <View style={styles.container}>
-      <ImageButton
+        <ImageButton
           title="Start the Quiz when ready"
           source={require('../assets/sprites/quiz.png')}
           func={this.changeToQuiz} />

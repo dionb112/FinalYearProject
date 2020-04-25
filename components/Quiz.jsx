@@ -13,8 +13,8 @@ import Coin from '../components/Coin'
  * Updates each question and then renders the next question once current question is complete
  */
 class Quiz extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             counter: 0,
@@ -29,11 +29,11 @@ class Quiz extends React.Component {
             timer: 10,
             particles: false,
             score: 0,
-            currentScore: 0
+            currentScore: 0,
+            streakKeeper: this.props.streakKeeper
         };
 
         // Bind this to all neccesary function
-        this.returnToHome = this.returnToHome.bind(this);
         this.tick = this.tick.bind(this);
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
         this.changeToQuiz = this.changeToQuiz.bind(this);
@@ -43,12 +43,14 @@ class Quiz extends React.Component {
         this.incorrectColour = 'red';
         this.colour = this.correctColour;
 
+        // @author Dion: for use in hot streak of Qs answered in a row
+        this.streak = 0;
+        this.callbacksDone = false;
 
         this.quizReceived = []; // An array to store all possible questions
         this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
         this.radioProps = [];
-
     }
 
     /**
@@ -62,7 +64,7 @@ class Quiz extends React.Component {
      * Sets up questions for the quiz
      */
     setUpQuiz() {
-        console.log(this.props.questions);
+        // console.log(this.props.questions);
         this.quizReceived = this.props.questions;
 
         // Shuffle all questions
@@ -87,15 +89,12 @@ class Quiz extends React.Component {
      * Function for decrementing the timer, this function gets called once a second
      */
     tick() {
-
         var time = this.state.timer; // Gets current time
-
         // Decrements it and sets it to be the current value of the timer
         time--;
         this.setState({
             timer: time
         })
-
         {
             // @author Dion: Instead of directly turning of particles at new question give a second to breathe
             time === 9 &&
@@ -103,8 +102,6 @@ class Quiz extends React.Component {
                     particles: false
                 })
         }
-
-
         // If timer has reached 0, set question to be over
         if (time <= 0) {
             this.timeout();
@@ -143,7 +140,6 @@ class Quiz extends React.Component {
     changeToQuiz() {
         // Sets up tick function so it gets called once a second
         this.intervalHandle = setInterval(this.tick, 1000);
-
         // Sets the page to be displayed to be the quiz page
         this.setState((state) => ({
             page: 'Quiz'
@@ -160,7 +156,6 @@ class Quiz extends React.Component {
             // Calls function that will post to the database what event the user has caused
             //this.props.updateCount("Leave Quiz", "Enter Result Page");
         }
-
         // Set page to be displayed to be the results page 
         this.setState((state) => ({
             page: 'Result',
@@ -171,36 +166,38 @@ class Quiz extends React.Component {
      * Function for setting answer to current question to be the answer the user just selected
      */
     setUserAnswer(answer) {
-
+        var multiplier = 10;
         // Sets answer to be selected answer
         this.setState((state) => ({
             answer: answer
         }));
-
-        console.log(answer)
-        console.log(this.state.correct)
-
         // Checks to see if answer is correct
         if (answer == this.state.correct) {
-
+            this.streak++;
+            if (this.streak >= 3) {
+                multiplier = 20
+            } else if (this.streak >= 6) {
+                multiplier = 40
+            }
             // If so, display green particles, increase score and the correct answer count
             this.colour = this.correctColour;
-            //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center
-            { this.props.callbackFromParent(this.state.score + (10 * this.state.timer)) }
             this.setState((state) => ({
                 answersCount: state.answersCount + 1,
-                score: state.score + (10 * state.timer),
-                currentScore: (10 * state.timer) // Dion: authored to display coins earned
+                score: state.score + (multiplier * state.timer),
+                /// @author Dion: to display coins earned giving instant gamified feedback
+                currentScore: (multiplier * state.timer)
             }));
-
         }
         else {
+            ///@author Dion: gamified streak keeper to spend coins on and see benefits in quiz.
+            if (!this.state.streakKeeper) {
+                this.streak = 0; // TODO: implement bought streak keeper BONUS passed down from Coin Corner navigator props
+            } else {
+                this.setState({streakKeeper: false}) // One time use item
+            }
             // If not, display red particles and add question title to array of questions that were answered incorrectly
             this.colour = this.incorrectColour;
             var category = this.questions[this.state.counter].category;
-
-            // Call function that handles appending relevant info point to personalised page
-            //this.props.append(category[0], true);
         }
     }
 
@@ -212,24 +209,30 @@ class Quiz extends React.Component {
         const counter = this.state.counter + 1;
         const questionId = this.state.questionId + 1;
 
-
-        //this.props.updateCount("Finish question " + (counter - 1), "Start question " + counter);
-
         // Assign all question values to be the next questions values
-        this.setState({
-            counter: counter,
-            questionId: questionId,
-            question: this.questions[counter].question,
-            correct: this.questions[counter].correct,
-            answerOptions: this.questions[counter].answers,
-            answer: '',
-        });
+        if (this.questions[counter] != undefined) { // null check when spamming quez to ensure it doesnt read empty value
+            this.setState({
+                counter: counter,
+                questionId: questionId,
+                question: this.questions[counter].question,
+                correct: this.questions[counter].correct,
+                answerOptions: this.questions[counter].answers,
+                answer: '',
+            });
+        }
     }
 
     /**
      * Function that returns how many answers were answered correctly
      */
     getResults() {
+        //@author Dion: set up callbacks to retrieve score from quiz upon end and display as Coins in coin center
+        // do callbacks only once to prevent exponential coin addition further along
+        if (!this.callbacksDone) {
+            { this.props.coinCallbackFromParent(this.state.score) }
+            { this.props.streakCallbackFromParent(this.state.streakKeeper) } //similarly check the state of the streakkeeper bonus
+            this.callbacksDone = true;
+        } 
         var amount = this.state.answersCount;
         return amount;
     }
@@ -283,15 +286,10 @@ class Quiz extends React.Component {
             setTimeout(() => this.setResults(this.getResults()), 300);
         }
     }
-    /**
-     * Function for returning back to the home page
-     */
-    returnToHome(event) {
-        // Calls on fuction that sets home page to be rendered
-        // The message it's passing lets the application know where the user is coming from
-        // this.props.button("Leave Quiz");
-    }
 
+    //@author Dion: this is an onLayout function which goes in tandem with the wuestion text object below
+    // When that text is updated for each question this function is called and we do some quick calculations on how many lines of text
+    // That question now occupies so we can adjust below how many blocks to put - all in effort to stop the radio buttons moving too much
     onLayout = e => {
         const { height } = e.nativeEvent.layout;
         this.count = Math.floor(height / styles.text.lineHeight);
@@ -304,7 +302,7 @@ class Quiz extends React.Component {
      * Function for rendering all relevant quiz content to the screen
      */
     render() {
-        console.log("Score:" + this.state.score)
+        console.log(this.state.streakKeeper + " Quiz " + this.state.score)
 
         /// @author Dion Buckley: for radio button
         this.radioProps = [
@@ -312,7 +310,6 @@ class Quiz extends React.Component {
             { label: this.state.answerOptions[1], value: 1 },
             { label: this.state.answerOptions[2], value: 2 }
         ]
-
         if (this.state.page === 'Confirm') {
             /// @author Dion Buckley
             /// Simply change to quiz here (outside of Component mount)
@@ -323,9 +320,9 @@ class Quiz extends React.Component {
             return ( // Render the quiz content to the screen
                 // @author Dion: React native rendering of Quiz
                 <View style={styles.container}>
-                    <Text style = {styles.text}>{"Time: " + this.state.timer} </Text>
-                    <Text style = {styles.text}>{"Question " + this.state.questionId + " of " + this.questions.length} </Text>
-                    <Text onLayout={this.onLayout} style = {styles.text} >{this.state.question} </Text>
+                    <Text style={styles.text}>{"Time: " + this.state.timer} </Text>
+                    <Text style={styles.text}>{"Question " + this.state.questionId + " of " + this.questions.length} </Text>
+                    <Text onLayout={this.onLayout} style={styles.text} >{this.state.question} </Text>
                     {
                         this.count === 1 &&
                         <Text>{""} </Text>
@@ -345,11 +342,11 @@ class Quiz extends React.Component {
                     {/* // Dion: the following two blocks are to stop the radio buttons moving depending on0 coin or right / wrong etc */}
                     {
                         this.colour === 'red' && this.state.particles &&
-                        <Text style = {styles.block}>{""} </Text>
+                        <Text style={styles.block}>{""} </Text>
                     }
                     {
                         !this.state.particles &&
-                        <Text style = {styles.block}>{""} </Text>
+                        <Text style={styles.block}>{""} </Text>
                     }
 
                     {/* // Dion: if right answer render animated coin and number along with particles */}
@@ -403,13 +400,13 @@ const styles = StyleSheet.create({
         margin: 5,
         fontFamily: 'OpenSans',
         lineHeight: 30,
-      },
-      block: {
+    },
+    block: {
         fontSize: 45,
         textAlign: 'center',
         margin: 5,
         fontFamily: 'OpenSans'
-      },
+    },
 });
 
 export default Quiz;

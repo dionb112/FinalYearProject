@@ -12,7 +12,8 @@ export default class SplashScreen extends React.Component {
     this.state = {
       fontLoaded: false,
       name: '',
-      coins: 0
+      coins: 0,
+      streakKeeper: false
     }
   }
 
@@ -20,12 +21,22 @@ export default class SplashScreen extends React.Component {
     title: '                    We are Gluten Free            ',
   };
 
-  myCallback = (coins) => {
-    this.setState({ coins: coins });
+  coinCallback = (coins) => {
+    this.setState({
+      coins: coins,
+    });
+  }
+
+  streakCallback = (streakKeeper) => {
+    this.setState({
+      streakKeeper: streakKeeper
+    });
   }
 
 
   render() {
+    console.log(this.state.streakKeeper + " Splash " + this.state.coins)
+
     if (this.state.fontLoaded) {
       return (
         <View style={styles.container}>
@@ -38,9 +49,9 @@ export default class SplashScreen extends React.Component {
           <Text>{''}</Text>
 
           <ImageButton
-          title="Start by saying NO to Gluten"
-          source={require('../assets/sprites/splash.png')}
-          func={this._showApp} />
+            title="Start by saying NO to Gluten"
+            source={require('../assets/sprites/splash.png')}
+            func={this._showApp} />
           <Text>{''}</Text>
         </View>
       );
@@ -50,8 +61,14 @@ export default class SplashScreen extends React.Component {
     }
   }
 
+  // This is how we can pass props through the navigator
   _showApp = (text) => {
-    this.props.navigation.navigate('Home', { coins: this.state.coins, callbackFromParent: this.myCallback });
+    this.props.navigation.navigate('Home', {
+      coins: this.state.coins,
+      streakKeeper: this.state.streakKeeper,
+      coinCallbackFromParent: this.coinCallback,
+      streakCallbackFromParent: this.streakCallback
+    });
   };
 
   // custom fonts

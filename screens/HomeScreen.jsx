@@ -8,6 +8,7 @@ export default class HomeScreen extends React.Component {
     super(props)
     this.state = {
       coins: this.props.navigation.state.params.coins,
+      streakKeeper: this.props.navigation.state.params.streakKeeper,
     }
   }
 
@@ -15,12 +16,28 @@ export default class HomeScreen extends React.Component {
     title: '             Coeliac Knowledge Centre            ',
   };
 
-  myCallback = (coins) => {
-    this.props.navigation.state.params.callbackFromParent(coins);
-    this.setState({ coins: coins });
+  coinsCallbackForCoinScreen = (coins) => {
+    this.props.navigation.state.params.coinCallbackFromParent(coins);
+    this.setState({
+      coins: coins
+    });
+  }
+
+  //addition variant
+  coinsCallbackForQuizScreen = (coins) => {
+    this.props.navigation.state.params.coinCallbackFromParent(coins);
+    this.setState({
+      coins: this.state.coins + coins
+    });
+  }
+
+  streakCallback = (streakKeeper) => {
+    this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
+    this.setState({ streakKeeper: streakKeeper });
   }
 
   render() {
+    console.log(this.state.streakKeeper + " Home " + this.state.coins)
     return (
       <View style={styles.container}>
         <StatusBar />
@@ -42,11 +59,20 @@ export default class HomeScreen extends React.Component {
   };
 
   _showQuiz = () => {
-    this.props.navigation.navigate('Quiz', { coins: this.state.coins, callbackFromParent: this.myCallback });
+    this.props.navigation.navigate('Quiz', {
+      streakKeeper: this.state.streakKeeper,
+      coinCallbackFromParent: this.coinsCallbackForQuizScreen,
+      streakCallbackFromParent: this.streakCallback
+    });
   };
 
   _showCoins = () => {
-    this.props.navigation.navigate('Coins', { coins: this.state.coins });
+    this.props.navigation.navigate('Coins', {
+      coins: this.state.coins,
+      streakKeeper: this.state.streakKeeper,
+      coinCallbackFromParent: this.coinsCallbackForCoinScreen,
+      streakCallbackFromParent: this.streakCallback
+    });
   };
 
 }
