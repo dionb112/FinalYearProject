@@ -63,19 +63,21 @@ class Quiz extends React.Component {
 
     componentDidMount() {
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-            Alert.alert(
-                'Are you sure you want to quit quiz',
-                'You will lose all progress',
-                [
-                    { text: 'Quit', onPress: () => this.props.navigator.goBack() },
-                    {
-                        text: 'Cancel',
-                        style: 'cancel',
-                    },
-                ],
-                { cancelable: true },
-            );
-            return true;
+            if (this.state.page === "Quiz") {
+                Alert.alert(
+                    'Are you sure you want to quit quiz',
+                    'You will lose all progress',
+                    [
+                        { text: 'Quit', onPress: () => this.props.navigator.goBack() },
+                        {
+                            text: 'Cancel',
+                            style: 'cancel',
+                        },
+                    ],
+                    { cancelable: true },
+                );
+                return true;
+            }
         });
     }
 
