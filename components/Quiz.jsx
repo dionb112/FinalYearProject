@@ -339,7 +339,7 @@ class Quiz extends React.Component {
                             this.handleAnswerSelected(this.state.answerOptions[value]);
                         }}
                     />
-                    {/* // Dion: the following two blocks are to stop the radio buttons moving depending on0 coin or right / wrong etc */}
+                    {/* // Dion: the following two blocks are to stop the radio buttons moving depending on coin or right / wrong etc */}
                     {
                         this.colour === 'red' && this.state.particles &&
                         <Text style={styles.block}>{""} </Text>

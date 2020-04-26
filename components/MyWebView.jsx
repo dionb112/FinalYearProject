@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
-import { StyleSheet, Image, Text, View, Dimensions } from 'react-native';
-// import { AssetUtils } from 'expo-asset-utils';
+import { ActivityIndicator, StyleSheet, Image, Text, View, Dimensions } from 'react-native';
 
 
 /// Attempt to load the uri asynrounsly in hopes of serving the correct bundle : (
 export default class MyWeb extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { visible: true };
+  }
   async getQuiz(webViewSource) {
     console.log(webViewSource);
     try {
@@ -18,46 +21,56 @@ export default class MyWeb extends Component {
     }
   }
 
+  hideSpinner() {
+    this.setState({ visible: false });
+  }
+
+
   render() {
     /// failed attemps to load the quiz and build through web view
     //const webViewSource = { html: require('../assets/index.js') () };
     //const source = require('../assets/public/index.html');
     //const webViewSource = this.getQuiz(source);
 
-    const { width } = Dimensions.get('window');
+    const { width, height } = Dimensions.get('window');
     return (
       <View style={styles.container}>
-        <Text>{'Hi'}</Text>
         <WebView
+          onLoad={() => this.hideSpinner()}
           allowFileAccess={true}
           style={{ width, height: "100%" }}
           originWhitelist={['*']}
+          // Now used as a way to link to gip stick purchase - later for discount hopefully
+          source={{ uri: 'https://glutendetect.es/en/#buy' }}
 
+          //previously was setup to load Peter's Quiz dynamically (would have saved a lot of trouble but unavailable offline in that case)
+          // source= {{uri: 'http://34.246.173.61:3000/'}} // if the server is started the quiz can be loaded here responsively!
           //Loading html file from project folder
           //  source={ require('../assets/public/test.html') }
-
-          source= {{uri: 'http://34.246.173.61:3000/'}} // if the server is started the quiz can be loaded here responsively!
 
           // This one goes through all the way and asks for missing packages
           // After installing all dependencies loops back around to this require
           // Saying that something is wrong in the dependecy bundle
           //    source={{ html: require('../assets/index.js') () }}
-
           // attempt to serve the app through a boot.js
           // source={{ html: require('../assets/public/boot.js')() }}
-
 
           useWebKit
           allowUniversalAccessFromFileURLs={true}
           allowFileAccessFromFileURLs={true}
           loadWithOverviewMode={true}
           useWideViewPort={true}
-          //Enable Javascript support
           javaScriptEnabled={true}
+          mixedContentMode="always"
           //For the Cache
           domStorageEnabled={true}
-          mixedContentMode="always"
         />
+        {this.state.visible &&
+          <ActivityIndicator
+            style={{ position: "absolute", top: height / 2 }}
+            size="large"
+          />
+        }
       </View>
     );
   }

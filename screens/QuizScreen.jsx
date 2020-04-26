@@ -6,11 +6,11 @@
 /// The specific lines and functions I added (apart from obvios file structure like imports and class defintion) I will tag as my own
 
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, View, Text, Dimensions } from 'react-native';
 import Quiz from '../components/Quiz';
 import ImageButton from '../components/ImageButton'
 
-
+const { height } = Dimensions.get('window');
 export default class QuizScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -71,13 +71,13 @@ export default class QuizScreen extends React.Component {
       /// @author Dion Buckley
       /// Using Expo (which uses local host) the python server can no longer run off localhost but rather a static external ip
       ///
-        // Home
+      // Home
       const response = await fetch('http://192.168.0.62:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
-        // Hotspot 
+      // Hotspot 
       // const response = await fetch('http://192.168.43.169:5000/info');
-        // College through tethered  
+      // College through tethered  
       // const response = await fetch('http://192.168.42.162:5000/info');
-        // Tethered home 
+      // Tethered home 
       // const response = await fetch('http://192.168.42.227:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
@@ -127,9 +127,9 @@ export default class QuizScreen extends React.Component {
           {/* Unused WebView component I created initially to use with Quiz */}
           {/* <QuizWebView/> */}
           {/* //@author Dion: set up callbacks to retrieve score from quiz and display as Coins in coin center */}
-          <Quiz 
-            questions={this.state.quizQuestions} 
-            coinCallbackFromParent={this.coinCallback} 
+          <Quiz
+            questions={this.state.quizQuestions}
+            coinCallbackFromParent={this.coinCallback}
             streakCallbackFromParent={this.streakCallback}
             streakKeeper={this.state.streakKeeper} />
         </View>
@@ -137,11 +137,15 @@ export default class QuizScreen extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Text>{"Loading.."}</Text>
+        <ActivityIndicator
+            style={{ position: "absolute", top: height / 2 }}
+            size="large"
+          />
         </View>
       )
     }
   }
+
 
   /**
    * Function for changing pages to the home page 
@@ -149,7 +153,7 @@ export default class QuizScreen extends React.Component {
   changeToQuiz(event) {
     this.setState({
       page: "Quiz",
-      title: "Quiz"
+      title: "Quiz",
     });
   }
 
@@ -159,6 +163,12 @@ export default class QuizScreen extends React.Component {
   renderHome() {
     return (
       <View style={styles.container}>
+        <Text>{''}</Text>
+        <Text>{''}</Text>
+        {
+          this.state.streakKeeper &&
+          <Image source={require("../assets/sprites/fuel.png")} top={-20} marginBottom={1} />
+        }
         <ImageButton
           title="Start the Quiz when ready"
           source={require('../assets/sprites/quiz.png')}

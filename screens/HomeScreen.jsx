@@ -31,7 +31,8 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  ///TODO: Add visual elements for streak and streak keeper both in coin ans quiz screens
+  ///TODO: Add visual elements for streak and streak keeper both in coin ans quiz screens.
+  // Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
   streakCallback = (streakKeeper) => {
     this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
     this.setState({ streakKeeper: streakKeeper });
@@ -43,7 +44,9 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <StatusBar />
         <Text>{''}</Text>
+        <Text>{''}</Text>
         <Text style={styles.title}>{'Welcome to the centre!'}</Text>
+        <Text>{''}</Text>
         <Image source={require('../assets/sprites/penguin-md.png')} />
         <Text>{''}</Text>
         <Button title="             Video Vault              " onPress={this._showVideos} raised={true} />

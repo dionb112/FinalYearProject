@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, } from 'react-native';
+import { Image, StyleSheet, View, Text, } from 'react-native';
 import Coin from '../components/Coin'
 import { Button } from 'react-native-elements';
+import MyWebView from '../components/MyWebView';
 
 
 export default class CoinScreen extends React.Component {
@@ -11,18 +12,19 @@ export default class CoinScreen extends React.Component {
       fontLoaded: false,
       coins: this.props.navigation.state.params.coins,
       streakKeeper: this.props.navigation.state.params.streakKeeper,
+      page: 'Coin'
     }
   }
-  
+
   static navigationOptions = {
     title: '                            Coin Corner             ',
   };
 
   spend = () => {
-    // do callback before state becuase state doesn't always update immidiately
-    this.props.navigation.state.params.coinCallbackFromParent(this.state.coins - 100); 
-    this.props.navigation.state.params.streakCallbackFromParent(true);
-    if (this.state.coins >= 100) {
+    if (this.state.coins >= 100 && !this.streakKeeper) {
+      // do callback before state becuase state doesn't always update immidiately
+      this.props.navigation.state.params.coinCallbackFromParent(this.state.coins - 100);
+      this.props.navigation.state.params.streakCallbackFromParent(true);
       this.setState({
         coins: this.state.coins - 100,
         streakKeeper: true
@@ -30,22 +32,37 @@ export default class CoinScreen extends React.Component {
     }
   }
 
+  // use webview again woo!
+  web = () => {
+    this.setState({page: 'Web'})
+  }
+
   render() {
     console.log(this.state.streakKeeper + " Coin " + this.state.coins)
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>{'This is the Coin Corner..'}</Text>
-        <Text style = {styles.text}>{'Check collected coins here!'}</Text>
-        <Coin />
-        <Text style = {styles.coin}>{this.state.coins}</Text>
-        <Text style = {styles.coin}>{""}</Text>
-        <Button title="           100 Coins; Quiz Streakkeeper Bonus            "  raised={true} onPress={this.spend} />
-        <Text style = {styles.coin}>{""}</Text>
-        <Button title="    600 Coins; gluten free discount    " raised={true} />
-        <Text style = {styles.coin}>{""}</Text>
-        <Button title="    1200 Coins; gip stick discount       "  raised={true} />
-      </View>
-    );
+    if (this.state.page === 'Coin') {
+      return (
+        <View style={styles.container}>
+          {
+            this.state.streakKeeper &&
+            <Image source={require("../assets/sprites/fuel.png")} top={-95} marginBottom={-64} />
+          }
+          <Text style={styles.title}>{'This is the Coin Corner..'}</Text>
+          <Text style={styles.text}>{'Check collected coins here!'}</Text>
+          <Coin />
+          <Text style={styles.coin}>{this.state.coins}</Text>
+          <Text style={styles.coin}>{""}</Text>
+          <Button title="          100 Coins; Fire Streak Fuel          " raised={true} onPress={this.spend} />
+          <Text style={styles.coin}>{""}</Text>
+          <Button title="    1200 Coins; gip stick discount       " raised={true} onPress={this.web} />
+        </View>
+      );
+    } else if (this.state.page === 'Web') {
+      return (
+        <View style={styles.container}>
+          <MyWebView />
+        </View>
+      );
+    }
   }
 }
 
