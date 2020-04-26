@@ -21,7 +21,7 @@ export default class CoinScreen extends React.Component {
   };
 
   spend = () => {
-    if (this.state.coins >= 0 && !this.streakKeeper) {
+    if (this.state.coins >= 100 && !this.state.streakKeeper) {
       // do callback before state becuase state doesn't always update immidiately
       this.props.navigation.state.params.coinCallbackFromParent(this.state.coins - 100);
       this.props.navigation.state.params.streakCallbackFromParent(true);

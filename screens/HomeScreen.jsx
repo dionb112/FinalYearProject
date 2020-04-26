@@ -32,7 +32,6 @@ export default class HomeScreen extends React.Component {
   }
 
   ///TODO: Add visual elements for streak and streak keeper both in coin ans quiz screens.
-  // Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
   streakCallback = (streakKeeper) => {
     this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
     this.setState({ streakKeeper: streakKeeper });

@@ -131,15 +131,16 @@ export default class QuizScreen extends React.Component {
             questions={this.state.quizQuestions}
             coinCallbackFromParent={this.coinCallback}
             streakCallbackFromParent={this.streakCallback}
-            streakKeeper={this.state.streakKeeper} />
+            streakKeeper={this.state.streakKeeper}
+            navigator={this.props.navigation} />
         </View>
       );
     } else {
       return (
         <View style={styles.container}>
         <ActivityIndicator
-            style={{ position: "absolute", top: height / 2 }}
-            size={42}
+            style={{ position: "absolute" }}
+            size= {Platform.OS === 'android' ? 100 : 'large'} // only android support number passing here
           />
         </View>
       )

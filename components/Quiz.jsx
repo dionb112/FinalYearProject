@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, StatusBar, StyleSheet, View, Text, Image } from 'react-native';
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
-// import Option from '../components/Option';
+import {
+    Alert, StyleSheet, View, Text, Image, BackHandler
+} from 'react-native';
+import RadioForm from 'react-native-simple-radio-button';
 import { Emitter } from 'react-native-particles';
 import Coin from '../components/Coin'
-
 
 
 /**
@@ -31,6 +31,9 @@ class Quiz extends React.Component {
             score: 0,
             currentScore: 0,
             streakKeeper: this.props.streakKeeper,
+            // Icons made by:
+            //<a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
+            //from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
             red: require("../assets/sprites/fire.png"),
             blue: require("../assets/sprites/blue.png"),
         };
@@ -55,6 +58,29 @@ class Quiz extends React.Component {
         this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
         this.radioProps = [];
+    }
+
+
+    componentDidMount() {
+        this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+            Alert.alert(
+                'Are you sure you want to quit quiz',
+                'You will lose all progress',
+                [
+                    { text: 'Quit', onPress: () => this.props.navigator.goBack() },
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                ],
+                { cancelable: true },
+            );
+            return true;
+        });
+    }
+
+    componentWillUnmount() {
+        this.backHandler.remove();
     }
 
     /**

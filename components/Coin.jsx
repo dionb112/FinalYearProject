@@ -17,7 +17,7 @@ export default class Coin extends React.Component {
         this.coin = {};
         this.config = {
             type: 'spin', // (required) name of the animation (name is specified as a key in the animation prop)
-            fps: 24, // frames per second
+            fps: 14, // frames per second
             loop: true, // if true, replays animation after it finishes
             resetAfterFinish: true, // if true, the animation will reset back to the first frame when finished; else will remain on the last frame when finished
             // onFinish = () => { } // called when the animation finishes; will not work when loop === true

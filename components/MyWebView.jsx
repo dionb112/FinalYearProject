@@ -67,8 +67,8 @@ export default class MyWeb extends Component {
         />
         {this.state.visible &&
           <ActivityIndicator
-            style={{ position: "absolute", top: height / 2 }}
-            size="large"
+            style={{ position: "absolute"}}
+            size= {Platform.OS === 'android' ? 100 : 'large'} // only android support number passing here
           />
         }
       </View>
