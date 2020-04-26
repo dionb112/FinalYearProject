@@ -1,6 +1,6 @@
 {
   "urlRandomness": "ry-xem",
-  "hostType": "localhost",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,

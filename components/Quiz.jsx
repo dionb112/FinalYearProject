@@ -30,7 +30,9 @@ class Quiz extends React.Component {
             particles: false,
             score: 0,
             currentScore: 0,
-            streakKeeper: this.props.streakKeeper
+            streakKeeper: this.props.streakKeeper,
+            red: require("../assets/sprites/fire.png"),
+            blue: require("../assets/sprites/blue.png"),
         };
 
         // Bind this to all neccesary function
@@ -46,6 +48,8 @@ class Quiz extends React.Component {
         // @author Dion: for use in hot streak of Qs answered in a row
         this.streak = 0;
         this.callbacksDone = false;
+        this.source = this.state.red;
+
 
         this.quizReceived = []; // An array to store all possible questions
         this.questionsString = ""; // An array to store the questions that will be on this quiz
@@ -166,17 +170,20 @@ class Quiz extends React.Component {
      * Function for setting answer to current question to be the answer the user just selected
      */
     setUserAnswer(answer) {
-        var multiplier = 10;
+        var multiplier = 10;// Dion: added multiple var so that streak can affect
         // Sets answer to be selected answer
         this.setState((state) => ({
             answer: answer
         }));
         // Checks to see if answer is correct
         if (answer == this.state.correct) {
+            //@author Dion: gamified streaks
             this.streak++;
-            if (this.streak >= 3) {
+            if (this.streak >= 3 && this.streak < 6) {
+                this.source = this.state.red;
                 multiplier = 20
             } else if (this.streak >= 6) {
+                this.source = this.state.blue;
                 multiplier = 40
             }
             // If so, display green particles, increase score and the correct answer count
@@ -190,10 +197,10 @@ class Quiz extends React.Component {
         }
         else {
             ///@author Dion: gamified streak keeper to spend coins on and see benefits in quiz.
-            if (!this.state.streakKeeper) {
+            if (!this.state.streakKeeper || this.streak < 3) {
                 this.streak = 0; // TODO: implement bought streak keeper BONUS passed down from Coin Corner navigator props
-            } else {
-                this.setState({streakKeeper: false}) // One time use item
+            } else if (this.streak >= 3) {
+                this.setState({ streakKeeper: false }) // One time use item
             }
             // If not, display red particles and add question title to array of questions that were answered incorrectly
             this.colour = this.incorrectColour;
@@ -232,7 +239,7 @@ class Quiz extends React.Component {
             { this.props.coinCallbackFromParent(this.state.score) }
             { this.props.streakCallbackFromParent(this.state.streakKeeper) } //similarly check the state of the streakkeeper bonus
             this.callbacksDone = true;
-        } 
+        }
         var amount = this.state.answersCount;
         return amount;
     }
@@ -320,6 +327,10 @@ class Quiz extends React.Component {
             return ( // Render the quiz content to the screen
                 // @author Dion: React native rendering of Quiz
                 <View style={styles.container}>
+                    {
+                        this.state.streakKeeper &&
+                        <Image source={require("../assets/sprites/fuel.png")} top={-20} marginBottom={1} />
+                    }
                     <Text style={styles.text}>{"Time: " + this.state.timer} </Text>
                     <Text style={styles.text}>{"Question " + this.state.questionId + " of " + this.questions.length} </Text>
                     <Text onLayout={this.onLayout} style={styles.text} >{this.state.question} </Text>
@@ -374,6 +385,12 @@ class Quiz extends React.Component {
                             <Image source={require('../assets/sprites/flare.png')} tintColor={this.colour} />
                         </Emitter>
                     }
+                    <Text>{""} </Text>
+                    <View>
+                        {this.streak >= 3 &&
+                            <Image source={this.source} top={-20} marginBottom={1} />
+                        }
+                    </View>
                 </View>
             );
         }

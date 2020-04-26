@@ -139,7 +139,7 @@ export default class QuizScreen extends React.Component {
         <View style={styles.container}>
         <ActivityIndicator
             style={{ position: "absolute", top: height / 2 }}
-            size="large"
+            size={42}
           />
         </View>
       )
