@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import * as Font from 'expo-font'
 import TextInputSingleLine from '../components/TextInputSingleLine'
 import ImageButton from '../components/ImageButton'
+import { Audio } from 'expo-av';
 
 
 export default class SplashScreen extends React.Component {
@@ -15,11 +16,26 @@ export default class SplashScreen extends React.Component {
       coins: 0,
       streakKeeper: false
     }
+    this.load()
+    global.playbackObject;
   }
 
   static navigationOptions = {
     title: '                    We are Gluten Free            ',
   };
+
+  async load() {
+    soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('../assets/sounds/jazz.wav'));
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async play() {
+    await soundObject.playAsync();
+  }
 
   coinCallback = (coins) => {
     this.setState({
@@ -64,6 +80,7 @@ export default class SplashScreen extends React.Component {
 
   // This is how we can pass props through the navigator
   _showApp = (text) => {
+    this.play();
     this.props.navigation.navigate('Home', {
       coins: this.state.coins,
       streakKeeper: this.state.streakKeeper,
