@@ -25,7 +25,7 @@ class Quiz extends React.Component {
             answer: '',
             answersCount: 0,
             result: -1,
-            page: 'Confirm',
+            page: 'Result',
             timer: 10,
             particles: false,
             score: 0,
@@ -368,6 +368,7 @@ class Quiz extends React.Component {
                     }
                     {/* @author Dion:  triple radio button for answer options */}
                     <RadioForm
+                    style = {styles.text}
                         radio_props={this.radioProps}
                         initial={-1}
                         labelHorizontal={true}
@@ -418,15 +419,32 @@ class Quiz extends React.Component {
                         {this.streak >= 3 &&
                             <Image source={this.source} top={-20} marginBottom={1} />
                         }
+                        {
+                            this.streak < 3 &&
+                            <Text style={styles.block2}>{""} </Text>
+                        }
                     </View>
                 </View>
             );
         }
         else if (this.state.page === 'Result') { // If user is on the results screen
+            var note = "";
+            if (this.state.result > 0 && this.state.result < 5) {
+                note = "Nice try, I know you can do even better next time!"
+            } else if (this.state.result >= 5 && this.state.result < 10) {
+                note = "Very nice, let's push this just a little further!"
+            } else if (this.state.result >= 10) {
+                note = "Wow! You walk the path towards becoming a master here!"
+            } else {
+                note = "Keep trying and check out the video vault when stuck!"
+            }
             return ( // Render all the results content
                 <View style={styles.container}>
-                    <Text>{"You answered: " + this.state.result + " questions correctly, nice try!"}</Text>
-                    <Text>{"You have earned: " + this.state.score + " gold coins!"}</Text>
+                    <Text style = {styles.text}>{"You answered: " + this.state.result + " questions correctly"}</Text>
+                    <Text style = {styles.text}>{"Earning you: " + this.state.score + " gold coins!"}</Text>
+                    <Text style = {styles.text}>{note}</Text>
+                    <Text style = {styles.text}>{"Why don't you go back and check out Coin Corner?"}</Text>
+                    <Text>{""} </Text>
                 </View>
             );
         }
@@ -448,6 +466,12 @@ const styles = StyleSheet.create({
     },
     block: {
         fontSize: 45,
+        textAlign: 'center',
+        margin: 5,
+        fontFamily: 'OpenSans'
+    },
+    block2: {
+        fontSize: 90,
         textAlign: 'center',
         margin: 5,
         fontFamily: 'OpenSans'
