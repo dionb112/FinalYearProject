@@ -25,7 +25,7 @@ class Quiz extends React.Component {
             answer: '',
             answersCount: 0,
             result: -1,
-            page: 'Result',
+            page: 'Confirm',
             timer: 10,
             particles: false,
             score: 0,
@@ -65,8 +65,8 @@ class Quiz extends React.Component {
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
             if (this.state.page === "Quiz") {
                 Alert.alert(
-                    'Are you sure you want to quit quiz',
-                    'You will lose all progress',
+                    'Are you sure you want to quit Quiz?',
+                    'Think of the coin..',
                     [
                         { text: 'Quit', onPress: () => this.props.navigator.goBack() },
                         {
@@ -436,14 +436,22 @@ class Quiz extends React.Component {
             } else if (this.state.result >= 10) {
                 note = "Wow! You walk the path towards becoming a master here!"
             } else {
-                note = "Keep trying and check out the video vault when stuck!"
+                note = "Don't panic, check out Video Vault if you get stuck!"
             }
             return ( // Render all the results content
+            ///@author Dion: all the extra results options and notes and coins are my own
                 <View style={styles.container}>
                     <Text style = {styles.text}>{"You answered: " + this.state.result + " questions correctly"}</Text>
-                    <Text style = {styles.text}>{"Earning you: " + this.state.score + " gold coins!"}</Text>
                     <Text style = {styles.text}>{note}</Text>
-                    <Text style = {styles.text}>{"Why don't you go back and check out Coin Corner?"}</Text>
+                    <Text>{""} </Text>
+                    <Text>{""} </Text>
+                    <Coin/>
+                    <Text style = {styles.text}>{"You earned: " + this.state.score + " gold coins"}</Text>
+                    {
+                        this.state.result > 0 && // if they get nothing right they don't have enough coins to buy anything
+                        <Text style = {styles.text}>{"Why not go back to check out Coin Corner?"}</Text>
+                    }
+                    <Text>{""} </Text>
                     <Text>{""} </Text>
                 </View>
             );
