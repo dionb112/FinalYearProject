@@ -3,7 +3,7 @@ import { Image, StyleSheet, View, Text, } from 'react-native';
 import Coin from '../components/Coin'
 import { Button } from 'react-native-elements';
 import MyWebView from '../components/MyWebView';
-
+import { Audio } from 'expo-av';
 
 export default class CoinScreen extends React.Component {
   constructor(props) {
@@ -14,14 +14,33 @@ export default class CoinScreen extends React.Component {
       streakKeeper: this.props.navigation.state.params.streakKeeper,
       page: 'Coin'
     }
+    global.spendSound = new Audio.Sound();
+    this.load();
   }
 
   static navigationOptions = {
     title: '                            Coin Corner             ',
   };
 
+  async load() {
+    try {
+      await spendSound.loadAsync(require('../assets/sounds/spend.wav'));
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async play() {
+    await spendSound.replayAsync()
+  }
+
+  async componentWillUnmount() {
+    await spendSound.stopAsync()
+  }
+
   spend = () => {
     if (this.state.coins >= 100 && !this.state.streakKeeper) {
+      this.play();
       // do callback before state becuase state doesn't always update immidiately
       this.props.navigation.state.params.coinCallbackFromParent(this.state.coins - 100);
       this.props.navigation.state.params.streakCallbackFromParent(true);

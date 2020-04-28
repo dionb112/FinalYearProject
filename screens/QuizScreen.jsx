@@ -139,8 +139,6 @@ export default class QuizScreen extends React.Component {
   }
 
   renderQuiz() {
-    console.log(this.state.streakKeeper + " QS " + this.state.coins)
-
     //console.log(this.state.quizQuestions)
     if (this.state.quizQuestions.length > 0) {
       return (

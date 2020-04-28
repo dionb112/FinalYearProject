@@ -5,6 +5,7 @@ import {
 import RadioForm from 'react-native-simple-radio-button';
 import { Emitter } from 'react-native-particles';
 import Coin from '../components/Coin'
+import { Audio } from 'expo-av';
 
 
 /**
@@ -57,26 +58,39 @@ class Quiz extends React.Component {
         this.quizReceived = []; // An array to store all possible questions
         this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
-        this.radioProps = [];
+        this.radioProps = []; 
+
+        global.completeSound = new Audio.Sound();
     }
 
-    async stop() {
-        await this.props.music.stopAsync()
-      }
+    async load() {
+        try {
+            await completeSound.loadAsync(require('../assets/sounds/complete.wav'));
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-    back(){
-        this.stop();
-        this.props.navigator.goBack();
+    async completed() {
+        await completeSound.playAsync();
+    }
+
+    async stopMusic() {
+        await this.props.music.stopAsync();
+    }
+    async stopComplete() {
+        await completeSound.stopAsync();
     }
 
     componentDidMount() {
+        this.load();
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
             if (this.state.page === "Quiz") {
                 Alert.alert(
                     'Are you sure you want to quit Quiz?',
                     'Think of the coin..',
                     [
-                        { text: 'Quit', onPress: () => this.back() },
+                        { text: 'Quit', onPress: () => this.props.navigator.goBack() },
                         {
                             text: 'Cancel',
                             style: 'cancel',
@@ -91,6 +105,7 @@ class Quiz extends React.Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
+        this.stopComplete();
     }
 
     /**
@@ -191,15 +206,13 @@ class Quiz extends React.Component {
      * This function should be called once all quiz questions have been answered
      */
     changeToResult() {
-        if (this.state.page == 'Quiz') {
-
-            // Calls function that will post to the database what event the user has caused
-            //this.props.updateCount("Leave Quiz", "Enter Result Page");
-        }
         // Set page to be displayed to be the results page 
         this.setState((state) => ({
             page: 'Result',
         }));
+        //@author Dion: complete sound start, music stop
+        this.stopMusic();
+        this.completed();
     }
 
     /**
@@ -345,8 +358,6 @@ class Quiz extends React.Component {
      * Function for rendering all relevant quiz content to the screen
      */
     render() {
-        console.log(this.state.streakKeeper + " Quiz " + this.state.score)
-
         /// @author Dion Buckley: for radio button
         this.radioProps = [
             { label: this.state.answerOptions[0], value: 0 },
@@ -376,7 +387,7 @@ class Quiz extends React.Component {
                     }
                     {/* @author Dion:  triple radio button for answer options */}
                     <RadioForm
-                    style = {styles.text}
+                        style={styles.text}
                         radio_props={this.radioProps}
                         initial={-1}
                         labelHorizontal={true}
@@ -447,17 +458,17 @@ class Quiz extends React.Component {
                 note = "Don't panic, check out Video Vault if you get stuck!"
             }
             return ( // Render all the results content
-            ///@author Dion: all the extra results options and notes and coins are my own
+                ///@author Dion: all the extra results options and notes and coins are my own
                 <View style={styles.container}>
-                    <Text style = {styles.text}>{"You answered: " + this.state.result + " questions correctly"}</Text>
-                    <Text style = {styles.text}>{note}</Text>
+                    <Text style={styles.text}>{"You answered: " + this.state.result + " questions correctly"}</Text>
+                    <Text style={styles.text}>{note}</Text>
                     <Text>{""} </Text>
                     <Text>{""} </Text>
-                    <Coin/>
-                    <Text style = {styles.text}>{"You earned: " + this.state.score + " gold coins"}</Text>
+                    <Coin />
+                    <Text style={styles.text}>{"You earned: " + this.state.score + " gold coins"}</Text>
                     {
                         this.state.result > 0 && // if they get nothing right they don't have enough coins to buy anything
-                        <Text style = {styles.text}>{"Why not go back to check out Coin Corner?"}</Text>
+                        <Text style={styles.text}>{"Why not go back to check out Coin Corner?"}</Text>
                     }
                     <Text>{""} </Text>
                     <Text>{""} </Text>

@@ -16,6 +16,7 @@ export default class SplashScreen extends React.Component {
       coins: 0,
       streakKeeper: false
     }
+    global.soundObject = new Audio.Sound();
     this.load();
   }
 
@@ -24,7 +25,6 @@ export default class SplashScreen extends React.Component {
   };
 
   async load() {
-    soundObject = new Audio.Sound();
     try {
       await soundObject.loadAsync(require('../assets/sounds/jazz.wav'));
     } catch (error) {
@@ -55,8 +55,6 @@ export default class SplashScreen extends React.Component {
 
 
   render() {
-    console.log(this.state.streakKeeper + " Splash " + this.state.coins)
-
     if (this.state.fontLoaded) {
       return (
         <View style={styles.container}>

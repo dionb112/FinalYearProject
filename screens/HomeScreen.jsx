@@ -38,7 +38,6 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    console.log(this.state.streakKeeper + " Home " + this.state.coins)
     return (
       <View style={styles.container}>
         <StatusBar />
