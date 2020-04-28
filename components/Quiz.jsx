@@ -63,7 +63,22 @@ class Quiz extends React.Component {
         global.completeSound = new Audio.Sound();
         global.correct = new Audio.Sound();
         global.wrong = new Audio.Sound();
+        global.fire = new Audio.Sound();
+        global.fuel = new Audio.Sound();
 
+        this.threeStreakSet = false;
+        this.sixStreakSet = false;
+    }
+   // Dion:  only do streak here we don't want to award coins or keep streakkeeper on a quit, enforce completed learning
+    quit() {
+        //@author Dion: complete sound start, music stop - also want this only once
+        this.stopMusic();
+        { this.props.streakCallbackFromParent(this.state.streakKeeper) } //similarly check the state of the streakkeeper bonus
+    }
+
+    back() {
+        this.quit();
+        this.props.navigator.goBack();
     }
 
     async load() {
@@ -71,9 +86,25 @@ class Quiz extends React.Component {
             await completeSound.loadAsync(require('../assets/sounds/complete.wav'));
             await correct.loadAsync(require('../assets/sounds/correct.wav'), { volume: 0.5 });
             await wrong.loadAsync(require('../assets/sounds/wrong.mp3'), { volume: 0.8 });
+            await fire.loadAsync(require('../assets/sounds/fire.wav'));
+            await fuel.loadAsync(require('../assets/sounds/fuel.wav'), { volume: 0.7 });
         } catch (error) {
             console.log(error)
         }
+    }
+
+    async fuel() {
+        await fuel.replayAsync();
+    }
+
+    async fire() {
+        await fire.setVolumeAsync(0.4);
+        await fire.replayAsync();
+    }
+
+    async blueFire() {
+        await fire.setVolumeAsync(0.8);
+        await fire.replayAsync();
     }
 
     async correct() {
@@ -95,6 +126,8 @@ class Quiz extends React.Component {
         await completeSound.stopAsync();
         await correct.stopAsync();
         await wrong.stopAsync();
+        await fire.stopAsync();
+        await fuel.stopAsync();
     }
 
     componentDidMount() {
@@ -105,7 +138,7 @@ class Quiz extends React.Component {
                     'Are you sure you want to quit Quiz?',
                     'Think of the coin..',
                     [
-                        { text: 'Quit', onPress: () => this.props.navigator.goBack() },
+                        { text: 'Quit', onPress: () => this.back() },
                         {
                             text: 'Cancel',
                             style: 'cancel',
@@ -239,14 +272,18 @@ class Quiz extends React.Component {
         // Checks to see if answer is correct
         if (answer == this.state.correct) {
             this.correct();
-            //@author Dion: gamified streaks
+            //@author Dion: gamified streaks with sound !!
             this.streak++;
-            if (this.streak >= 3 && this.streak < 6) {
+            if (this.streak >= 3 && this.streak < 6 && !this.threeStreakSet) {
+                this.fire();
                 this.source = this.state.red;
                 multiplier = 20
-            } else if (this.streak >= 6) {
+                this.threeStreakSet = true;
+            } else if (this.streak >= 6 && !this.sixStreakSet) {
+                this.blueFire();
                 this.source = this.state.blue;
                 multiplier = 40
+                this.sixStreakSet = true;
             }
             // If so, display green particles, increase score and the correct answer count
             this.colour = this.correctColour;
@@ -258,11 +295,14 @@ class Quiz extends React.Component {
             }));
         }
         else {
+            ///@author Dion: gamified streak keeper to spend coins on and see benefits in quiz. and sound effects
             this.wrong();
-            ///@author Dion: gamified streak keeper to spend coins on and see benefits in quiz.
+            this.sixStreakSet = false;
+            this.threeStreakSet = false;
             if (!this.state.streakKeeper || this.streak < 3) {
-                this.streak = 0; // TODO: implement bought streak keeper BONUS passed down from Coin Corner navigator props
+                this.streak = 0; 
             } else if (this.streak >= 3) {
+                this.fuel();
                 this.setState({ streakKeeper: false }) // One time use item
             }
             // If not, display red particles and add question title to array of questions that were answered incorrectly
@@ -299,11 +339,9 @@ class Quiz extends React.Component {
         //@author Dion: set up callbacks to retrieve score from quiz upon end and display as Coins in coin center
         // do callbacks only once to prevent exponential coin addition further along
         if (!this.callbacksDone) {
-            //@author Dion: complete sound start, music stop - also want this only once
-            this.stopMusic();
-            this.completed();
+            this.quit();
+            this.completed();// only play this sound if completed not if quit
             { this.props.coinCallbackFromParent(this.state.score) }
-            { this.props.streakCallbackFromParent(this.state.streakKeeper) } //similarly check the state of the streakkeeper bonus
             this.callbacksDone = true;
         }
         var amount = this.state.answersCount;
