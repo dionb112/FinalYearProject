@@ -60,6 +60,14 @@ class Quiz extends React.Component {
         this.radioProps = [];
     }
 
+    async stop() {
+        await this.props.music.stopAsync()
+      }
+
+    back(){
+        this.stop();
+        this.props.navigator.goBack();
+    }
 
     componentDidMount() {
         this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
@@ -68,7 +76,7 @@ class Quiz extends React.Component {
                     'Are you sure you want to quit Quiz?',
                     'Think of the coin..',
                     [
-                        { text: 'Quit', onPress: () => this.props.navigator.goBack() },
+                        { text: 'Quit', onPress: () => this.back },
                         {
                             text: 'Cancel',
                             style: 'cancel',

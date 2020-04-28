@@ -26,7 +26,24 @@ export default class QuizScreen extends React.Component {
     // Bind this to the relevant functions that need to access it 
     this.componentWillMount = this.componentWillMount.bind(this);
     this.changeToQuiz = this.changeToQuiz.bind(this);
+    this.load();
   }
+
+  async load() {
+    soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(require('../assets/sounds/quizMusic.wav'),
+        {
+          shouldPlay: true,
+          isLooping: true
+        }
+      );
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
 
   //@author Dion: set up callbacks to retrieve score (and streakkeeper) from quiz to go back and forth as Coins (and bonus) in coin center
   coinCallback = (score) => {
@@ -132,15 +149,16 @@ export default class QuizScreen extends React.Component {
             coinCallbackFromParent={this.coinCallback}
             streakCallbackFromParent={this.streakCallback}
             streakKeeper={this.state.streakKeeper}
-            navigator={this.props.navigation} />
+            navigator={this.props.navigation}
+            music={soundObject} />
         </View>
       );
     } else {
       return (
         <View style={styles.container}>
-        <ActivityIndicator
+          <ActivityIndicator
             style={{ position: "absolute" }}
-            size= {Platform.OS === 'android' ? 100 : 'large'} // only android support number passing here
+            size={Platform.OS === 'android' ? 100 : 'large'} // only android support number passing here
           />
         </View>
       )

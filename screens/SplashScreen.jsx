@@ -16,8 +16,7 @@ export default class SplashScreen extends React.Component {
       coins: 0,
       streakKeeper: false
     }
-    this.load()
-    global.playbackObject;
+    this.load();
   }
 
   static navigationOptions = {
@@ -34,10 +33,15 @@ export default class SplashScreen extends React.Component {
   }
 
   async play() {
-    await soundObject.playAsync();
+    await soundObject.replayAsync()
+  }
+
+  async stop() {
+    await soundObject.stopAsync()
   }
 
   coinCallback = (coins) => {
+    this.stop(); // stop on return from home
     this.setState({
       coins: coins,
     });
