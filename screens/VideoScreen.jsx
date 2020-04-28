@@ -17,29 +17,30 @@ export default class VideoScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.scrollView}>
-      <Text>{''}</Text>
+      <Text style ={styles.title}>{'How gluten attacks'}</Text>
         <ImageButton
           title="What happens when I get glutened? "
           source={require('../assets/thumbnails/thumbnailGlutened.png')}
           func={this._glutened} />
-        <Text>{''}</Text>
+        <Text>{' _____________________________________________'}</Text>
+        <Text style ={styles.title}>{'Gluten cross contamination'}</Text>
         <ImageButton
-          title="Cross contamination of gluten part 1 "
+          title="Part 1 "
           source={require('../assets/thumbnails/ccp1.png')}
           func={this._crossContamP1} />
         <Text>{''}</Text>
         <ImageButton
-          title="Cross contamination of gluten part 2 "
+        title="Part 2 "
           source={require('../assets/thumbnails/ccp2.png')}
           func={this._crossContamP2} />
         <Text>{''}</Text>
         <ImageButton
-          title="Cross contamination of gluten part 3 "
+        title="Part 3 "
           source={require('../assets/thumbnails/ccp3.png')}
           func={this._crossContamP3} />
         <Text>{''}</Text>
         <ImageButton
-          title="Cross contamination of gluten part 4 "
+        title="Part 4 "
           source={require('../assets/thumbnails/ccp4.png')}
           func={this._crossContamP4} />
           <Text>{''}</Text>
@@ -72,9 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 30,
+    fontSize: 26,
     textAlign: 'center',
     margin: 20,
+    fontFamily: 'OpenSans',
   },
   scrollView: {
     backgroundColor: 'transparent',

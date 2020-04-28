@@ -13,7 +13,7 @@ export default class ImageButton extends Button {
             <TouchableOpacity style={styles.touchable} onPress={this.props.func}>
                 <Image source={this.props.source} />
                 <View>
-                <Text>{''}</Text>
+                <Text style = {styles.small}>{''}</Text>
                     <Text style={styles.text}>{this.props.title}</Text>
                 </View>
             </TouchableOpacity>
@@ -27,12 +27,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
 
+    small: {
+        fontSize: 4,
+        textAlign: 'center',
+        fontFamily: 'OpenSans'
+    },
+
     touchable: {
         alignItems: 'center',
         justifyContent: 'center'
     },
     text: {
-        fontSize: 18,
+        fontSize: 14,
         textAlign: 'center',
         fontFamily: 'OpenSans'
     },

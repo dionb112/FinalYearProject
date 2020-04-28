@@ -31,7 +31,7 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  ///TODO: MORE Sound effects (and more than one time use), make quiz move less (side to side now)
+  ///TODO: Find a way to store the name nicely to display, make quiz move less (side to side now)
   streakCallback = (streakKeeper) => {
     this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
     this.setState({ streakKeeper: streakKeeper });

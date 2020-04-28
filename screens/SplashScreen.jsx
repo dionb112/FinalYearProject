@@ -68,10 +68,11 @@ export default class SplashScreen extends React.Component {
           <Text>{''}</Text>
 
           <ImageButton
-            title="Start by saying NO to Gluten"
+            title=""
             source={require('../assets/sprites/splash.png')}
             func={this._showApp} />
-          <Text>{''}</Text>
+            <Text style = {styles.title}>{'Start by saying NO to Gluten'}</Text>
+            <Text>{''}</Text>
         </View>
       );
     }
@@ -109,10 +110,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     textAlign: 'center',
-    margin: 5,
-    fontFamily: 'OpenSans'
+    margin: 0,
+    fontFamily: 'OpenSans',
+    color : '#FF9800',
+    textShadowColor:'#000000',
+    textShadowOffset:{width: 0, height: 0},
+    textShadowRadius:2,
   },
   button: {
     textAlign: 'center',

@@ -35,19 +35,19 @@ export default class ExpoVideoPlayer extends React.Component {
         break;
       case 1:
         this.file = this.files[1];
-        this.title = 'How easily can food be contaminated by gluten during preperation? Exmaple 1'
+        this.title = 'How easily can food be contaminated by gluten during preperation?\n\n Example 1'
         break;
       case 2:
         this.file = this.files[2];
-        this.title = 'How easily can food be contaminated by gluten during preperation? Exmaple 2'
+        this.title = 'How easily can food be contaminated by gluten during preperation? \n\n Example 2'
         break;
       case 3:
         this.file = this.files[3];
-        this.title = 'How easily can food be contaminated by gluten during preperation? Exmaple 3'
+        this.title = 'How easily can food be contaminated by gluten during preperation? \n\n Example 3'
         break;
       case 4:
         this.file = this.files[4];
-        this.title = 'How easily can food be contaminated by gluten during preperation? Exmaple 4'
+        this.title = 'How easily can food be contaminated by gluten during preperation? \n\n Example 4'
         break;
       default:
         break;
@@ -92,8 +92,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
-    margin: 10,
+    margin: 0,
+    fontFamily: 'OpenSans',
   }
 });
