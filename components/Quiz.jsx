@@ -61,14 +61,27 @@ class Quiz extends React.Component {
         this.radioProps = [];
 
         global.completeSound = new Audio.Sound();
+        global.correct = new Audio.Sound();
+        global.wrong = new Audio.Sound();
+
     }
 
     async load() {
         try {
             await completeSound.loadAsync(require('../assets/sounds/complete.wav'));
+            await correct.loadAsync(require('../assets/sounds/correct.wav'), { volume: 0.5 });
+            await wrong.loadAsync(require('../assets/sounds/wrong.mp3'), { volume: 0.8 });
         } catch (error) {
             console.log(error)
         }
+    }
+
+    async correct() {
+        await correct.replayAsync();
+    }
+
+    async wrong() {
+        await wrong.replayAsync();
     }
 
     async completed() {
@@ -78,8 +91,10 @@ class Quiz extends React.Component {
     async stopMusic() {
         await this.props.music.stopAsync();
     }
-    async stopComplete() {
+    async stop() {
         await completeSound.stopAsync();
+        await correct.stopAsync();
+        await wrong.stopAsync();
     }
 
     componentDidMount() {
@@ -105,7 +120,7 @@ class Quiz extends React.Component {
 
     componentWillUnmount() {
         this.backHandler.remove();
-        this.stopComplete();
+        this.stop();
     }
 
     /**
@@ -223,6 +238,7 @@ class Quiz extends React.Component {
         }));
         // Checks to see if answer is correct
         if (answer == this.state.correct) {
+            this.correct();
             //@author Dion: gamified streaks
             this.streak++;
             if (this.streak >= 3 && this.streak < 6) {
@@ -242,6 +258,7 @@ class Quiz extends React.Component {
             }));
         }
         else {
+            this.wrong();
             ///@author Dion: gamified streak keeper to spend coins on and see benefits in quiz.
             if (!this.state.streakKeeper || this.streak < 3) {
                 this.streak = 0; // TODO: implement bought streak keeper BONUS passed down from Coin Corner navigator props
