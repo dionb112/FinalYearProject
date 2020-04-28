@@ -53,7 +53,14 @@ export default class CoinScreen extends React.Component {
 
   // use webview again woo!
   web = () => {
-    this.setState({page: 'Web'})
+    if (this.state.coins >= 1200) {
+      this.play()
+      this.props.navigation.state.params.coinCallbackFromParent(this.state.coins - 1200);
+      this.setState({
+        coins: this.state.coins - 1200,
+      })
+      this.setState({ page: 'Web' })
+    }
   }
 
   render() {

@@ -39,9 +39,9 @@ export default class SplashScreen extends React.Component {
   _storeData = async () => {
     try {
       await AsyncStorage.setItem('coins', this.state.coins.toString());
-      await AsyncStorage.setItem('fuel', this.state.streakKeeper.toString());
+      // await AsyncStorage.setItem('fuel', this.state.streakKeeper.toString());
       console.log('coins stored' + this.state.coins);
-      console.log('fuel stored' + this.state.streakKeeper);
+      // console.log('fuel stored' + this.state.streakKeeper);
 
     } catch (error) {
       console.log(error);
@@ -53,15 +53,15 @@ export default class SplashScreen extends React.Component {
   _retrieveData = async () => {
     try {
       const coins = await AsyncStorage.getItem('coins');
-      const fuel = await AsyncStorage.getItem('fuel');
+      // const fuel = await AsyncStorage.getItem('fuel');
       if (coins !== null) {
         console.log("coins loaded " + coins);
-        this.setState({coins: coins})      
+        this.setState({coins: JSON.parse(coins)})      
       }
-      if (fuel !== null) {
-        console.log("fuel loaded " + JSON.parse(fuel));
-        this.setState({streakKeeper: JSON.parse(fuel)})      
-      }
+      // if (fuel !== null) {
+      //   console.log("fuel loaded " + JSON.parse(fuel));
+      //   this.setState({streakKeeper: JSON.parse(fuel)})      
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -96,7 +96,7 @@ export default class SplashScreen extends React.Component {
   }
 
   coinCallback = (coins) => {
-    console.log(log);
+    console.log(coins);
     this.stop(); // stop on return from home
     this.setState({
       coins: coins,
