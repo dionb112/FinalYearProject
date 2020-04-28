@@ -6,14 +6,13 @@
 /// The specific lines and functions I added (apart from obvios file structure like imports and class defintion) I will tag as my own
 
 import React from 'react';
-import { ActivityIndicator, Image, StyleSheet, View, Text, Dimensions } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, View, Text } from 'react-native';
 import Quiz from '../components/Quiz';
 import ImageButton from '../components/ImageButton'
 import { Audio } from 'expo-av';
 
-const { height } = Dimensions.get('window');
 export default class QuizScreen extends React.Component {
-  constructor(props) {
+  constructor(props) { //I added the props here I believe - Dion
     super(props);
 
     // Declare state variables
@@ -21,19 +20,21 @@ export default class QuizScreen extends React.Component {
       page: '',
       title: "Home",
       quizQuestions: [],
-      streakKeeper: this.props.navigation.state.params.streakKeeper
+      streakKeeper: this.props.navigation.state.params.streakKeeper // Dion
     };
 
     // Bind this to the relevant functions that need to access it 
     this.componentWillMount = this.componentWillMount.bind(this);
     this.changeToQuiz = this.changeToQuiz.bind(this);
-    this.load();
+
+    this.load(); // Dion - Sounds
   }
 
+  ///@author Dion - Sound load play and stop using js concurrency + expo Audio
   async load() {
-    soundObject = new Audio.Sound();
+    music = new Audio.Sound();
     try {
-      await soundObject.loadAsync(require('../assets/sounds/quizMusic.wav'),
+      await music.loadAsync(require('../assets/sounds/quizMusic.wav'),
         {
           shouldPlay: true,
           isLooping: true
@@ -44,6 +45,10 @@ export default class QuizScreen extends React.Component {
     }
   }
 
+  // Dion - combine React Component loading with js async for audio stop
+  async componentWillUnmount(){
+    await music.stopAsync();
+  }
 
 
   //@author Dion: set up callbacks to retrieve score (and streakkeeper) from quiz to go back and forth as Coins (and bonus) in coin center
@@ -71,10 +76,6 @@ export default class QuizScreen extends React.Component {
     this.setState({
       page: "Home"
     });
-  }
-
-  async componentWillUnmount(){
-    await soundObject.stopAsync();
   }
 
 
@@ -153,7 +154,7 @@ export default class QuizScreen extends React.Component {
             streakCallbackFromParent={this.streakCallback}
             streakKeeper={this.state.streakKeeper}
             navigator={this.props.navigation}
-            music={soundObject} />
+            music={music} />
         </View>
       );
     } else {

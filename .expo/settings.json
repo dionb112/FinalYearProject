@@ -1,8 +1,8 @@
 {
-  "urlRandomness": "ib-4gy",
+  "urlRandomness": "bk-fi8",
   "hostType": "localhost",
   "lanType": "ip",
-  "dev": false,
-  "minify": true,
+  "dev": true,
+  "minify": false,
   "https": false
 }
