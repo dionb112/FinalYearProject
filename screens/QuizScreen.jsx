@@ -9,6 +9,7 @@ import React from 'react';
 import { ActivityIndicator, Image, StyleSheet, View, Text, Dimensions } from 'react-native';
 import Quiz from '../components/Quiz';
 import ImageButton from '../components/ImageButton'
+import { Audio } from 'expo-av';
 
 const { height } = Dimensions.get('window');
 export default class QuizScreen extends React.Component {
@@ -72,6 +73,10 @@ export default class QuizScreen extends React.Component {
     });
   }
 
+  async componentWillUnmount(){
+    await soundObject.stopAsync();
+  }
+
 
   /**
   * This asynchronous function will execute an API call once the application starts
@@ -89,11 +94,11 @@ export default class QuizScreen extends React.Component {
       /// Using Expo (which uses local host) the python server can no longer run off localhost but rather a static external ip
       ///
       // Home
-      // const response = await fetch('http://192.168.0.62:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
+      const response = await fetch('http://192.168.0.62:5000/info'); // cannot use local host as expo conflicts the ip so setup static ip on host
       // Hotspot 
       // const response = await fetch('http://192.168.43.169:5000/info');
       // Tethered home 
-      const response = await fetch('http://192.168.42.227:5000/info');
+      // const response = await fetch('http://192.168.42.227:5000/info');
 
       this.infoReceived = await response.json();  // Gets data back from call
       var quizQuestions = [] // Array to hold all quiz data

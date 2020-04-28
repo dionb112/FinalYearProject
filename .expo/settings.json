@@ -1,8 +1,8 @@
 {
-  "urlRandomness": "iz-pa5",
-  "hostType": "lan",
+  "urlRandomness": "ib-4gy",
+  "hostType": "localhost",
   "lanType": "ip",
-  "dev": true,
-  "minify": false,
+  "dev": false,
+  "minify": true,
   "https": false
 }
