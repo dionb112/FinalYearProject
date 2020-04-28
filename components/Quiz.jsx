@@ -58,7 +58,7 @@ class Quiz extends React.Component {
         this.quizReceived = []; // An array to store all possible questions
         this.questionsString = ""; // An array to store the questions that will be on this quiz
         this.questions = []; // An array to store the questions that will be on this quiz
-        this.radioProps = []; 
+        this.radioProps = [];
 
         global.completeSound = new Audio.Sound();
     }
@@ -210,9 +210,6 @@ class Quiz extends React.Component {
         this.setState((state) => ({
             page: 'Result',
         }));
-        //@author Dion: complete sound start, music stop
-        this.stopMusic();
-        this.completed();
     }
 
     /**
@@ -285,6 +282,9 @@ class Quiz extends React.Component {
         //@author Dion: set up callbacks to retrieve score from quiz upon end and display as Coins in coin center
         // do callbacks only once to prevent exponential coin addition further along
         if (!this.callbacksDone) {
+            //@author Dion: complete sound start, music stop - also want this only once
+            this.stopMusic();
+            this.completed();
             { this.props.coinCallbackFromParent(this.state.score) }
             { this.props.streakCallbackFromParent(this.state.streakKeeper) } //similarly check the state of the streakkeeper bonus
             this.callbacksDone = true;

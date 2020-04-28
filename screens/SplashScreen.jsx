@@ -1,8 +1,6 @@
 import React from 'react';
-import { StatusBar, StyleSheet, View, Text, Image } from 'react-native';
-import { Button } from 'react-native-elements';
+import { StatusBar, StyleSheet, View, Text } from 'react-native';
 import * as Font from 'expo-font'
-import TextInputSingleLine from '../components/TextInputSingleLine'
 import ImageButton from '../components/ImageButton'
 import { Audio } from 'expo-av';
 
@@ -61,7 +59,6 @@ export default class SplashScreen extends React.Component {
           <StatusBar />
           <Text>{''}</Text>
           <Text>{''}</Text>
-          {/* <TextInputSingleLine placeholderText={'What is your name?'} onTextChanged={(text) => this.setState({ name: text })} /> */}
           <Text>{''}</Text>
           <Text>{''}</Text>
           <Text>{''}</Text>
