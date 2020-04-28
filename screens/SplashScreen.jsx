@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, StyleSheet, View, Text } from 'react-native';
+import { Alert, AppState, AsyncStorage, StatusBar, StyleSheet, View, Text, BackHandler } from 'react-native';
 import * as Font from 'expo-font'
 import ImageButton from '../components/ImageButton'
 import { Audio } from 'expo-av';
@@ -12,10 +12,59 @@ export default class SplashScreen extends React.Component {
       fontLoaded: false,
       name: '',
       coins: 0,
-      streakKeeper: false
+      streakKeeper: false,
+      screen: 'splash'
     }
     global.soundObject = new Audio.Sound();
-    this.load();
+  }
+
+  componentDidMount() {
+    this.load()
+    this._retrieveData();
+    AppState.addEventListener('change', this.handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'inactive' || nextAppState === 'background')  { //ios || android
+      this._storeData();
+      console.log('the app is closed');
+    }    
+  }
+
+  // save data asyncronously
+  _storeData = async () => {
+    try {
+      await AsyncStorage.setItem('coins', this.state.coins.toString());
+      await AsyncStorage.setItem('fuel', this.state.streakKeeper.toString());
+      console.log('coins stored' + this.state.coins);
+      console.log('fuel stored' + this.state.streakKeeper);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  // fetch data back
+  _retrieveData = async () => {
+    try {
+      const coins = await AsyncStorage.getItem('coins');
+      const fuel = await AsyncStorage.getItem('fuel');
+      if (coins !== null) {
+        console.log("coins loaded " + coins);
+        this.setState({coins: coins})      
+      }
+      if (fuel !== null) {
+        console.log("fuel loaded " + JSON.parse(fuel));
+        this.setState({streakKeeper: JSON.parse(fuel)})      
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static navigationOptions = {
@@ -24,10 +73,18 @@ export default class SplashScreen extends React.Component {
 
   async load() {
     try {
+      // custom fonts
+      await Font.loadAsync({
+        PlayfairDisplay: require('../assets/fonts/PlayfairDisplay-Regular.otf'),
+        OpenSans: require('../assets/fonts/OpenSans-SemiBold.ttf')
+      })          
+      this.setState({ fontLoaded: true })
+      // sound effect
       await soundObject.loadAsync(require('../assets/sounds/jazz.wav'));
     } catch (error) {
       console.log(error)
     }
+
   }
 
   async play() {
@@ -39,6 +96,7 @@ export default class SplashScreen extends React.Component {
   }
 
   coinCallback = (coins) => {
+    console.log(log);
     this.stop(); // stop on return from home
     this.setState({
       coins: coins,
@@ -68,8 +126,8 @@ export default class SplashScreen extends React.Component {
             title=""
             source={require('../assets/sprites/splash.png')}
             func={this._showApp} />
-            <Text style = {styles.title}>{'Start by saying NO to Gluten'}</Text>
-            <Text>{''}</Text>
+          <Text style={styles.title}>{'Start by saying NO to Gluten'}</Text>
+          <Text>{''}</Text>
         </View>
       );
     }
@@ -89,14 +147,6 @@ export default class SplashScreen extends React.Component {
     });
   };
 
-  // custom fonts
-  async componentDidMount() {
-    await Font.loadAsync({
-      PlayfairDisplay: require('../assets/fonts/PlayfairDisplay-Regular.otf'),
-      OpenSans: require('../assets/fonts/OpenSans-SemiBold.ttf')
-    })
-    this.setState({ fontLoaded: true })
-  }
 
 }
 
@@ -111,10 +161,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 0,
     fontFamily: 'OpenSans',
-    color : '#FF9800',
-    textShadowColor:'#000000',
-    textShadowOffset:{width: 0, height: 0},
-    textShadowRadius:2,
+    color: '#FF9800',
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 2,
   },
   button: {
     textAlign: 'center',

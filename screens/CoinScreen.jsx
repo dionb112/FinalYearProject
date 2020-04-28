@@ -57,7 +57,7 @@ export default class CoinScreen extends React.Component {
   }
 
   render() {
-    console.log(this.state.streakKeeper + " Coin " + this.state.coins)
+    console.log(this.state.streakKeeper)
     if (this.state.page === 'Coin') {
       return (
         <View style={styles.container}>
