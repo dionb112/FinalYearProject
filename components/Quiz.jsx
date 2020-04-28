@@ -76,7 +76,7 @@ class Quiz extends React.Component {
                     'Are you sure you want to quit Quiz?',
                     'Think of the coin..',
                     [
-                        { text: 'Quit', onPress: () => this.back },
+                        { text: 'Quit', onPress: () => this.back() },
                         {
                             text: 'Cancel',
                             style: 'cancel',

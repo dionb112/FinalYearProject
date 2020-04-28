@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": 19001,
-  "packagerPid": 4952,
-  "expoServerNgrokUrl": "https://cn-r4s.anonymous.finalyearproject.exp.direct",
-  "packagerNgrokUrl": "https://packager.cn-r4s.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 5192,
+  "expoServerPort": 19000,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002
 }
