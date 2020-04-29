@@ -1,6 +1,6 @@
 {
   "urlRandomness": "k8-cf5",
-  "hostType": "localhost",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,

@@ -31,7 +31,6 @@ class Quiz extends React.Component {
             particles: false,
             score: 0,
             currentScore: 0,
-            streakKeeper: this.props.streakKeeper,
             // Icons made by:
             //<a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> 
             //from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
@@ -50,6 +49,7 @@ class Quiz extends React.Component {
 
         // @author Dion: for use in hot streak of Qs answered in a row
         this.streak = 0;
+        this.streakKeeper = this.props.streakKeeper;
         this.callbacksDone = false;
         this.source = this.state.red;
 
@@ -72,7 +72,7 @@ class Quiz extends React.Component {
     quit() {
         //@author Dion: complete sound start, music stop - also want this only once
         this.stopMusic();
-        { this.props.streakCallbackFromParent(this.state.streakKeeper) } //similarly check the state of the streakkeeper bonus
+        { this.props.streakCallbackFromParent(this.streakKeeper) } //similarly check the state of the streakkeeper bonus
     }
 
     back() {
@@ -263,9 +263,6 @@ class Quiz extends React.Component {
      * Function for setting answer to current question to be the answer the user just selected
      */
     setUserAnswer(answer) {
-        console.log("streak: " + this.streak)
-        console.log("fuel: " + this.state.streakKeeper)
-
         var multiplier = 10;// Dion: added multiple var so that streak can affect
         // Sets answer to be selected answer
         this.setState((state) => ({
@@ -302,17 +299,17 @@ class Quiz extends React.Component {
             this.sixStreakSet = false;
             this.threeStreakSet = false;
 
-
-            if (!this.state.streakKeeper || this.streak < 3) {
+            if (!this.streakKeeper || this.streak < 3) {
                 this.streak = 0;
-            } else if (this.state.streakKeeper && this.streak >= 3) {
+            } else if (this.streakKeeper && this.streak >= 3) {
                 this.fuel();
-                this.setState({ streakKeeper: false }) // One time use item
+                this.streakKeeper = false; // One time use item
             }
             // If not, display red particles and add question title to array of questions that were answered incorrectly
             this.colour = this.incorrectColour;
-            var category = this.questions[this.state.counter].category;
         }
+        console.log("streak: " + this.streak)
+        console.log("fuel: " + this.streakKeeper)
     }
 
     /**
@@ -431,7 +428,7 @@ class Quiz extends React.Component {
                 // @author Dion: React native rendering of Quiz
                 <View style={styles.container}>
                     {
-                        this.state.streakKeeper &&
+                        this.streakKeeper &&
                         <Image source={require("../assets/sprites/fuel.png")} top={-20} marginBottom={1} />
                     }
                     <Text style={styles.text}>{"Time: " + this.state.timer} </Text>
@@ -490,7 +487,7 @@ class Quiz extends React.Component {
                         </Emitter>
                     }
                     <Text>{""} </Text>
-                    {this.streak >= 3 &&
+                    { this.streak >= 3 &&
                         <Image source={this.source} top={-20} marginBottom={1} />
                     }
                     {

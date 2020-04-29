@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://k8-cf5.anonymous.finalyearproject.exp.direct",
-  "packagerNgrokUrl": "https://packager.k8-cf5.anonymous.finalyearproject.exp.direct",
-  "ngrokPid": 2776,
+  "packagerPort": 19001,
+  "packagerPid": 6416,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002
 }
