@@ -2,7 +2,6 @@ import React from 'react';
 import { Video } from 'expo-av';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { AndroidBackHandler } from 'react-navigation-backhandler';
-import Coin from './Coin';
 
 export default class ExpoVideoPlayer extends React.Component {
 
@@ -20,7 +19,7 @@ export default class ExpoVideoPlayer extends React.Component {
     };
     this.file = {};
     this.title = '';
-    this.showCoin = false;
+    // this.showCoin = false;
   }
 
   componentWillMount() {

@@ -56,9 +56,7 @@ export default class HomeScreen extends React.Component {
   }
 
   _showVideos = () => {
-    this.props.navigation.navigate('Video', {
-      coinCallbackFromParent: this.coinsCallbackForAddition,
-    });
+    this.props.navigation.navigate('Video');
   };
 
   _showQuiz = () => {

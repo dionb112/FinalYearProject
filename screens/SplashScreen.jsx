@@ -56,8 +56,8 @@ export default class SplashScreen extends React.Component {
       const coins = await AsyncStorage.getItem('coins');
       // const fuel = await AsyncStorage.getItem('fuel');
       if (coins !== null) {
-        console.log("coins loaded " + coins);
-        this.setState({coins: coins})      
+        console.log("coins loaded " + JSON.parse(coins));
+        this.setState({coins: JSON.parse(coins)})      
       }
       // if (fuel !== null) {
       //   console.log("fuel loaded " + JSON.parse(fuel));
