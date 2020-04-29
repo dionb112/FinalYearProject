@@ -31,7 +31,6 @@ export default class HomeScreen extends React.Component {
     });
   }
 
-  ///TODO: Find a way to ask for name prettily for display.
   streakCallback = (streakKeeper) => {
     this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
     this.setState({ streakKeeper: streakKeeper });
