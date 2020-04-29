@@ -25,7 +25,7 @@ export default class HomeScreen extends React.Component {
 
   //addition variant
   coinsCallbackForAddition = (coins) => {
-    this.props.navigation.state.params.coinCallbackFromParent(coins);
+    this.props.navigation.state.params.coinCallbackFromParent(this.state.coins + coins);
     this.setState({
       coins: this.state.coins + coins
     });

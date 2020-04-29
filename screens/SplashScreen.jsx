@@ -102,6 +102,8 @@ export default class SplashScreen extends React.Component {
     this.setState({
       coins: coins,
     });
+    this._storeData() //to ensure coins are kept even on crash
+    
   }
 
   streakCallback = (streakKeeper) => {
