@@ -42,7 +42,6 @@ class Quiz extends React.Component {
         // Bind this to all neccesary function
         this.tick = this.tick.bind(this);
         this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
-        this.changeToQuiz = this.changeToQuiz.bind(this);
 
         // The different colours for the particles
         this.correctColour = 'green';
@@ -69,7 +68,7 @@ class Quiz extends React.Component {
         this.threeStreakSet = false;
         this.sixStreakSet = false;
     }
-   // Dion:  only do streak here we don't want to award coins or keep streakkeeper on a quit, enforce completed learning
+    // Dion:  only do streak here we don't want to award coins or keep streakkeeper on a quit, enforce completed learning
     quit() {
         //@author Dion: complete sound start, music stop - also want this only once
         this.stopMusic();
@@ -87,7 +86,7 @@ class Quiz extends React.Component {
             await correct.loadAsync(require('../assets/sounds/correct.wav'), { volume: 0.5 });
             await wrong.loadAsync(require('../assets/sounds/wrong.mp3'), { volume: 0.8 });
             await fire.loadAsync(require('../assets/sounds/fire.wav'));
-            await fuel.loadAsync(require('../assets/sounds/fuel.wav'), { volume: 0.7 });
+            await fuel.loadAsync(require('../assets/sounds/fuel.wav'), { volume: 0.8 });
         } catch (error) {
             console.log(error)
         }
@@ -122,12 +121,18 @@ class Quiz extends React.Component {
     async stopMusic() {
         await this.props.music.stopAsync();
     }
-    async stop() {
+    async unLoad() {
         await completeSound.stopAsync();
         await correct.stopAsync();
         await wrong.stopAsync();
         await fire.stopAsync();
         await fuel.stopAsync();
+
+        await completeSound.unloadAsync();
+        await correct.unloadAsync();
+        await wrong.unloadAsync();
+        await fire.unloadAsync();
+        await fuel.unloadAsync();
     }
 
     componentDidMount() {
@@ -149,11 +154,15 @@ class Quiz extends React.Component {
                 return true;
             }
         });
+        this.intervalHandle = setInterval(this.tick, 1000);
+        this.setState((state) => ({
+            page: 'Quiz'
+        }));
     }
 
     componentWillUnmount() {
         this.backHandler.remove();
-        this.stop();
+        this.unLoad();
     }
 
     /**
@@ -237,17 +246,7 @@ class Quiz extends React.Component {
         return array; // Return shuffled array 
     };
 
-    /**
-     * Function for starting the quiz from the pre-quiz screen
-     */
-    changeToQuiz() {
-        // Sets up tick function so it gets called once a second
-        this.intervalHandle = setInterval(this.tick, 1000);
-        // Sets the page to be displayed to be the quiz page
-        this.setState((state) => ({
-            page: 'Quiz'
-        }));
-    }
+
 
     /**
      * Function for changing to the results page
@@ -264,6 +263,9 @@ class Quiz extends React.Component {
      * Function for setting answer to current question to be the answer the user just selected
      */
     setUserAnswer(answer) {
+        console.log("streak: " + this.streak)
+        console.log("fuel: " + this.state.streakKeeper)
+        
         var multiplier = 10;// Dion: added multiple var so that streak can affect
         // Sets answer to be selected answer
         this.setState((state) => ({
@@ -299,9 +301,11 @@ class Quiz extends React.Component {
             this.wrong();
             this.sixStreakSet = false;
             this.threeStreakSet = false;
+
+
             if (!this.state.streakKeeper || this.streak < 3) {
-                this.streak = 0; 
-            } else if (this.streak >= 3) {
+                this.streak = 0;
+            } else if (this.state.streakKeeper && this.streak >= 3) {
                 this.fuel();
                 this.setState({ streakKeeper: false }) // One time use item
             }
@@ -419,10 +423,7 @@ class Quiz extends React.Component {
             { label: this.state.answerOptions[1], value: 1 },
             { label: this.state.answerOptions[2], value: 2 }
         ]
-        if (this.state.page === 'Confirm') {
-            /// @author Dion Buckley
-            /// Simply change to quiz here (outside of Component mount)
-            this.changeToQuiz()
+        if (this.state.page === 'Confirm') { // Just initial empty render state
             return (null);
         }
         else if (this.state.page === 'Quiz') { // If user is on the quiz screen

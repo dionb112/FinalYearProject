@@ -26,7 +26,8 @@ export default class SplashScreen extends React.Component {
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
-  }
+    this.unLoad();
+    }
 
   handleAppStateChange = (nextAppState) => {
     if (nextAppState === 'inactive' || nextAppState === 'background')  { //ios || android
@@ -56,7 +57,7 @@ export default class SplashScreen extends React.Component {
       // const fuel = await AsyncStorage.getItem('fuel');
       if (coins !== null) {
         console.log("coins loaded " + coins);
-        this.setState({coins: JSON.parse(coins)})      
+        this.setState({coins: coins})      
       }
       // if (fuel !== null) {
       //   console.log("fuel loaded " + JSON.parse(fuel));
@@ -91,13 +92,13 @@ export default class SplashScreen extends React.Component {
     await soundObject.replayAsync()
   }
 
-  async stop() {
+  async unLoad() {
     await soundObject.stopAsync()
+    await soundObject.unloadAsync();
   }
 
   coinCallback = (coins) => {
     console.log(coins);
-    this.stop(); // stop on return from home
     this.setState({
       coins: coins,
     });

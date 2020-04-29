@@ -2,6 +2,7 @@ import React from 'react';
 import { Video } from 'expo-av';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { AndroidBackHandler } from 'react-navigation-backhandler';
+import Coin from './Coin';
 
 export default class ExpoVideoPlayer extends React.Component {
 
@@ -19,7 +20,7 @@ export default class ExpoVideoPlayer extends React.Component {
     };
     this.file = {};
     this.title = '';
-
+    this.showCoin = false;
   }
 
   componentWillMount() {
@@ -54,16 +55,69 @@ export default class ExpoVideoPlayer extends React.Component {
     }
   }
 
+  async componentWillUnmount() {
+    await playbackObject.unloadAsync();
+  }
+
+  /// according to Expo AV docs this is supposed to let me check when video is finished
+  /// planned to use this to add coins to videos also 
+  /// but despite best efforts it cannot work in time
+
+  // _onPlaybackStatusUpdate = (playbackStatus) => {
+  //   console.log(playbackStatus)
+  //   if (!playbackStatus.isLoaded) {
+  //     // Update your UI for the unloaded state
+  //     if (playbackStatus.error) {
+  //       console.log(`Encountered a fatal error during playback: ${playbackStatus.error}`);
+  //       // Send Expo team the error on Slack or the forums so we can help you debug!
+  //     }
+  //   } else {
+  //     // Update your UI for the loaded state
+  
+  //     if (playbackStatus.isPlaying) {
+  //       // Update your UI for the playing state
+  //     } else {
+  //       // Update your UI for the paused state
+  //     }
+  
+  //     if (playbackStatus.isBuffering) {
+  //       // Update your UI for the buffering state
+  //     }
+  
+  //     if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
+  //       this.showCoin = true;
+  //       this.props.navigation.state.params.coinCallbackFromParent(200);      
+  //     }
+  //   }
+  // };
+
+
+  // async update() {
+  //   console.log(await playbackStatus.getStatusAsync() + "up")
+
+  //   // if (await playbackObject.getStatusAsync().isLoaded) {
+  //   //   this.playbackObject.setOnPlaybackStatusUpdate(this._onPlaybackStatusUpdate);
+  //   // }
+  // }
+
+  async stop() {
+    await playbackObject.stopAsync();
+  }
+
   onBackButtonPressAndroid = () => {
-    playbackObject.stopAsync();
+    this.stop();
     return false;
   };
+
+  async load() {
+    await playbackObject.loadAsync(this.file, initialStatus = { shouldPlay: true }, downloadFirst = true);
+  }
 
   _handleVideoRef = component => {
     playbackObject = component;
     if (playbackObject != null) {
-      playbackObject.loadAsync(this.file, initialStatus = { shouldPlay: true }, downloadFirst = true);
-      playbackObject.playAsync();
+      this.load();
+      // this.update();
     }
   }
 
@@ -79,11 +133,18 @@ export default class ExpoVideoPlayer extends React.Component {
             style={{ width, height: "50%" }}
             resizeMode={'contain'}
           />
+          {/* {this.showCoin &&
+            <Coin />
+          }
+          {this.showCoin &&
+            <Text style={styles.text}>{"You earned: 200 gold coins"}</Text>
+          } */}
         </View>
       </AndroidBackHandler>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -96,5 +157,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 0,
     fontFamily: 'OpenSans',
-  }
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 5,
+    fontFamily: 'OpenSans',
+    lineHeight: 30,
+  },
 });

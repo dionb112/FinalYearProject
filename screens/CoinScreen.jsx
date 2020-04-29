@@ -36,6 +36,7 @@ export default class CoinScreen extends React.Component {
 
   async componentWillUnmount() {
     await spendSound.stopAsync()
+    await spendSound.unloadAsync()
   }
 
   spend = () => {

@@ -16,7 +16,7 @@ export default class HomeScreen extends React.Component {
     title: '             Coeliac Knowledge Centre            ',
   };
 
-  coinsCallbackForCoinScreen = (coins) => {
+  coinsCallback = (coins) => {
     this.props.navigation.state.params.coinCallbackFromParent(coins);
     this.setState({
       coins: coins
@@ -24,14 +24,14 @@ export default class HomeScreen extends React.Component {
   }
 
   //addition variant
-  coinsCallbackForQuizScreen = (coins) => {
+  coinsCallbackForAddition = (coins) => {
     this.props.navigation.state.params.coinCallbackFromParent(coins);
     this.setState({
       coins: this.state.coins + coins
     });
   }
 
-  ///TODO: Find a way to store the name nicely to display, make quiz move less (side to side now)
+  ///TODO: Find a way to ask for name prettily for display.
   streakCallback = (streakKeeper) => {
     this.props.navigation.state.params.streakCallbackFromParent(streakKeeper);
     this.setState({ streakKeeper: streakKeeper });
@@ -57,13 +57,15 @@ export default class HomeScreen extends React.Component {
   }
 
   _showVideos = () => {
-    this.props.navigation.navigate('Video');
+    this.props.navigation.navigate('Video', {
+      coinCallbackFromParent: this.coinsCallbackForAddition,
+    });
   };
 
   _showQuiz = () => {
     this.props.navigation.navigate('Quiz', {
       streakKeeper: this.state.streakKeeper,
-      coinCallbackFromParent: this.coinsCallbackForQuizScreen,
+      coinCallbackFromParent: this.coinsCallbackForAddition,
       streakCallbackFromParent: this.streakCallback
     });
   };
@@ -72,7 +74,7 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Coins', {
       coins: this.state.coins,
       streakKeeper: this.state.streakKeeper,
-      coinCallbackFromParent: this.coinsCallbackForCoinScreen,
+      coinCallbackFromParent: this.coinsCallback,
       streakCallbackFromParent: this.streakCallback
     });
   };

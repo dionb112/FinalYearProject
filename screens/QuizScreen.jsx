@@ -48,6 +48,7 @@ export default class QuizScreen extends React.Component {
   // Dion - combine React Component loading with js async for audio stop
   async componentWillUnmount(){
     await music.stopAsync();
+    await music.unloadAsync();
   }
 
 
