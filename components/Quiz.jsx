@@ -263,53 +263,57 @@ class Quiz extends React.Component {
      * Function for setting answer to current question to be the answer the user just selected
      */
     setUserAnswer(answer) {
-        var multiplier = 10;// Dion: added multiple var so that streak can affect
-        // Sets answer to be selected answer
-        this.setState((state) => ({
-            answer: answer
-        }));
-        // Checks to see if answer is correct
-        if (answer == this.state.correct) {
-            this.correct();
-            //@author Dion: gamified streaks with sound !!
-            this.streak++;
-            if (this.streak >= 3 && this.streak < 6 && !this.threeStreakSet) {
-                this.fire();
-                this.source = this.state.red;
-                multiplier = 20
-                this.threeStreakSet = true;
-            } else if (this.streak >= 6 && !this.sixStreakSet) {
-                this.blueFire();
-                this.source = this.state.blue;
-                multiplier = 40
-                this.sixStreakSet = true;
-            }
-            // If so, display green particles, increase score and the correct answer count
-            this.colour = this.correctColour;
+        if (this.state.page !== 'Result') // stop looping wrong sound sometimes happening
+        {
+            var multiplier = 10;// Dion: added multiple var so that streak can affect
+            // Sets answer to be selected answer
             this.setState((state) => ({
-                answersCount: state.answersCount + 1,
-                score: state.score + (multiplier * state.timer),
-                /// @author Dion: to display coins earned giving instant gamified feedback
-                currentScore: (multiplier * state.timer)
+                answer: answer
             }));
-        }
-        else {
-            ///@author Dion: gamified streak keeper to spend coins on and see benefits in quiz. and sound effects
-            this.wrong();
-            this.sixStreakSet = false;
-            this.threeStreakSet = false;
-
-            if (!this.streakKeeper || this.streak < 3) {
-                this.streak = 0;
-            } else if (this.streakKeeper && this.streak >= 3) {
-                this.fuel();
-                this.streakKeeper = false; // One time use item
+            // Checks to see if answer is correct
+            if (answer == this.state.correct) {
+                this.correct();
+                //@author Dion: gamified streaks with sound !!
+                this.streak++;
+                if (this.streak >= 3 && this.streak < 6 && !this.threeStreakSet) {
+                    this.fire();
+                    this.source = this.state.red;
+                    multiplier = 20
+                    this.threeStreakSet = true;
+                } else if (this.streak >= 6 && !this.sixStreakSet) {
+                    this.blueFire();
+                    this.source = this.state.blue;
+                    multiplier = 40
+                    this.sixStreakSet = true;
+                }
+                // If so, display green particles, increase score and the correct answer count
+                this.colour = this.correctColour;
+                this.setState((state) => ({
+                    answersCount: state.answersCount + 1,
+                    score: state.score + (multiplier * state.timer),
+                    /// @author Dion: to display coins earned giving instant gamified feedback
+                    currentScore: (multiplier * state.timer)
+                }));
             }
-            // If not, display red particles and add question title to array of questions that were answered incorrectly
-            this.colour = this.incorrectColour;
+            else {
+                ///@author Dion: gamified streak keeper to spend coins on and see benefits in quiz. and sound effects
+
+                this.wrong();
+                this.sixStreakSet = false;
+                this.threeStreakSet = false;
+
+                if (!this.streakKeeper || this.streak < 3) {
+                    this.streak = 0;
+                } else if (this.streakKeeper && this.streak >= 3) {
+                    this.fuel();
+                    this.streakKeeper = false; // One time use item
+                }
+                // If not, display red particles and add question title to array of questions that were answered incorrectly
+                this.colour = this.incorrectColour;
+            }
+            console.log("streak: " + this.streak)
+            console.log("fuel: " + this.streakKeeper)
         }
-        console.log("streak: " + this.streak)
-        console.log("fuel: " + this.streakKeeper)
     }
 
     /**
@@ -487,7 +491,7 @@ class Quiz extends React.Component {
                         </Emitter>
                     }
                     <Text>{""} </Text>
-                    { this.streak >= 3 &&
+                    {this.streak >= 3 &&
                         <Image source={this.source} top={-20} marginBottom={1} />
                     }
                     {
