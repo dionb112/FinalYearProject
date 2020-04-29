@@ -80,7 +80,7 @@ export default class CoinScreen extends React.Component {
           <Text style={styles.coin}>{""}</Text>
           <Button title="          100 Coins; Fire Streak Fuel          " raised={true} onPress={this.spend} />
           <Text style={styles.coin}>{""}</Text>
-          <Button title="    1200 Coins; gip stick discount       " raised={true} onPress={this.web} />
+          <Button title="    1200 Coins; GIP discount       " raised={true} onPress={this.web} />
         </View>
       );
     } else if (this.state.page === 'Web') {

@@ -265,7 +265,7 @@ class Quiz extends React.Component {
     setUserAnswer(answer) {
         console.log("streak: " + this.streak)
         console.log("fuel: " + this.state.streakKeeper)
-        
+
         var multiplier = 10;// Dion: added multiple var so that streak can affect
         // Sets answer to be selected answer
         this.setState((state) => ({
@@ -490,15 +490,13 @@ class Quiz extends React.Component {
                         </Emitter>
                     }
                     <Text>{""} </Text>
-                    <View>
-                        {this.streak >= 3 &&
-                            <Image source={this.source} top={-20} marginBottom={1} />
-                        }
-                        {
-                            this.streak < 3 &&
-                            <Text style={styles.block2}>{""} </Text>
-                        }
-                    </View>
+                    {this.streak >= 3 &&
+                        <Image source={this.source} top={-20} marginBottom={1} />
+                    }
+                    {
+                        this.streak < 3 &&
+                        <Text style={styles.block2}>{""} </Text>
+                    }
                 </View>
             );
         }
